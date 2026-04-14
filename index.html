@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Barbearia - Corte na Régua</title>
+    <title>Xandão Barber Shop | Agendamento Inteligente</title>
+    
+    <!-- Meta Tags -->
+    <meta name="theme-color" content="#F5B800">
+    <meta name="description" content="Agendamento inteligente Xandão Barber Shop. Cortes na régua, barba com ozônio e muito mais.">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&family=Rye&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,461 +22,1365 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            black: '#0D0D0D',
-                            yellow: '#FFD60A',
-                            white: '#FFFFFF',
-                            gray: '#1A1A1A',
-                            lightGray: '#333333'
-                        }
+                        gold: '#F5B800', 
+                        'gold-light': '#FFE066', 
+                        'gold-dark': '#CC9900',
+                        dark: '#050505', 
+                        'dark-gray': '#121212', 
+                        'card-bg': '#1a1a1a'
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                        logo: ['Rye', 'serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
         }
     </script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
-        body {
-            background-color: #0D0D0D;
-            color: #FFFFFF;
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Ocultar barra de rolagem mas manter funcionalidade */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Animações e Transições */
-        .view-transition {
-            transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+        body { 
+            background-color: #050505; 
+            color: #f3f4f6; 
+            overflow-x: hidden; 
+            padding-bottom: 90px;
         }
         
-        .fade-in {
-            animation: fadeIn 0.3s ease-in-out forwards;
+        /* Glassmorphism unificado */
+        .glass-card { 
+            background: rgba(26, 26, 26, 0.6); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 184, 0, 0.1); 
+            border-radius: 16px; 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- ANIMAÇÕES DE SCROLL (REVEAL) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
-        /* Efeito de clique e hover */
-        .btn-press:active {
-            transform: scale(0.97);
-        }
-        
-        /* Layout responsivo focado em mobile (App feel) */
-        #app-container {
-            max-width: 480px;
-            margin: 0 auto;
-            min-height: 100vh;
-            background-color: #0D0D0D;
+        /* --- EFEITO SHINE (BRILHO NO BOTÃO) --- */
+        .btn-shine {
             position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            overflow-x: hidden;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        /* --- FAIXA ANIMADA (MARQUEE) --- */
+        .marquee, .marquee-gallery {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+        }
+        .marquee {
+            background: linear-gradient(90deg, #CC9900, #F5B800, #CC9900);
+            color: #000;
+            padding: 8px 0;
+            gap: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-around;
+            min-width: 100%;
+            gap: 2rem;
+            animation: scroll 25s linear infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+        
+        /* Galeria Infinita de Cortes */
+        .marquee-gallery { gap: 1rem; padding: 10px 0; }
+        .marquee-gallery-content {
+            flex-shrink: 0;
+            display: flex;
+            gap: 1rem;
+            animation: scrollGallery 35s linear infinite;
+        }
+        
+        .marquee:hover .marquee-content, 
+        .marquee-gallery:hover .marquee-gallery-content {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(-100% - 2rem)); }
+        }
+        @keyframes scrollGallery {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(-100% - 1rem)); }
+        }
+
+        /* --- SLIDER HEADER --- */
+        .slide {
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out, transform 6s linear;
+            position: absolute;
+            inset: 0;
+            transform: scale(1);
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1.1); /* Efeito Ken Burns suave */
+            z-index: 10;
+        }
+        
+        /* Accordion Animations */
+        .accordion-content { 
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease; 
+            max-height: 0; 
+            opacity: 0; 
+            overflow: hidden; 
+        }
+        .accordion-content.open { 
+            max-height: 1500px; 
+            opacity: 1; 
+        }
+        .accordion-icon { transition: transform 0.3s ease; }
+        .accordion-open .accordion-icon { transform: rotate(180deg); }
+
+        /* Service Item Selection */
+        .service-item { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: 1px solid transparent;}
+        .service-item:hover { transform: translateX(4px); background-color: rgba(255,255,255,0.05); }
+        .selected-service { 
+            border-color: #F5B800 !important; 
+            background-color: rgba(245, 184, 0, 0.12) !important; 
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(245,184,0,0.1);
+        }
+        .radio-circle { transition: all 0.2s ease; }
+        .selected-service .radio-circle { border-color: #F5B800; }
+        .selected-service .radio-circle::after { 
+            content: ''; 
+            width: 10px; 
+            height: 10px; 
+            background-color: #F5B800; 
+            border-radius: 50%; 
+            box-shadow: 0 0 8px #F5B800;
+        }
+
+        /* Time Slots */
+        .time-slot { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;}
+        .time-slot.available:hover { border-color: #F5B800; color: #F5B800; transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.3); }
+        .time-slot.selected { 
+            border-color: #F5B800; 
+            background: rgba(245, 184, 0, 0.15); 
+            color: #F5B800; 
+            transform: scale(1.05) translateY(-2px); 
+            box-shadow: 0 0 20px rgba(245,184,0,0.25); 
+        }
+
+        /* Barbeiro Radio */
+        .barber-radio:checked + div { border-color: #F5B800; background: rgba(245,184,0,0.2); box-shadow: 0 0 20px rgba(245,184,0,0.3); transform: scale(1.05); }
+        .barber-radio:checked + div img { filter: grayscale(0%); opacity: 1;}
+        .barber-radio:checked ~ span { color: #F5B800; font-weight: 900; }
+        
+        /* Utils */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .snap-x::-webkit-scrollbar { display: none; }
+
+        /* Loading Spinner */
+        .loader { 
+            border: 3px solid rgba(255,255,255,0.1); 
+            border-top: 3px solid #F5B800; 
+            border-radius: 50%; 
+            width: 24px; 
+            height: 24px; 
+            animation: spin 1s linear infinite; 
         }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-yellow selection:text-brand-black">
+<body class="antialiased selection:bg-gold selection:text-dark relative">
 
-    <div id="app-container" class="pb-20"> <!-- pb-20 para o menu inferior -->
-
-        <!-- ========================================== -->
-        <!-- TELA 1: HOME (Decisão Rápida)              -->
-        <!-- ========================================== -->
-        <section id="view-home" class="view block h-screen flex flex-col relative fade-in">
-            <!-- Hero Image com Overlay -->
-            <div class="relative flex-1 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/80 to-transparent"></div>
-                
-                <!-- Conteúdo Home -->
-                <div class="absolute inset-0 flex flex-col justify-end p-6 pb-12">
-                    <h1 class="text-4xl font-bold leading-tight mb-2">Corte na régua,<br><span class="text-brand-yellow">sem espera.</span></h1>
-                    <p class="text-gray-300 text-lg mb-8">Agende seu horário agora e garanta seu estilo.</p>
-                    
-                    <!-- Botão Principal -->
-                    <button onclick="navigate('agendar')" class="btn-press w-full bg-brand-yellow text-brand-black font-bold py-4 rounded-xl text-lg flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,214,10,0.3)] transition-all duration-300 hover:bg-yellow-400">
-                        Agendar agora
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </button>
-
-                    <!-- Provas Sociais -->
-                    <div class="flex justify-between items-center mt-8 pt-6 border-t border-brand-gray">
-                        <div class="flex flex-col items-center">
-                            <div class="flex items-center gap-1 text-brand-yellow mb-1">
-                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                <span class="font-bold text-sm">4.9</span>
-                            </div>
-                            <span class="text-xs text-gray-400">Avaliações</span>
-                        </div>
-                        <div class="flex flex-col items-center border-l border-r border-brand-gray px-4">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-brand-yellow mb-1"></i>
-                            <span class="text-xs text-gray-400">Centro, SP</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <i data-lucide="scissors" class="w-4 h-4 text-brand-yellow mb-1"></i>
-                            <span class="text-xs text-gray-400">+1000 cortes</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- TELA 2: AGENDAMENTO (Foco na Conversão)    -->
-        <!-- ========================================== -->
-        <section id="view-agendar" class="view hidden min-h-screen bg-brand-black fade-in p-6">
-            <!-- Header sem menu, apenas voltar -->
-            <div class="flex items-center gap-4 mb-8 pt-4">
-                <button onclick="navigate('home')" class="btn-press p-2 bg-brand-gray rounded-full text-white hover:text-brand-yellow transition-colors duration-300">
-                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                </button>
-                <h2 class="text-xl font-bold">Agendamento</h2>
-            </div>
-
-            <!-- Flow de Agendamento -->
-            <div id="booking-step-1" class="block">
-                <h3 class="text-lg font-semibold mb-4">1. Escolha o Serviço</h3>
-                <div class="space-y-3">
-                    <!-- Serviço Mock 1 -->
-                    <div onclick="nextBookingStep(2, 'Corte Cabelo', 'R$ 45,00')" class="btn-press bg-brand-gray p-4 rounded-xl flex justify-between items-center border border-transparent hover:border-brand-yellow transition-all duration-300 cursor-pointer">
-                        <div>
-                            <h4 class="font-bold text-lg">Corte Cabelo</h4>
-                            <p class="text-sm text-gray-400">Aproximadamente 40 min</p>
-                        </div>
-                        <span class="font-bold text-brand-yellow">R$ 45</span>
-                    </div>
-                    <!-- Serviço Mock 2 -->
-                    <div onclick="nextBookingStep(2, 'Barba', 'R$ 35,00')" class="btn-press bg-brand-gray p-4 rounded-xl flex justify-between items-center border border-transparent hover:border-brand-yellow transition-all duration-300 cursor-pointer">
-                        <div>
-                            <h4 class="font-bold text-lg">Barba (Toalha Quente)</h4>
-                            <p class="text-sm text-gray-400">Aproximadamente 30 min</p>
-                        </div>
-                        <span class="font-bold text-brand-yellow">R$ 35</span>
-                    </div>
-                    <!-- Serviço Mock 3 -->
-                    <div onclick="nextBookingStep(2, 'Cabelo + Barba', 'R$ 70,00')" class="btn-press bg-brand-gray p-4 rounded-xl flex justify-between items-center border border-transparent hover:border-brand-yellow transition-all duration-300 cursor-pointer">
-                        <div>
-                            <h4 class="font-bold text-lg text-brand-yellow">Cabelo + Barba (Combo)</h4>
-                            <p class="text-sm text-gray-400">Aproximadamente 1h 10min</p>
-                        </div>
-                        <span class="font-bold text-brand-yellow">R$ 70</span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="booking-step-2" class="hidden fade-in">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-lg font-semibold">2. Horários para Hoje</h3>
-                    <span class="text-sm text-brand-yellow bg-brand-yellow/10 px-2 py-1 rounded">Quinta, 12 Out</span>
-                </div>
-                <div class="grid grid-cols-3 gap-3">
-                    <button onclick="nextBookingStep(3, '', '', '14:00')" class="btn-press py-3 rounded-lg bg-brand-gray border border-transparent hover:border-brand-yellow font-medium transition-colors">14:00</button>
-                    <button onclick="nextBookingStep(3, '', '', '14:45')" class="btn-press py-3 rounded-lg bg-brand-gray border border-transparent hover:border-brand-yellow font-medium transition-colors">14:45</button>
-                    <button onclick="nextBookingStep(3, '', '', '15:30')" class="btn-press py-3 rounded-lg bg-brand-gray border border-transparent hover:border-brand-yellow font-medium transition-colors opacity-50 cursor-not-allowed">15:30</button>
-                    <button onclick="nextBookingStep(3, '', '', '16:15')" class="btn-press py-3 rounded-lg bg-brand-gray border border-transparent hover:border-brand-yellow font-medium transition-colors">16:15</button>
-                    <button onclick="nextBookingStep(3, '', '', '17:00')" class="btn-press py-3 rounded-lg bg-brand-gray border border-transparent hover:border-brand-yellow font-medium transition-colors">17:00</button>
-                    <button onclick="nextBookingStep(3, '', '', '18:30')" class="btn-press py-3 rounded-lg border border-brand-yellow text-brand-yellow font-medium transition-colors">18:30</button>
-                </div>
-                <button onclick="prevBookingStep(1)" class="mt-8 text-gray-400 text-sm underline text-center w-full block">Escolher outro serviço</button>
-            </div>
-
-            <div id="booking-step-3" class="hidden fade-in">
-                <h3 class="text-lg font-semibold mb-6">3. Confirmar</h3>
-                
-                <div class="bg-brand-gray rounded-xl p-5 mb-6">
-                    <div class="flex justify-between items-center mb-4 pb-4 border-b border-brand-lightGray">
-                        <span class="text-gray-400">Serviço</span>
-                        <span id="confirm-service" class="font-bold">Corte Cabelo</span>
-                    </div>
-                    <div class="flex justify-between items-center mb-4 pb-4 border-b border-brand-lightGray">
-                        <span class="text-gray-400">Data e Hora</span>
-                        <span id="confirm-time" class="font-bold text-brand-yellow">Hoje, 14:00</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-400">Valor Total</span>
-                        <span id="confirm-price" class="font-bold text-xl">R$ 45,00</span>
-                    </div>
-                </div>
-
-                <p class="text-sm text-gray-400 mb-6 text-center">Você será redirecionado para o WhatsApp para confirmar os dados com nosso bot/recepção.</p>
-
-                <button onclick="finishBooking()" class="btn-press w-full bg-brand-yellow text-brand-black font-bold py-4 rounded-xl text-lg flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(255,214,10,0.2)]">
-                    Confirmar no WhatsApp
-                    <i data-lucide="message-circle" class="w-5 h-5"></i>
-                </button>
-                
-                <button onclick="prevBookingStep(2)" class="mt-6 text-gray-400 text-sm underline text-center w-full block">Alterar horário</button>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- TELA 3: GALERIA (Prova Visual)             -->
-        <!-- ========================================== -->
-        <section id="view-galeria" class="view hidden min-h-screen bg-brand-black fade-in p-6">
-            <h2 class="text-2xl font-bold mb-2 pt-4">Nosso Trabalho</h2>
-            <p class="text-gray-400 text-sm mb-6">Sem filtro. Apenas o resultado real.</p>
-            
-            <!-- Grid da Galeria -->
-            <div class="grid grid-cols-2 gap-3">
-                <div onclick="openLightbox('https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=500&q=80')" class="aspect-[4/5] overflow-hidden rounded-xl bg-brand-gray cursor-pointer btn-press">
-                    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Corte 1">
-                </div>
-                <div onclick="openLightbox('https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=500&q=80')" class="aspect-[4/5] overflow-hidden rounded-xl bg-brand-gray cursor-pointer btn-press">
-                    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Corte 2">
-                </div>
-                <div onclick="openLightbox('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=500&q=80')" class="aspect-[4/5] overflow-hidden rounded-xl bg-brand-gray cursor-pointer btn-press">
-                    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Corte 3">
-                </div>
-                <div onclick="openLightbox('https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=500&q=80')" class="aspect-[4/5] overflow-hidden rounded-xl bg-brand-gray cursor-pointer btn-press">
-                    <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" alt="Corte 4">
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- TELA 4: DEPOIMENTOS (Reduzir Medo)         -->
-        <!-- ========================================== -->
-        <section id="view-depoimentos" class="view hidden min-h-screen bg-brand-black fade-in p-6">
-            <h2 class="text-2xl font-bold mb-2 pt-4">O que dizem</h2>
-            <p class="text-gray-400 text-sm mb-6">A confiança dos nossos clientes.</p>
-            
-            <!-- Carrossel Horizontal -->
-            <div class="flex overflow-x-auto gap-4 snap-x snap-mandatory no-scrollbar pb-8">
-                
-                <!-- Card 1 -->
-                <div class="snap-center shrink-0 w-[85%] bg-brand-gray p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex gap-1 text-brand-yellow mb-4">
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                        </div>
-                        <p class="text-lg italic mb-6">"Primeira vez que vim e o cara acertou exatamente o que eu queria. O ambiente é top e não teve atraso."</p>
-                    </div>
-                    <div class="flex items-center gap-3 border-t border-brand-lightGray pt-4">
-                        <div class="w-10 h-10 rounded-full bg-brand-lightGray flex items-center justify-center text-brand-yellow font-bold">M</div>
-                        <div>
-                            <p class="font-bold">Marcos Silva</p>
-                            <p class="text-xs text-gray-400">Cliente há 2 meses</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="snap-center shrink-0 w-[85%] bg-brand-gray p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <div class="flex gap-1 text-brand-yellow mb-4">
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                            <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                        </div>
-                        <p class="text-lg italic mb-6">"Faço cabelo e barba toda semana. O aplicativo no WhatsApp facilita demais a minha vida. Só chego e sento."</p>
-                    </div>
-                    <div class="flex items-center gap-3 border-t border-brand-lightGray pt-4">
-                        <div class="w-10 h-10 rounded-full bg-brand-lightGray flex items-center justify-center text-brand-yellow font-bold">R</div>
-                        <div>
-                            <p class="font-bold">Rafael Costa</p>
-                            <p class="text-xs text-gray-400">Cliente Fiel</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <button onclick="navigate('agendar')" class="btn-press w-full border-2 border-brand-yellow text-brand-yellow font-bold py-3 rounded-xl text-md flex items-center justify-center mt-4">
-                Agendar minha vez
-            </button>
-        </section>
-
-        <!-- ========================================== -->
-        <!-- MENU INFERIOR (Bottom Navigation)          -->
-        <!-- ========================================== -->
-        <nav id="bottom-nav" class="fixed bottom-0 w-full max-w-[480px] bg-brand-black border-t border-brand-gray px-6 py-4 flex justify-between items-center z-40 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-            
-            <button onclick="navigate('home')" id="nav-home" class="flex flex-col items-center gap-1 text-brand-yellow btn-press nav-btn transition-colors duration-200">
-                <i data-lucide="home" class="w-6 h-6"></i>
-                <span class="text-[10px] font-medium">Início</span>
-            </button>
-            
-            <button onclick="navigate('galeria')" id="nav-galeria" class="flex flex-col items-center gap-1 text-gray-500 hover:text-white btn-press nav-btn transition-colors duration-200">
-                <i data-lucide="image" class="w-6 h-6"></i>
-                <span class="text-[10px] font-medium">Galeria</span>
-            </button>
-
-            <!-- Agendar Flutuante (Destaque) -->
-            <div class="relative -top-6">
-                <button onclick="navigate('agendar')" class="btn-press bg-brand-yellow w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(255,214,10,0.4)] text-brand-black border-4 border-brand-black">
-                    <i data-lucide="calendar-plus" class="w-6 h-6"></i>
-                </button>
-            </div>
-
-            <button onclick="navigate('depoimentos')" id="nav-depoimentos" class="flex flex-col items-center gap-1 text-gray-500 hover:text-white btn-press nav-btn transition-colors duration-200">
-                <i data-lucide="message-square" class="w-6 h-6"></i>
-                <span class="text-[10px] font-medium">Avals</span>
-            </button>
-            
-            <button class="flex flex-col items-center gap-1 text-gray-500 hover:text-white btn-press transition-colors duration-200" onclick="alert('Módulo de Localização será adicionado depois!')">
-                <i data-lucide="map-pin" class="w-6 h-6"></i>
-                <span class="text-[10px] font-medium">Local</span>
-            </button>
-        </nav>
-
-        <!-- Lightbox para Galeria -->
-        <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300">
-            <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white p-2">
-                <i data-lucide="x" class="w-8 h-8"></i>
-            </button>
-            <img id="lightbox-img" src="" class="max-w-full max-h-[80vh] object-contain rounded-lg p-4" alt="Zoom">
-        </div>
-
+    <!-- BACKGROUND ORBS (Luzes Dinâmicas de fundo) -->
+    <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gold/10 blur-[100px] mix-blend-screen animate-blob"></div>
+        <div class="absolute top-[40%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-gold-dark/10 blur-[80px] mix-blend-screen animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] rounded-full bg-[#1a1a1a] blur-[120px] mix-blend-screen animate-blob" style="animation-delay: 4s;"></div>
     </div>
 
-    <!-- Lógica de Navegação e Interação -->
-    <script>
-        // Inicializa ícones
-        lucide.createIcons();
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 bg-[#050505] z-[9999] flex flex-col items-center justify-center transition-opacity duration-700 ease-out">
+        <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Xandão Logo" class="w-48 h-48 object-contain animate-pulse drop-shadow-[0_0_25px_rgba(245,184,0,0.4)]">
+        <div class="mt-6 flex items-center gap-2">
+            <div class="w-2 h-2 bg-gold rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+            <div class="w-2 h-2 bg-gold rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+            <div class="w-2 h-2 bg-gold rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
+        </div>
+    </div>
 
-        // Estado do Agendamento
-        let bookingData = {
-            service: '',
-            price: '',
-            time: ''
+    <!-- TELA DE SUCESSO ANIMADA (ESTRATÉGICA E PERSONALIZADA) -->
+    <div id="success-modal" class="fixed inset-0 z-[9999] bg-[#050505]/95 backdrop-blur-xl hidden flex-col items-center justify-center opacity-0 transition-opacity duration-500 p-4">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-40 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#25D366]/20 via-transparent to-transparent"></div>
+        
+        <!-- Cartão VIP de Confirmação -->
+        <div id="success-card" class="bg-[#111] border border-[#25D366]/30 p-8 rounded-3xl shadow-[0_0_50px_rgba(37,211,102,0.15)] flex flex-col items-center max-w-sm w-full transform scale-0 transition-transform duration-[600ms] delay-100 ease-out relative overflow-hidden">
+            
+            <!-- Faixa de fundo do card -->
+            <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#25D366]/20 to-transparent"></div>
+
+            <!-- Foto / Avatar do Cliente -->
+            <div class="relative z-10 mb-4">
+                <div class="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20"></div>
+                <img id="success-avatar" src="" alt="Sua Foto" class="w-24 h-24 rounded-full border-4 border-[#111] shadow-[0_0_20px_rgba(37,211,102,0.4)] object-cover relative z-10 bg-[#25D366]">
+                <div class="absolute -bottom-2 -right-2 bg-[#25D366] text-[#111] rounded-full w-8 h-8 flex items-center justify-center border-2 border-[#111] z-20">
+                    <i class="fas fa-check text-sm"></i>
+                </div>
+            </div>
+
+            <!-- Mensagem Personalizada -->
+            <h2 class="text-2xl font-black text-white mb-1 text-center relative z-10">Tudo certo, <span id="success-nome" class="text-[#25D366]"></span>!</h2>
+            <p class="text-gray-400 text-xs text-center mb-6 relative z-10">Sua cadeira está garantida.</p>
+
+            <!-- Detalhes do Agendamento -->
+            <div class="w-full bg-black/40 rounded-2xl p-4 border border-white/5 space-y-3 relative z-10">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500 text-[10px] uppercase tracking-widest font-bold"><i class="far fa-calendar-alt mr-1"></i> Data</span>
+                    <span id="success-data" class="text-white text-sm font-bold"></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500 text-[10px] uppercase tracking-widest font-bold"><i class="far fa-clock mr-1"></i> Horário</span>
+                    <span id="success-hora" class="text-[#25D366] text-lg font-black bg-[#25D366]/10 px-2 py-0.5 rounded"></span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-500 text-[10px] uppercase tracking-widest font-bold"><i class="fas fa-cut mr-1"></i> Profissional</span>
+                    <span id="success-barbeiro" class="text-white text-sm font-bold"></span>
+                </div>
+            </div>
+
+            <p class="text-[#25D366] text-[10px] mt-6 font-bold uppercase tracking-widest flex items-center gap-2 animate-pulse relative z-10">
+                <i class="fas fa-spinner fa-spin"></i> Sincronizando agenda...
+            </p>
+        </div>
+    </div>
+
+    <!-- Header Fixo -->
+    <header class="bg-[#0a0a0a]/80 backdrop-blur-lg py-3 sticky top-0 z-50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-b border-white/5">
+        <div class="container mx-auto px-4 flex justify-between items-center max-w-2xl">
+            <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Xandão Barber Shop" class="h-10 object-contain hover:scale-105 transition-transform cursor-pointer">
+            <button onclick="App.showToast('Chat interno em desenvolvimento!', 'success')" class="text-sm font-bold bg-gold/10 text-gold px-4 py-2 rounded-full border border-gold/30 hover:bg-gold hover:text-dark hover:shadow-[0_0_15px_rgba(245,184,0,0.4)] transition-all duration-300 flex items-center gap-2">
+                <i class="fas fa-comment-dots text-lg"></i> Mensagens
+            </button>
+        </div>
+    </header>
+
+    <!-- NOTIFICAÇÃO FOMO (Social Proof) -->
+    <div id="fomo-notification" class="fixed bottom-[110px] left-4 z-[200] bg-[#111]/95 backdrop-blur-md border border-gold/40 p-3 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.9)] flex items-center gap-3 transition-all duration-[800ms] cubic-bezier(0.68, -0.55, 0.265, 1.55) -translate-x-[150%] opacity-0 w-64 pointer-events-none">
+        <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/50 shrink-0 relative overflow-hidden">
+            <div class="absolute inset-0 bg-green-500/30 animate-ping rounded-full"></div>
+            <i class="fas fa-calendar-check text-green-500 text-sm relative z-10"></i>
+        </div>
+        <p class="text-gray-200 text-[11px] leading-tight" id="fomo-text">
+            <!-- Texto injetado via JS -->
+        </p>
+    </div>
+
+    <!-- Smart Cart Flutuante -->
+    <div id="smart-cart" class="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-2xl z-[100] bg-[#111]/95 backdrop-blur-xl border-t border-gold/30 p-4 pb-safe transform translate-y-full flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.9)] rounded-t-3xl sm:bottom-4 sm:rounded-b-3xl sm:border sm:pb-4 transition-transform duration-500 cubic-bezier(0.175, 0.885, 0.32, 1.275)">
+        <div class="flex flex-col pl-2">
+            <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest"><span id="cart-count" class="text-white bg-white/10 px-2 py-0.5 rounded-full mr-1">0</span> Selecionado(s)</span>
+            <span class="text-gold font-black text-2xl drop-shadow-md" id="cart-total">R$ 0,00</span>
+        </div>
+        <button onclick="App.irParaAgendamento()" class="btn-shine bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark px-7 py-4 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[0_5px_20px_rgba(245,184,0,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+            Avançar <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6 max-w-2xl">
+        
+        <!-- CABEÇALHO COM SLIDES & SELO DE CONFIANÇA -->
+        <div class="reveal relative w-full h-64 sm:h-[350px] overflow-hidden rounded-[2rem] mb-6 shadow-[0_15px_40px_rgba(0,0,0,0.6)] border border-white/10 group">
+            <div id="hero-slider" class="w-full h-full">
+                <div class="slide active">
+                    <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Ambiente Barbearia">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Equipamentos Barbearia">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Corte na régua">
+                </div>
+            </div>
+            
+            <!-- Overlay Escuro -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-20">
+                <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <h1 class="text-3xl font-black text-white mb-2 uppercase tracking-wider drop-shadow-lg">Xandão Barber</h1>
+                    
+                    <!-- Selo "+5k Clientes Satisfeitos" Estilo Print -->
+                    <div class="flex flex-col items-start gap-1.5 mt-2 animate-fade-in-up delay-300">
+                        <div class="flex -space-x-3 drop-shadow-lg">
+                            <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" alt="Cliente 1">
+                            <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=150&auto=format&fit=crop" alt="Cliente 2">
+                            <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&auto=format&fit=crop" alt="Cliente 3">
+                            <div class="w-10 h-10 rounded-full border-2 border-[#050505] bg-gold text-dark font-black flex items-center justify-center text-xs shadow-lg z-10 relative">
+                                +5k
+                            </div>
+                        </div>
+                        <div class="flex flex-col mt-1">
+                            <div class="flex text-gold text-sm drop-shadow-md gap-0.5">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-[10px] text-gray-200 font-black tracking-[0.2em] uppercase mt-1 drop-shadow-md">Clientes Satisfeitos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAIXA ANIMADA (MARQUEE) -->
+        <div class="reveal marquee relative z-40 shadow-[0_5px_20px_rgba(204,153,0,0.15)] -mx-4 sm:mx-0 sm:rounded-2xl mb-12 cursor-pointer" title="Passe o mouse para pausar">
+            <div class="marquee-content" aria-hidden="true">
+                <span class="flex items-center gap-2"><i class="fas fa-fire text-dark"></i> CORTE DE ALTA PERFORMANCE</span>
+                <span class="flex items-center gap-2"><i class="fas fa-beer text-dark"></i> CERVEJA GELADA POR NOSSA CONTA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-snowflake text-dark"></i> EXPERIÊNCIA PREMIUM CLIMATIZADA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-cut text-dark"></i> MESTRES DA TESOURA E NAVALHA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-gamepad text-dark"></i> ESPERA VIP COM PLAYSTATION E SINUCA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-gem text-dark"></i> QUALIDADE E ATENÇÃO AOS DETALHES</span>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                <span class="flex items-center gap-2"><i class="fas fa-fire text-dark"></i> CORTE DE ALTA PERFORMANCE</span>
+                <span class="flex items-center gap-2"><i class="fas fa-beer text-dark"></i> CERVEJA GELADA POR NOSSA CONTA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-snowflake text-dark"></i> EXPERIÊNCIA PREMIUM CLIMATIZADA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-cut text-dark"></i> MESTRES DA TESOURA E NAVALHA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-gamepad text-dark"></i> ESPERA VIP COM PLAYSTATION E SINUCA</span>
+                <span class="flex items-center gap-2"><i class="fas fa-gem text-dark"></i> QUALIDADE E ATENÇÃO AOS DETALHES</span>
+            </div>
+        </div>
+
+        <!-- LISTA DE SERVIÇOS -->
+        <div id="services-container" class="space-y-5 mb-16" role="list">
+            <!-- Gerado via JavaScript -->
+        </div>
+
+        <!-- NOVA SEÇÃO: GALERIA INFINITA (NOSSA ARTE) -->
+        <section class="reveal mb-16">
+            <div class="flex items-center justify-center gap-3 mb-6">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-gold w-12"></div>
+                <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Nossa Arte</h3>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-gold w-12"></div>
+            </div>
+            
+            <div class="marquee-gallery relative -mx-4 sm:mx-0">
+                <div class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
+                <div class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
+                
+                <div class="marquee-gallery-content">
+                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 1">
+                    <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 2">
+                    <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 3">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 4">
+                    <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 5">
+                </div>
+                <div class="marquee-gallery-content">
+                    <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 1">
+                    <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 2">
+                    <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 3">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 4">
+                    <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 5">
+                </div>
+            </div>
+        </section>
+
+        <!-- DEPOIMENTOS COM FOTOS -->
+        <section class="reveal mb-16">
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-gold w-12"></div>
+                <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">O que dizem os clientes</h3>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-gold w-12"></div>
+            </div>
+            
+            <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-4 px-4 cursor-grab active:cursor-grabbing" id="testimonials-scroll">
+                <!-- Card 1 -->
+                <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
+                    <div class="flex text-gold text-xs mb-4 gap-1">
+                        <i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"Melhor corte! O Alexandre é monstro na tesoura e no fade. Não troco por nada, ambiente sensacional."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="Marcos Silva">
+                        <div>
+                            <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">Marcos Silva <i class="fas fa-check-circle text-blue-500 text-[10px]" title="Cliente Verificado"></i></span>
+                            <span class="text-gray-500 text-[10px] uppercase">Cliente Fiel</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Card 2 -->
+                <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
+                    <div class="flex text-gold text-xs mb-4 gap-1">
+                        <i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"Ambiente top, agendamento super rápido pelo site. O Cleber mandou muito bem no meu degradê."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="Rafael Gomes">
+                        <div>
+                            <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">Rafael Gomes <i class="fas fa-check-circle text-blue-500 text-[10px]"></i></span>
+                            <span class="text-gray-500 text-[10px] uppercase">Agendou pelo App</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Card 3 -->
+                <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
+                    <div class="flex text-gold text-xs mb-4 gap-1">
+                        <i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"A barboterapia com vapor de ozônio é sensacional. Relaxamento total. Recomendo demais!"</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?q=80&w=150&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="Thiago Alves">
+                        <div>
+                            <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">Thiago Alves <i class="fas fa-check-circle text-blue-500 text-[10px]"></i></span>
+                            <span class="text-gray-500 text-[10px] uppercase">Barboterapia</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="text-center text-[10px] text-gray-500 mt-2 uppercase tracking-widest animate-pulse"><i class="fas fa-arrows-alt-h mr-1"></i> Deslize para explorar</div>
+        </section>
+
+        <!-- SEÇÃO ESTRATÉGICA: RADAR DE PERFORMANCE -->
+        <section class="reveal mb-16">
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-gold w-12"></div>
+                <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Radar de Performance</h3>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-gold w-12"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Card Pontualidade (Reforço Positivo) -->
+                <div class="glass-card p-4 flex items-center gap-4 bg-gradient-to-r from-green-900/30 to-transparent border-l-4 border-l-green-500 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center shrink-0 border border-green-500/50 text-green-400 text-xl">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-white uppercase text-xs tracking-wider mb-1">Mestre da Pontualidade</h4>
+                        <p class="text-[10px] text-gray-400 leading-tight"><strong>Lucas M.</strong> chegou cedo, pegou a cerveja gelada e relaxou antes do corte. Pontualidade é o novo luxo!</p>
+                    </div>
+                </div>
+                
+                <!-- Card Vaga Relâmpago (FOMO + Incentivo à Fila VIP) -->
+                <div class="glass-card p-4 flex items-center gap-4 bg-gradient-to-r from-blue-900/30 to-transparent border-l-4 border-l-blue-500 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/50 text-blue-400 text-xl">
+                        <i class="fas fa-bolt animate-pulse"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-black text-white uppercase text-xs tracking-wider mb-1">Vaga Relâmpago</h4>
+                        <p class="text-[10px] text-gray-400 leading-tight">Houve um imprevisto, mas <strong>João V.</strong> estava na <em>Fila VIP</em> e fisgou o horário de última hora!</p>
+                    </div>
+                </div>
+                
+                <!-- Card IA / Gestão (Venda da Funcionalidade) -->
+                <div class="glass-card p-5 flex items-center gap-4 bg-gradient-to-r from-gold-dark/20 to-transparent border-l-4 border-l-gold sm:col-span-2 relative overflow-hidden group hover:-translate-y-1 transition-transform">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-gold/5 rounded-full blur-[40px] group-hover:bg-gold/10 transition-colors"></div>
+                    <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 text-gold text-xl">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <h4 class="font-black text-white uppercase text-sm tracking-wider mb-1 flex items-center gap-2">Radar de Vagas Ativado <span class="bg-gold text-dark text-[8px] px-2 py-0.5 rounded-full font-black">IA</span></h4>
+                        <p class="text-xs text-gray-300 leading-relaxed">Agenda fechada? Não desanime. Ative o aviso no horário desejado. Nosso sistema monitora a agenda em tempo real e avisa você no mesmo segundo se alguém cancelar. A cadeira nunca esfria!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE AGENDAMENTO -->
+        <section id="agendamento-section" class="reveal glass-card p-6 sm:p-8 mb-16 scroll-mt-24 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+            <!-- Glow Effect no form -->
+            <div class="absolute -top-32 -right-32 w-64 h-64 bg-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Detalhes do Agendamento</h3>
+            </div>
+            
+            <form id="booking-form" class="space-y-10 relative z-10">
+                
+                <!-- 1. Profissional -->
+                <fieldset class="bg-black/30 p-5 rounded-2xl border border-white/5">
+                    <legend class="text-xs text-gold font-bold uppercase tracking-widest mb-4 block text-center w-full px-2"><i class="fas fa-cut mr-2"></i>1. Escolha o Profissional</legend>
+                    <div class="flex gap-6 justify-center">
+                        <label class="cursor-pointer group flex flex-col items-center relative">
+                            <input type="radio" name="barber" value="Alexandre" class="peer sr-only barber-radio" checked onchange="App.carregarHorarios()">
+                            <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
+                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/-587997570" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Alexandre">
+                                <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
+                            </div>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Alexandre</span>
+                        </label>
+                        <label class="cursor-pointer group flex flex-col items-center relative">
+                            <input type="radio" name="barber" value="Cleber" class="peer sr-only barber-radio" onchange="App.carregarHorarios()">
+                            <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
+                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/207716706" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Cleber">
+                                <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
+                            </div>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Cleber</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- 2. Data -->
+                <div>
+                    <label for="booking-date" class="text-xs text-gold font-bold uppercase tracking-widest mb-3 block"><i class="fas fa-calendar-day mr-2"></i>2. Selecione a Data</label>
+                    <input type="date" id="booking-date" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm font-bold shadow-inner transition-colors cursor-pointer appearance-none" onchange="App.carregarHorarios()">
+                </div>
+
+                <!-- 3. Horários Disponíveis -->
+                <div class="bg-black/30 p-5 rounded-2xl border border-white/5">
+                    <div class="flex justify-between items-end mb-4 border-b border-white/10 pb-3">
+                        <label class="text-xs text-gold font-bold uppercase tracking-widest block"><i class="fas fa-clock mr-2"></i>3. Horários Livres</label>
+                        <span class="text-[9px] text-gold-light uppercase bg-gold/10 border border-gold/20 px-2 py-1 rounded-md font-bold">Intervalo: 25 min</span>
+                    </div>
+                    
+                    <div id="slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                        <div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">
+                            Selecione uma data para ver os horários.
+                        </div>
+                    </div>
+                    <!-- Spinner Loading -->
+                    <div id="slots-loader" class="hidden justify-center py-8 bg-black/50 rounded-xl border border-dashed border-white/10">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+
+                <!-- 4. Seus Dados -->
+                <div class="bg-black/30 p-5 rounded-2xl border border-white/5 space-y-4">
+                    <label class="text-xs text-gold font-bold uppercase tracking-widest block mb-1"><i class="fas fa-user mr-2"></i>4. Seus Dados</label>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-id-card text-gray-500"></i>
+                        </div>
+                        <!-- Validação Removida (Deixando para o nosso JS) para não bugar no celular -->
+                        <input type="text" id="client-name" placeholder="Seu Nome Completo" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fab fa-whatsapp text-gray-500"></i>
+                        </div>
+                        <input type="tel" id="client-phone" placeholder="WhatsApp Ex: (11) 99999-9999" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
+                    </div>
+                </div>
+
+                <!-- Resumo & Botão Final -->
+                <div class="bg-[#050505] rounded-2xl p-6 border border-gold/30 shadow-[0_0_30px_rgba(245,184,0,0.1)] relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-gold-light via-gold to-gold-dark"></div>
+                    <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><i class="fas fa-receipt"></i> Resumo do Pedido</h4>
+                    <div id="resumo-final" class="text-sm text-gray-400 mb-6 space-y-2">Nenhum serviço selecionado.</div>
+                    
+                    <!-- Alterado para type="button" chamando a função para não recarregar a tela em erro de validação -->
+                    <button type="button" id="btn-confirmar" onclick="App.finalizarAgendamento()" class="btn-shine w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark font-black py-4 rounded-xl shadow-[0_5px_15px_rgba(245,184,0,0.3)] hover:shadow-[0_5px_25px_rgba(245,184,0,0.5)] active:scale-95 transition-all flex items-center justify-center gap-3 text-sm">
+                        <i class="fas fa-calendar-check text-xl"></i> CONFIRMAR AGENDAMENTO
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- SEÇÃO DE LOCALIZAÇÃO -->
+        <section class="reveal mb-16">
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <div class="h-[1px] bg-gradient-to-r from-transparent to-white/20 w-12"></div>
+                <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Onde Estamos</h3>
+                <div class="h-[1px] bg-gradient-to-l from-transparent to-white/20 w-12"></div>
+            </div>
+            
+            <div class="glass-card p-4 bg-[#111] overflow-hidden group">
+                <!-- Imagem representativa da barbearia -->
+                <div class="rounded-2xl overflow-hidden h-56 mb-6 relative border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" alt="Fachada Xandão Barber Shop">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    
+                    <!-- Badge Aberto Agora (Dinâmico via JS) -->
+                    <div id="status-loja" class="absolute top-4 right-4 bg-gray-600/90 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 backdrop-blur-md border border-gray-400/50 transition-colors duration-500">
+                        <div id="status-loja-dot" class="w-1.5 h-1.5 bg-white rounded-full opacity-50"></div>
+                        <span id="status-loja-text">Verificando...</span>
+                    </div>
+
+                    <div class="absolute bottom-5 left-5">
+                        <span class="bg-gold text-dark text-[10px] font-black uppercase px-2 py-1 rounded shadow-md inline-block mb-2">Unidade Matriz</span>
+                        <h4 class="text-white font-black text-xl drop-shadow-md">Xandão Barber Shop</h4>
+                    </div>
+                </div>
+                
+                <!-- Informações e Botão -->
+                <div class="flex flex-col gap-6 px-2">
+                    <div class="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
+                        <div class="mt-1 w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 shadow-inner group-hover:bg-gold/20 transition-colors">
+                            <i class="fas fa-map-marker-alt text-gold text-xl drop-shadow-[0_0_8px_rgba(245,184,0,0.5)] group-hover:animate-bounce"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-300 text-sm leading-relaxed">
+                                <strong class="text-white block mb-1">Endereço Principal</strong>
+                                Av. Principal, 1000 - Bairro Centro<br>
+                                Referência: Ao lado do mercado central.<br>
+                                Sua Cidade - UF
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botão Como Chegar Lá -->
+                    <a href="https://maps.google.com/?q=Barbearia" target="_blank" rel="noopener noreferrer" class="btn-shine w-full bg-[#1a1a1a] border border-gold text-gold hover:bg-gold hover:text-dark font-black py-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_0_15px_rgba(245,184,0,0.1)] hover:shadow-[0_0_25px_rgba(245,184,0,0.4)]">
+                        Como chegar lá 
+                        <i class="fas fa-location-arrow text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO REDES SOCIAIS -->
+        <section class="reveal mb-8">
+            <div class="bg-gradient-to-br from-[#405de6] via-[#fd1d1d] to-[#ffdc80] p-[2px] rounded-[2.5rem] shadow-2xl hover:scale-[1.03] transition-transform duration-500 cursor-pointer" onclick="window.open('https://instagram.com', '_blank')">
+                <div class="bg-[#0a0a0a] rounded-[2.4rem] p-10 text-center flex flex-col items-center relative overflow-hidden">
+                    <!-- Brilho interno -->
+                    <div class="absolute -top-20 -right-20 w-40 h-40 bg-[#fd1d1d]/20 blur-[50px]"></div>
+                    
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-[#ffdc80] via-[#fd1d1d] to-[#405de6] flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(253,29,29,0.5)]">
+                        <i class="fab fa-instagram text-4xl text-white drop-shadow-md"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-3 uppercase tracking-wide">Siga o Xandão</h3>
+                    <p class="text-gray-400 text-sm mb-8 max-w-xs mx-auto leading-relaxed">Fique por dentro das novidades, cortes na régua e promoções exclusivas no nosso Instagram!</p>
+                    <button class="bg-white text-dark font-black px-10 py-4 rounded-full hover:bg-gray-100 active:scale-95 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)] text-sm tracking-widest uppercase flex items-center gap-2">
+                        <i class="fab fa-instagram text-lg"></i> @xandaobarbershop
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#030303] pt-12 pb-36 sm:pb-24 text-center border-t border-white/5 relative z-20">
+        <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Logo Xandão Barber Shop" class="h-14 object-contain mx-auto mb-6 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+        <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">&copy; <span id="current-year"></span> Xandão Barber Shop. Todos os direitos reservados.</p>
+        <p class="text-gray-800 text-[9px] mt-2">Tecnologia por Inovamos.</p>
+    </footer>
+
+    <!-- Modal Fila de Espera -->
+    <div id="modal-fila" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm hidden items-center justify-center px-4 opacity-0 transition-opacity" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="bg-card-bg border border-gold/30 p-6 rounded-3xl w-full max-w-sm text-center transform scale-95 transition-transform shadow-2xl relative overflow-hidden" id="modal-fila-content">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
+            <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30 shadow-inner">
+                <i class="fas fa-bell text-gold text-2xl animate-[bounce_2s_infinite]"></i>
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold text-white mb-2">Horário Ocupado</h3>
+            <p class="text-sm text-gray-400 mb-6">Este horário (<span id="fila-hora-txt" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded"></span>) já foi reservado. Quer ser avisado no WhatsApp caso o cliente desista?</p>
+            
+            <div class="relative mb-5">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fab fa-whatsapp text-gray-500"></i>
+                </div>
+                <input type="tel" id="fila-phone" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-[#111] border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm text-center transition-colors shadow-inner">
+            </div>
+            
+            <div class="flex gap-3">
+                <button onclick="App.fecharModalFila()" class="flex-1 bg-transparent border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 font-bold py-3.5 rounded-xl text-sm transition-colors">Cancelar</button>
+                <button id="btn-fila" onclick="App.entrarNaFila()" class="flex-1 bg-gold text-dark hover:bg-gold-light shadow-[0_0_15px_rgba(245,184,0,0.3)] font-black py-3.5 rounded-xl text-sm transition-all active:scale-95">Me avise</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[300] bg-red-600 text-white font-bold px-6 py-4 rounded-full shadow-2xl transition-all duration-300 -translate-y-20 opacity-0 flex items-center gap-3 pointer-events-none" role="alert">
+        <i class="fas fa-exclamation-circle text-xl"></i> <span id="toast-msg" class="text-sm tracking-wide">Erro!</span>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        const App = {
+            // Configurações
+            GOOGLE_APP_URL: "SUA_URL_DO_APPS_SCRIPT_AQUI",
+            TEST_MODE: true, 
+            
+            // Estado
+            carrinho: [],
+            horaSelecionada: null,
+            slotNaFila: null,
+            meusAgendamentos: [], // Guarda o histórico da sessão atual
+            agendasCache: {}, // Garante que a agenda simulada não mude durante a sessão
+
+            // Banco de Dados
+            servicosDB: [
+                {
+                    categoria: "Barba",
+                    icon: "fa-cut",
+                    itens: [
+                        { id: "b1", nome: "Barba com Vapor de Ozônio", desc: "Limpeza profunda, hidratação e combate bactérias.", tempo: "25 min", preco: 20.00 },
+                        { id: "b2", nome: "Barba com Vapor de Ozônio e Pezinho", desc: "Barba completa + alinhamento de acabamento.", tempo: "30 min", preco: 25.00 },
+                        { id: "b3", nome: "Barba Simples", desc: "Tirar barba ou alinhar!", tempo: "20 min", preco: 15.00 },
+                        { id: "b4", nome: "Barba Simples e Pezinho", desc: "Fazer a barba e alinhar acabamento.", tempo: "30 min", preco: 20.00 }
+                    ]
+                },
+                {
+                    categoria: "Cabelo",
+                    icon: "fa-user",
+                    itens: [
+                        { id: "c1", nome: "Degradê", desc: "Corte Degradê / Fade na régua", tempo: "45 min", preco: 30.00 },
+                        { id: "c2", nome: "Degradê + Barba com Ozônio", desc: "Corte + Barba completa VIP.", tempo: "1 h", preco: 50.00 },
+                        { id: "c3", nome: "Degradê + Barba Simples", desc: "Corte degradê e alinhamento de barba.", tempo: "1 h", preco: 45.00 },
+                        { id: "c4", nome: "Raspar a Cabeça", desc: "Raspar na Zero ou Gillette!", tempo: "20 min", preco: 15.00 },
+                        { id: "c5", nome: "Social na Tesoura", desc: "Corte 100% na tesoura, acabamento perfeito.", tempo: "50 min", preco: 30.00 }
+                    ]
+                },
+                {
+                    categoria: "Química",
+                    icon: "fa-flask",
+                    itens: [
+                        { id: "q1", nome: "Botox Orgânico (Topo)", desc: "Botox apenas na parte de cima.", tempo: "1 h", preco: 70.00 },
+                        { id: "q2", nome: "Selagem Orgânica", desc: "Selagem em cabelos maiores.", tempo: "1 h 20 min", preco: 90.00 }
+                    ]
+                },
+                {
+                    categoria: "Estética",
+                    icon: "fa-spa",
+                    itens: [
+                        { id: "s1", nome: "Sobrancelha na Navalha", desc: "Design completo de sobrancelha.", tempo: "10 min", preco: 10.00 },
+                        { id: "s2", nome: "Hidratação Capilar", desc: "Maciez, brilho e saúde aos fios.", tempo: "25 min", preco: 25.00 },
+                        { id: "s3", nome: "Máscara Black", desc: "Remoção de cravos e oleosidade.", tempo: "15 min", preco: 15.00 }
+                    ]
+                }
+            ],
+
+            formatarMoeda(valor) {
+                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+            },
+
+            mascaraTelefone(input) {
+                let v = input.value.replace(/\D/g, ""); 
+                if (v.length > 11) v = v.slice(0, 11); 
+
+                if (v.length > 2) {
+                    v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+                }
+                if (v.length > 9) {
+                    v = v.replace(/(\d{5})(\d)/, "$1-$2");
+                } else if (v.length > 6) {
+                    v = v.replace(/(\d{4})(\d)/, "$1-$2"); 
+                }
+                
+                input.value = v;
+            },
+
+            removerMascara(telefone) {
+                return telefone.replace(/\D/g, '');
+            },
+
+            init() {
+                const inputDate = document.getElementById('booking-date');
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                const dataAtual = `${yyyy}-${mm}-${dd}`;
+                
+                inputDate.min = dataAtual;
+                inputDate.value = dataAtual;
+                document.getElementById('current-year').innerText = yyyy;
+
+                this.renderizarServicos();
+                this.carregarHorarios(); 
+                this.iniciarSlider();
+                this.iniciarNotificacoesFOMO();
+                this.iniciarScrollReveal();
+                this.atualizarStatusLoja();
+
+                // Mantem o badge atualizado em tempo real a cada minuto
+                setInterval(() => this.atualizarStatusLoja(), 60000);
+
+                window.addEventListener('load', () => {
+                    const preloader = document.getElementById('preloader');
+                    setTimeout(() => {
+                        preloader.style.opacity = '0';
+                        setTimeout(() => preloader.style.display = 'none', 700);
+                    }, 800);
+                });
+            },
+
+            // --- Status da Loja Dinâmico (Aberto Agora / Fechado) ---
+            atualizarStatusLoja() {
+                const agora = new Date();
+                const dia = agora.getDay(); // 0 = Domingo, 1 = Segunda...
+                const hora = agora.getHours();
+                const min = agora.getMinutes();
+                const tempoAtualEmMinutos = hora * 60 + min;
+                
+                // Horário de funcionamento: 07:30 às 18:25
+                const horarioAbertura = 7 * 60 + 30; 
+                const horarioFechamento = 18 * 60 + 25; 
+
+                const badge = document.getElementById('status-loja');
+                const dot = document.getElementById('status-loja-dot');
+                const text = document.getElementById('status-loja-text');
+
+                // Não é domingo E está dentro do expediente
+                if (dia !== 0 && tempoAtualEmMinutos >= horarioAbertura && tempoAtualEmMinutos <= horarioFechamento) {
+                    badge.className = "absolute top-4 right-4 bg-green-600/90 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.5)] animate-pulse flex items-center gap-1 backdrop-blur-md border border-green-400/50 transition-colors duration-500";
+                    dot.className = "w-1.5 h-1.5 bg-white rounded-full";
+                    text.innerText = "Aberto Agora";
+                } else {
+                    badge.className = "absolute top-4 right-4 bg-red-600/90 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(220,38,38,0.5)] flex items-center gap-1 backdrop-blur-md border border-red-400/50 transition-colors duration-500";
+                    dot.className = "w-1.5 h-1.5 bg-white rounded-full opacity-50";
+                    text.innerText = "Fechado";
+                }
+            },
+
+            // --- Scroll Reveal Animado ---
+            iniciarScrollReveal() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.15
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.reveal').forEach((el) => {
+                    observer.observe(el);
+                });
+            },
+
+            iniciarSlider() {
+                const slides = document.querySelectorAll('#hero-slider .slide');
+                let atual = 0;
+                
+                if(slides.length === 0) return;
+
+                setInterval(() => {
+                    slides[atual].classList.remove('active');
+                    atual = (atual + 1) % slides.length;
+                    slides[atual].classList.add('active');
+                }, 5000); 
+            },
+
+            iniciarNotificacoesFOMO() {
+                const nomes = ["Lucas M.", "Mateus", "João Vitor", "Pedro H.", "Thiago", "Rafael", "Carlos E.", "Felipe"];
+                const servicosFake = ["Degradê na Régua", "Barboterapia", "Social Premium", "Platinado", "Degradê + Barba", "Sobrancelha"];
+                
+                setTimeout(() => this.dispararFomo(nomes, servicosFake), 5000);
+            },
+
+            dispararFomo(nomes, servicosFake) {
+                const nome = nomes[Math.floor(Math.random() * nomes.length)];
+                const servico = servicosFake[Math.floor(Math.random() * servicosFake.length)];
+                const tempo = Math.floor(Math.random() * 45) + 1; 
+                
+                document.getElementById('fomo-text').innerHTML = `<span class="font-bold text-gold">${nome}</span> agendou <br> <span class="font-bold text-white">${servico}</span> há ${tempo} min.`;
+                
+                const fomo = document.getElementById('fomo-notification');
+                
+                fomo.classList.remove('-translate-x-[150%]', 'opacity-0');
+                
+                setTimeout(() => {
+                    fomo.classList.add('-translate-x-[150%]', 'opacity-0');
+                }, 5000);
+
+                const proximoIntervalo = Math.floor(Math.random() * (25000 - 15000 + 1)) + 15000; 
+                setTimeout(() => this.dispararFomo(nomes, servicosFake), proximoIntervalo);
+            },
+
+            renderizarServicos() {
+                const container = document.getElementById('services-container');
+                let html = '';
+
+                this.servicosDB.forEach((cat, index) => {
+                    const isOpen = index === 0; 
+                    const contentId = `cat-content-${index}`;
+                    
+                    html += `
+                    <div class="reveal glass-card overflow-hidden bg-[#111]/80 hover:bg-[#111] transition-colors border border-white/5">
+                        <button type="button" class="w-full flex justify-between items-center p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${isOpen ? 'accordion-open border-b border-white/5' : ''}" 
+                                onclick="App.toggleAccordion(this)" 
+                                aria-expanded="${isOpen}" 
+                                aria-controls="${contentId}">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20">
+                                    <i class="fas ${cat.icon} text-gold text-sm"></i>
+                                </div>
+                                <span class="font-black text-white uppercase tracking-wider text-sm">${cat.categoria}</span>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center accordion-icon-container border border-white/10 shadow-inner">
+                                <i class="fas fa-chevron-down text-gray-400 accordion-icon text-xs"></i>
+                            </div>
+                        </button>
+                        <div id="${contentId}" class="accordion-content bg-[#050505] ${isOpen ? 'open' : ''}">
+                            <div class="p-4 space-y-3">
+                    `;
+
+                    cat.itens.forEach(item => {
+                        const itemParams = `'${item.id}', '${item.nome.replace(/'/g, "\\'")}', ${item.preco}`;
+                        
+                        html += `
+                            <div class="service-item flex items-center gap-4 p-4 rounded-xl bg-black/40 border border-white/5 hover:border-white/10 shadow-sm" onclick="App.toggleService(${itemParams}, this)" role="checkbox" aria-checked="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') App.toggleService(${itemParams}, this)">
+                                <div class="shrink-0"><div class="radio-circle w-5 h-5 rounded-full border-2 border-gray-600 flex items-center justify-center"></div></div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-bold text-sm leading-tight truncate">${item.nome}</h4>
+                                    <p class="text-gray-500 text-[10px] mt-0.5 leading-snug truncate pr-2">${item.desc}</p>
+                                </div>
+                                <div class="text-right shrink-0 flex flex-col items-end gap-1">
+                                    <div class="text-gold text-sm font-black tracking-wide">${this.formatarMoeda(item.preco)}</div>
+                                    <div class="text-[9px] font-bold text-gray-500 uppercase flex items-center gap-1"><i class="far fa-clock"></i> ${item.tempo}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += `</div></div></div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            toggleAccordion(btn) {
+                const content = btn.nextElementSibling;
+                const isOpen = content.classList.contains('open');
+                
+                if (!isOpen) {
+                    content.classList.add('open');
+                    btn.classList.add('accordion-open', 'border-b', 'border-white/5');
+                    btn.setAttribute('aria-expanded', 'true');
+                } else {
+                    content.classList.remove('open');
+                    btn.classList.remove('accordion-open', 'border-b', 'border-white/5');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            },
+
+            toggleService(id, nome, preco, el) {
+                const index = this.carrinho.findIndex(s => s.id === id);
+                const circle = el.querySelector('.radio-circle');
+                
+                if (index > -1) {
+                    this.carrinho.splice(index, 1);
+                    el.classList.remove('selected-service');
+                    el.setAttribute('aria-checked', 'false');
+                    circle.classList.replace('border-gold', 'border-gray-600');
+                } else {
+                    this.carrinho.push({ id, nome, preco });
+                    el.classList.add('selected-service');
+                    el.setAttribute('aria-checked', 'true');
+                    circle.classList.replace('border-gray-600', 'border-gold');
+                }
+                this.atualizarCarrinho();
+            },
+
+            atualizarCarrinho() {
+                const total = this.carrinho.reduce((sum, item) => sum + item.preco, 0);
+                document.getElementById('cart-count').innerText = this.carrinho.length;
+                document.getElementById('cart-total').innerText = this.formatarMoeda(total);
+                
+                const cartUI = document.getElementById('smart-cart');
+                if (this.carrinho.length > 0) {
+                    cartUI.classList.remove('translate-y-full');
+                } else {
+                    cartUI.classList.add('translate-y-full');
+                }
+
+                const resumo = document.getElementById('resumo-final');
+                if (this.carrinho.length === 0) {
+                    resumo.innerHTML = 'Nenhum serviço selecionado.';
+                } else {
+                    resumo.innerHTML = this.carrinho.map(i => `
+                        <div class="flex justify-between text-xs font-bold text-white mb-2 bg-black/30 p-2 rounded border border-white/5">
+                            <span class="truncate pr-2"><i class="fas fa-check text-gold text-[10px] mr-1"></i> ${i.nome}</span>
+                            <span class="text-gold whitespace-nowrap">${this.formatarMoeda(i.preco)}</span>
+                        </div>
+                    `).join('');
+                    resumo.innerHTML += `
+                        <div class="border-t border-white/10 mt-4 pt-4 flex justify-between items-center text-white font-black text-base">
+                            <span class="uppercase tracking-widest text-xs">Total a pagar</span>
+                            <span class="text-gold text-xl drop-shadow-md">${this.formatarMoeda(total)}</span>
+                        </div>
+                    `;
+                }
+            },
+
+            irParaAgendamento() {
+                document.getElementById('agendamento-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            },
+
+            showToast(msg, type = 'error') {
+                const toast = document.getElementById('toast');
+                const icon = toast.querySelector('i');
+                document.getElementById('toast-msg').innerText = msg;
+                
+                toast.className = `fixed top-5 left-1/2 transform -translate-x-1/2 z-[300] text-white font-bold px-6 py-4 rounded-full shadow-2xl transition-all duration-500 flex items-center gap-3 ${type === 'error' ? 'bg-red-600' : 'bg-[#25D366]'}`;
+                icon.className = type === 'error' ? "fas fa-exclamation-circle text-xl" : "fas fa-check-circle text-xl";
+                
+                toast.classList.remove('-translate-y-20', 'opacity-0');
+                
+                if(this.toastTimeout) clearTimeout(this.toastTimeout);
+                
+                this.toastTimeout = setTimeout(() => { 
+                    toast.classList.add('-translate-y-20', 'opacity-0'); 
+                }, 4000);
+            },
+
+            async carregarHorarios() {
+                const dataInput = document.getElementById('booking-date');
+                const dataVal = dataInput.value;
+                const barbeiro = document.querySelector('input[name="barber"]:checked').value;
+                const container = document.getElementById('slots-container');
+                const loader = document.getElementById('slots-loader');
+                
+                if(!dataVal) return;
+
+                // Bloqueia domingos no Front-End
+                const dataObj = new Date(dataVal + 'T00:00:00');
+                if (dataObj.getDay() === 0) { // 0 = Domingo
+                    this.showToast("Não funcionamos aos domingos. Por favor, escolha outra data.", "error");
+                    dataInput.value = ""; // Limpa a data inválida
+                    container.innerHTML = '<div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">Selecione uma data válida para ver os horários.</div>';
+                    return;
+                }
+
+                this.horaSelecionada = null; 
+                container.innerHTML = '';
+                loader.classList.remove('hidden');
+                loader.classList.add('flex');
+
+                try {
+                    let slots = [];
+                    
+                    if(this.TEST_MODE) {
+                        await new Promise(r => setTimeout(r, 600)); 
+                        
+                        // LÓGICA ESTRATÉGICA: Cache das Agendas Separadas
+                        const cacheKey = `${dataVal}-${barbeiro}`;
+                        
+                        if (this.agendasCache[cacheKey]) {
+                            slots = this.agendasCache[cacheKey];
+                        } else {
+                            let start = 7 * 60 + 30; // 07:30
+                            let end = 18 * 60 + 25;  // 18:25
+                            
+                            // Cria disponibilidades diferentes para cada profissional!
+                            const chanceLivre = barbeiro === "Alexandre" ? 0.4 : 0.7; 
+                            
+                            for(let i = start; i <= end; i += 25) {
+                                let h = Math.floor(i/60).toString().padStart(2,'0');
+                                let m = (i%60).toString().padStart(2,'0');
+                                let disponivel = Math.random() > (1 - chanceLivre); 
+                                slots.push({ hora: `${h}:${m}`, disponivel: disponivel });
+                            }
+                            this.agendasCache[cacheKey] = slots; // Salva na memória
+                        }
+                    } else {
+                        const url = `${this.GOOGLE_APP_URL}?action=getSlots&data=${dataVal}&barbeiro=${barbeiro}`;
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error('Erro na rede');
+                        slots = await response.json();
+                    }
+
+                    loader.classList.add('hidden');
+                    loader.classList.remove('flex');
+
+                    if(slots.length === 0) {
+                        container.innerHTML = `<div class="col-span-full py-6 text-center text-red-400 text-sm font-bold bg-red-900/10 rounded-xl border border-red-900/30"><i class="fas fa-calendar-times mb-2 text-xl block"></i>Nenhum horário disponível nesta data.</div>`;
+                        return;
+                    }
+
+                    slots.forEach(slot => {
+                        // Verifica se você mesmo agendou isso nessa sessão (Gatilho de Pertencimento)
+                        const meuAgendamento = this.meusAgendamentos.find(a => a.data === dataVal && a.barbeiro === barbeiro && a.hora === slot.hora);
+                        
+                        const div = document.createElement('div');
+                        
+                        if (meuAgendamento) {
+                            // Avatar Customizado com a Inicial e o Fundo do WhatsApp
+                            const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(meuAgendamento.nome)}&background=25D366&color=fff&rounded=true&bold=true`;
+                            div.className = `time-slot text-center py-2.5 rounded-xl text-sm font-bold flex flex-col items-center justify-center gap-1 border-2 border-[#25D366] bg-[#25D366]/10 text-white relative overflow-hidden shadow-[0_0_15px_rgba(37,211,102,0.15)] transform scale-[1.02]`;
+                            div.innerHTML = `
+                                <div class="flex items-center gap-2">
+                                    <img src="${avatarUrl}" class="w-6 h-6 rounded-full border border-[#25D366] shadow-sm" alt="Sua foto">
+                                    <span class="text-lg tracking-wide">${slot.hora}</span>
+                                </div>
+                                <span class="text-[9px] uppercase tracking-widest text-[#25D366]">Seu Horário</span>
+                            `;
+                        } else if(slot.disponivel) {
+                            div.className = `time-slot text-center py-4 rounded-xl text-sm font-bold flex flex-col items-center justify-center gap-1 border border-white/5 available bg-[#111] text-gray-300`;
+                            div.innerHTML = `<span class="text-lg tracking-wide">${slot.hora}</span>`;
+                            div.onclick = () => this.selecionarHora(div, slot.hora);
+                        } else {
+                            div.className = `time-slot text-center py-4 rounded-xl text-sm font-bold flex flex-col items-center justify-center gap-1 border border-white/5 booked bg-black/60 text-gray-600`;
+                            div.innerHTML = `
+                                <span class="line-through opacity-50">${slot.hora}</span>
+                                <button type="button" onclick="App.abrirModalFila('${slot.hora}', event)" class="text-[9px] bg-white/5 text-gold hover:bg-gold hover:text-dark px-3 py-1.5 rounded-full mt-1 border border-gold/20 transition-all duration-300 flex items-center gap-1 z-10 relative shadow-inner uppercase tracking-wider font-black">
+                                    <i class="fas fa-bell"></i> Avisar
+                                </button>
+                            `;
+                        }
+                        container.appendChild(div);
+                    });
+
+                } catch (error) {
+                    console.error("Erro ao buscar horários:", error);
+                    loader.classList.add('hidden');
+                    container.innerHTML = `<div class="col-span-full py-6 text-center text-red-400 text-sm"><i class="fas fa-wifi text-xl mb-2 block"></i>Erro de conexão. Confirme a URL do seu Google Script.</div>`;
+                }
+            },
+
+            selecionarHora(el, hora) {
+                document.querySelectorAll('.time-slot.available').forEach(s => s.classList.remove('selected'));
+                el.classList.add('selected');
+                this.horaSelecionada = hora;
+            },
+
+            async finalizarAgendamento() {
+                const data = document.getElementById('booking-date').value;
+                const nome = document.getElementById('client-name').value.trim();
+                const telInput = document.getElementById('client-phone').value;
+                const telLimpo = this.removerMascara(telInput);
+                const barbeiro = document.querySelector('input[name="barber"]:checked').value;
+
+                // Validação inteligente via JS (substituindo o antigo HTML "required" que travava silenciosamente)
+                if (this.carrinho.length === 0) return this.showToast("Selecione pelo menos 1 serviço para agendar!");
+                if (!data) return this.showToast("Selecione a data que deseja agendar!");
+                if (!this.horaSelecionada) return this.showToast("Por favor, selecione um horário disponível na grade!");
+                if (!nome) return this.showToast("Qual é o seu nome? Preencha no campo de dados!");
+                if (telLimpo.length < 10) return this.showToast("Preencha seu WhatsApp corretamente com o DDD.");
+
+                const total = this.carrinho.reduce((sum, item) => sum + item.preco, 0);
+                const servicosStr = this.carrinho.map(i => i.nome).join(', ');
+
+                const payload = {
+                    action: "agendar",
+                    data: data,
+                    hora: this.horaSelecionada,
+                    barbeiro: barbeiro,
+                    cliente: nome,
+                    telefone: telLimpo,
+                    servicos: servicosStr,
+                    total: total
+                };
+
+                const btn = document.getElementById('btn-confirmar');
+                btn.innerHTML = '<div class="loader border-dark border-t-white"></div>';
+                btn.disabled = true;
+
+                try {
+                    if(this.TEST_MODE) {
+                        await new Promise(r => setTimeout(r, 1200));
+                        
+                        // Ocupa o horário no banco virtual de teste!
+                        const cacheKey = `${data}-${barbeiro}`;
+                        if (this.agendasCache[cacheKey]) {
+                            const slotMarcado = this.agendasCache[cacheKey].find(s => s.hora === this.horaSelecionada);
+                            if(slotMarcado) slotMarcado.disponivel = false;
+                        }
+
+                        this.mostrarSucessoAnimado(payload);
+                    } else {
+                        const res = await fetch(this.GOOGLE_APP_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                            body: JSON.stringify(payload)
+                        });
+                        
+                        if (!res.ok) throw new Error('Erro na resposta do servidor');
+                        const result = await res.json();
+                        
+                        if(result.sucesso) {
+                            this.mostrarSucessoAnimado(payload);
+                        } else {
+                            this.showToast(result.erro || "O horário não está mais disponível.");
+                            this.carregarHorarios(); 
+                        }
+                    }
+                } catch(e) {
+                    console.error("Erro no submit:", e);
+                    this.showToast("Erro de conexão. Verifique sua URL ou a internet.");
+                } finally {
+                    btn.innerHTML = '<i class="fas fa-calendar-check text-xl"></i> CONFIRMAR AGENDAMENTO';
+                    btn.disabled = false;
+                }
+            },
+
+            mostrarSucessoAnimado(dados) {
+                // Guarda esse agendamento para a interface pintar a fotinho
+                this.meusAgendamentos.push({
+                    data: dados.data,
+                    hora: dados.hora,
+                    barbeiro: dados.barbeiro,
+                    nome: dados.cliente
+                });
+
+                const modal = document.getElementById('success-modal');
+                const card = document.getElementById('success-card');
+                
+                const primeiroNome = dados.cliente.split(' ')[0];
+                const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(primeiroNome)}&background=25D366&color=111&rounded=true&bold=true&size=128`;
+                
+                document.getElementById('success-avatar').src = avatarUrl;
+                document.getElementById('success-nome').innerText = primeiroNome;
+                
+                const dataParts = dados.data.split('-');
+                document.getElementById('success-data').innerText = `${dataParts[2]}/${dataParts[1]}/${dataParts[0]}`;
+                document.getElementById('success-hora').innerText = dados.hora;
+                document.getElementById('success-barbeiro').innerText = dados.barbeiro;
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                
+                void modal.offsetWidth; 
+
+                modal.classList.remove('opacity-0');
+                card.classList.remove('scale-0');
+
+                setTimeout(() => {
+                    modal.classList.add('opacity-0');
+                    card.classList.add('scale-0');
+                    
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                        this.showToast('Tudo pronto! Te esperamos lá.', 'success');
+                        
+                        // Desmarca visualmente os serviços
+                        document.querySelectorAll('.service-item.selected-service').forEach(el => {
+                            el.classList.remove('selected-service');
+                            el.setAttribute('aria-checked', 'false');
+                            const circle = el.querySelector('.radio-circle');
+                            if (circle) circle.classList.replace('border-gold', 'border-gray-600');
+                        });
+                        
+                        // Reseta as variáveis
+                        this.carrinho = [];
+                        this.atualizarCarrinho();
+                        document.getElementById('client-name').value = '';
+                        document.getElementById('client-phone').value = '';
+                        this.horaSelecionada = null; // Importantíssimo para não bugar
+
+                        this.carregarHorarios(); // Recarrega para mostrar a foto do cliente no bloco escolhido!
+                    }, 500);
+                }, 4500); 
+            },
+
+            abrirModalFila(hora, event) {
+                if(event) event.stopPropagation(); 
+                this.slotNaFila = hora;
+                document.getElementById('fila-hora-txt').innerText = hora;
+                
+                const modal = document.getElementById('modal-fila');
+                const content = document.getElementById('modal-fila-content');
+                
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    content.classList.remove('scale-95');
+                    document.getElementById('fila-phone').focus();
+                }, 10);
+            },
+
+            fecharModalFila() {
+                const modal = document.getElementById('modal-fila');
+                const content = document.getElementById('modal-fila-content');
+                
+                modal.classList.add('opacity-0');
+                content.classList.add('scale-95');
+                
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    this.slotNaFila = null;
+                    document.getElementById('fila-phone').value = '';
+                }, 300);
+            },
+
+            async entrarNaFila() {
+                const telInput = document.getElementById('fila-phone').value;
+                const telLimpo = this.removerMascara(telInput);
+                
+                if(telLimpo.length < 10) return this.showToast("Digite um WhatsApp válido com DDD!");
+                
+                const data = document.getElementById('booking-date').value;
+                const barbeiro = document.querySelector('input[name="barber"]:checked').value;
+                
+                const payload = {
+                    action: "filaEspera",
+                    data: data,
+                    hora: this.slotNaFila,
+                    barbeiro: barbeiro,
+                    telefone: telLimpo
+                };
+
+                const btn = document.getElementById('btn-fila');
+                const txtOriginal = btn.innerText;
+                btn.innerHTML = '<div class="loader w-4 h-4 border-2 mx-auto"></div>';
+                btn.disabled = true;
+
+                try {
+                    if(this.TEST_MODE) {
+                        await new Promise(r => setTimeout(r, 800));
+                    } else {
+                        await fetch(this.GOOGLE_APP_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                            body: JSON.stringify(payload)
+                        });
+                    }
+                    this.showToast(`Registrado na fila VIP!`, 'success');
+                    this.fecharModalFila();
+                } catch(e) {
+                    this.showToast("Erro ao entrar na fila.");
+                } finally {
+                    btn.innerText = txtOriginal;
+                    btn.disabled = false;
+                }
+            }
         };
 
-        // --- SISTEMA DE NAVEGAÇÃO SPA ---
-        function navigate(viewId) {
-            // Oculta todas as telas
-            document.querySelectorAll('.view').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('block');
-            });
-
-            // Mostra a tela solicitada
-            const activeView = document.getElementById(`view-${viewId}`);
-            activeView.classList.remove('hidden');
-            activeView.classList.add('block');
-
-            // Regra crucial de UX: Esconder menu inferior se estiver na tela de Agendar
-            const bottomNav = document.getElementById('bottom-nav');
-            if(viewId === 'agendar') {
-                bottomNav.classList.add('hidden');
-                bottomNav.classList.remove('flex');
-            } else {
-                bottomNav.classList.remove('hidden');
-                bottomNav.classList.add('flex');
-            }
-
-            // Atualiza cores do menu
-            updateNavColors(viewId);
-            
-            // Rola para o topo
-            window.scrollTo(0,0);
-        }
-
-        function updateNavColors(activeId) {
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-brand-yellow');
-                btn.classList.add('text-gray-500');
-            });
-            
-            const activeBtn = document.getElementById(`nav-${activeId}`);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-gray-500');
-                activeBtn.classList.add('text-brand-yellow');
-            }
-        }
-
-        // --- FLUXO DE AGENDAMENTO ---
-        function nextBookingStep(step, serviceName = '', price = '', time = '') {
-            if(serviceName) {
-                bookingData.service = serviceName;
-                bookingData.price = price;
-            }
-            if(time) bookingData.time = time;
-
-            // Atualiza resumo no passo 3
-            if(step === 3) {
-                document.getElementById('confirm-service').innerText = bookingData.service;
-                document.getElementById('confirm-price').innerText = bookingData.price;
-                document.getElementById('confirm-time').innerText = `Hoje, ${bookingData.time}`;
-            }
-
-            // Oculta todos os passos
-            document.getElementById('booking-step-1').classList.add('hidden');
-            document.getElementById('booking-step-2').classList.add('hidden');
-            document.getElementById('booking-step-3').classList.add('hidden');
-
-            // Mostra o passo atual
-            document.getElementById(`booking-step-${step}`).classList.remove('hidden');
-        }
-
-        function prevBookingStep(step) {
-            // Volta um passo
-            document.getElementById('booking-step-1').classList.add('hidden');
-            document.getElementById('booking-step-2').classList.add('hidden');
-            document.getElementById('booking-step-3').classList.add('hidden');
-
-            document.getElementById(`booking-step-${step}`).classList.remove('hidden');
-        }
-
-        function finishBooking() {
-            // Aqui integraremos a API do Google Scripts futuramente
-            const msg = `Fala mestre! Gostaria de confirmar meu agendamento:\n\n✂️ *Serviço:* ${bookingData.service}\n🕒 *Horário:* Hoje às ${bookingData.time}\n💰 *Valor:* ${bookingData.price}\n\nAguardando confirmação!`;
-            const encodedMsg = encodeURIComponent(msg);
-            
-            // Simulação de abertura do WhatsApp
-            // window.open(`https://wa.me/5511999999999?text=${encodedMsg}`, '_blank');
-            
-            alert(`Integração WhatsApp Pronta para: \nServiço: ${bookingData.service} \nHora: ${bookingData.time}\n\nAssim que definir o número, este botão abrirá direto no app do cliente!`);
-            
-            // Reseta para a home
-            navigate('home');
-            nextBookingStep(1); // Reseta os passos
-        }
-
-        // --- LIGHTBOX DA GALERIA ---
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-
-        function openLightbox(src) {
-            lightboxImg.src = src;
-            lightbox.classList.remove('hidden');
-            lightbox.classList.add('flex');
-            // Pequeno delay para a transição de opacidade do Tailwind funcionar
-            setTimeout(() => {
-                lightbox.classList.remove('opacity-0');
-                lightbox.classList.add('opacity-100');
-            }, 10);
-        }
-
-        function closeLightbox() {
-            lightbox.classList.remove('opacity-100');
-            lightbox.classList.add('opacity-0');
-            setTimeout(() => {
-                lightbox.classList.remove('flex');
-                lightbox.classList.add('hidden');
-            }, 300);
-        }
+        document.addEventListener("DOMContentLoaded", () => App.init());
     </script>
 </body>
 </html>
