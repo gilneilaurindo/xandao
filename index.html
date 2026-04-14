@@ -36,6 +36,7 @@
                     animation: {
                         'blob': 'blob 10s infinite',
                         'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'pulse-gold': 'pulseGold 2s infinite',
                     },
                     keyframes: {
                         blob: {
@@ -47,6 +48,11 @@
                         fadeInUp: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseGold: {
+                            '0%': { boxShadow: '0 0 0 0 rgba(245, 184, 0, 0.4)' },
+                            '70%': { boxShadow: '0 0 0 15px rgba(245, 184, 0, 0)' },
+                            '100%': { boxShadow: '0 0 0 0 rgba(245, 184, 0, 0)' },
                         }
                     }
                 }
@@ -62,7 +68,6 @@
             padding-bottom: 90px;
         }
         
-        /* Glassmorphism unificado */
         .glass-card { 
             background: rgba(26, 26, 26, 0.6); 
             backdrop-filter: blur(16px);
@@ -72,7 +77,6 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* --- ANIMAÇÕES DE SCROLL (REVEAL) --- */
         .reveal {
             opacity: 0;
             transform: translateY(40px) scale(0.95);
@@ -83,7 +87,6 @@
             transform: translateY(0) scale(1);
         }
 
-        /* --- EFEITO SHINE (BRILHO NO BOTÃO) --- */
         .btn-shine {
             position: relative;
             overflow: hidden;
@@ -105,139 +108,89 @@
             100% { left: 200%; }
         }
 
-        /* --- FAIXA ANIMADA (MARQUEE) --- */
-        .marquee, .marquee-gallery {
-            display: flex;
-            overflow: hidden;
-            user-select: none;
-        }
+        .marquee, .marquee-gallery { display: flex; overflow: hidden; user-select: none; }
         .marquee {
             background: linear-gradient(90deg, #CC9900, #F5B800, #CC9900);
-            color: #000;
-            padding: 8px 0;
-            gap: 2rem;
+            color: #000; padding: 8px 0; gap: 2rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
         }
         .marquee-content {
-            flex-shrink: 0;
-            display: flex;
-            justify-content: space-around;
-            min-width: 100%;
-            gap: 2rem;
-            animation: scroll 25s linear infinite;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 1px;
+            flex-shrink: 0; display: flex; justify-content: space-around;
+            min-width: 100%; gap: 2rem; animation: scroll 25s linear infinite;
+            font-weight: 900; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;
         }
         
-        /* Galeria Infinita de Cortes */
         .marquee-gallery { gap: 1rem; padding: 10px 0; }
         .marquee-gallery-content {
-            flex-shrink: 0;
-            display: flex;
-            gap: 1rem;
-            animation: scrollGallery 35s linear infinite;
+            flex-shrink: 0; display: flex; gap: 1rem; animation: scrollGallery 35s linear infinite;
         }
         
-        .marquee:hover .marquee-content, 
-        .marquee-gallery:hover .marquee-gallery-content {
+        .marquee:hover .marquee-content, .marquee-gallery:hover .marquee-gallery-content {
             animation-play-state: paused;
         }
         
-        @keyframes scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(calc(-100% - 2rem)); }
-        }
-        @keyframes scrollGallery {
-            from { transform: translateX(0); }
-            to { transform: translateX(calc(-100% - 1rem)); }
-        }
+        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 2rem)); } }
+        @keyframes scrollGallery { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 1rem)); } }
 
-        /* --- SLIDER HEADER --- */
         .slide {
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out, transform 6s linear;
-            position: absolute;
-            inset: 0;
-            transform: scale(1);
+            opacity: 0; transition: opacity 1.5s ease-in-out, transform 6s linear;
+            position: absolute; inset: 0; transform: scale(1);
         }
-        .slide.active {
-            opacity: 1;
-            transform: scale(1.1); /* Efeito Ken Burns suave */
-            z-index: 10;
-        }
+        .slide.active { opacity: 1; transform: scale(1.1); z-index: 10; }
         
-        /* Accordion Animations */
         .accordion-content { 
             transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease; 
-            max-height: 0; 
-            opacity: 0; 
-            overflow: hidden; 
+            max-height: 0; opacity: 0; overflow: hidden; 
         }
-        .accordion-content.open { 
-            max-height: 1500px; 
-            opacity: 1; 
-        }
+        .accordion-content.open { max-height: 2500px; opacity: 1; }
         .accordion-icon { transition: transform 0.3s ease; }
         .accordion-open .accordion-icon { transform: rotate(180deg); }
 
-        /* Service Item Selection */
         .service-item { transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: 1px solid transparent;}
         .service-item:hover { transform: translateX(4px); background-color: rgba(255,255,255,0.05); }
         .selected-service { 
-            border-color: #F5B800 !important; 
-            background-color: rgba(245, 184, 0, 0.12) !important; 
-            transform: scale(1.02);
-            box-shadow: 0 4px 15px rgba(245,184,0,0.1);
+            border-color: #F5B800 !important; background-color: rgba(245, 184, 0, 0.12) !important; 
+            transform: scale(1.02); box-shadow: 0 4px 15px rgba(245,184,0,0.1);
         }
         .radio-circle { transition: all 0.2s ease; }
         .selected-service .radio-circle { border-color: #F5B800; }
         .selected-service .radio-circle::after { 
-            content: ''; 
-            width: 10px; 
-            height: 10px; 
-            background-color: #F5B800; 
-            border-radius: 50%; 
-            box-shadow: 0 0 8px #F5B800;
+            content: ''; width: 10px; height: 10px; background-color: #F5B800; border-radius: 50%; box-shadow: 0 0 8px #F5B800;
         }
 
-        /* Time Slots */
         .time-slot { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;}
-        .time-slot.available:hover { border-color: #F5B800; color: #F5B800; transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.3); }
+        .time-slot.available:hover { border-color: #F5B800; color: #F5B800; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .time-slot.selected { 
-            border-color: #F5B800; 
-            background: rgba(245, 184, 0, 0.15); 
-            color: #F5B800; 
-            transform: scale(1.05) translateY(-2px); 
-            box-shadow: 0 0 20px rgba(245,184,0,0.25); 
+            border-color: #F5B800 !important; background: #F5B800 !important; color: #050505 !important; 
+            font-weight: 900 !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(245,184,0,0.4); 
+        }
+        
+        .time-slot.booked-other {
+            background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.05);
+            color: #666; cursor: not-allowed; transform: scale(0.98);
         }
 
-        /* Barbeiro Radio */
         .barber-radio:checked + div { border-color: #F5B800; background: rgba(245,184,0,0.2); box-shadow: 0 0 20px rgba(245,184,0,0.3); transform: scale(1.05); }
         .barber-radio:checked + div img { filter: grayscale(0%); opacity: 1;}
         .barber-radio:checked ~ span { color: #F5B800; font-weight: 900; }
         
-        /* Utils */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .snap-x::-webkit-scrollbar { display: none; }
 
-        /* Loading Spinner */
         .loader { 
-            border: 3px solid rgba(255,255,255,0.1); 
-            border-top: 3px solid #F5B800; 
-            border-radius: 50%; 
-            width: 24px; 
-            height: 24px; 
-            animation: spin 1s linear infinite; 
+            border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #F5B800; 
+            border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; 
         }
+        
+        .focus-highlight { animation: pulseGold 2s ease-in-out; }
+        .admin-tab.active { border-bottom-color: #F5B800; color: #F5B800; }
     </style>
 </head>
 <body class="antialiased selection:bg-gold selection:text-dark relative">
 
-    <!-- BACKGROUND ORBS (Luzes Dinâmicas de fundo) -->
+    <!-- BACKGROUND ORBS -->
     <div class="fixed inset-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
         <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gold/10 blur-[100px] mix-blend-screen animate-blob"></div>
         <div class="absolute top-[40%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-gold-dark/10 blur-[80px] mix-blend-screen animate-blob" style="animation-delay: 2s;"></div>
@@ -254,30 +207,18 @@
         </div>
     </div>
 
-    <!-- TELA DE SUCESSO ANIMADA (ESTRATÉGICA E PERSONALIZADA) -->
+    <!-- TELA DE SUCESSO ANIMADA -->
     <div id="success-modal" class="fixed inset-0 z-[9999] bg-[#050505]/95 backdrop-blur-xl hidden flex-col items-center justify-center opacity-0 transition-opacity duration-500 p-4">
         <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-40 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#25D366]/20 via-transparent to-transparent"></div>
-        
-        <!-- Cartão VIP de Confirmação -->
         <div id="success-card" class="bg-[#111] border border-[#25D366]/30 p-8 rounded-3xl shadow-[0_0_50px_rgba(37,211,102,0.15)] flex flex-col items-center max-w-sm w-full transform scale-0 transition-transform duration-[600ms] delay-100 ease-out relative overflow-hidden">
-            
-            <!-- Faixa de fundo do card -->
             <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#25D366]/20 to-transparent"></div>
-
-            <!-- Foto / Avatar do Cliente -->
             <div class="relative z-10 mb-4">
                 <div class="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20"></div>
                 <img id="success-avatar" src="" alt="Sua Foto" class="w-24 h-24 rounded-full border-4 border-[#111] shadow-[0_0_20px_rgba(37,211,102,0.4)] object-cover relative z-10 bg-[#25D366]">
-                <div class="absolute -bottom-2 -right-2 bg-[#25D366] text-[#111] rounded-full w-8 h-8 flex items-center justify-center border-2 border-[#111] z-20">
-                    <i class="fas fa-check text-sm"></i>
-                </div>
+                <div class="absolute -bottom-2 -right-2 bg-[#25D366] text-[#111] rounded-full w-8 h-8 flex items-center justify-center border-2 border-[#111] z-20"><i class="fas fa-check text-sm"></i></div>
             </div>
-
-            <!-- Mensagem Personalizada -->
             <h2 class="text-2xl font-black text-white mb-1 text-center relative z-10">Tudo certo, <span id="success-nome" class="text-[#25D366]"></span>!</h2>
             <p class="text-gray-400 text-xs text-center mb-6 relative z-10">Sua cadeira está garantida.</p>
-
-            <!-- Detalhes do Agendamento -->
             <div class="w-full bg-black/40 rounded-2xl p-4 border border-white/5 space-y-3 relative z-10">
                 <div class="flex justify-between items-center">
                     <span class="text-gray-500 text-[10px] uppercase tracking-widest font-bold"><i class="far fa-calendar-alt mr-1"></i> Data</span>
@@ -292,9 +233,8 @@
                     <span id="success-barbeiro" class="text-white text-sm font-bold"></span>
                 </div>
             </div>
-
             <p class="text-[#25D366] text-[10px] mt-6 font-bold uppercase tracking-widest flex items-center gap-2 animate-pulse relative z-10">
-                <i class="fas fa-spinner fa-spin"></i> Sincronizando agenda...
+                <i class="fab fa-whatsapp"></i> Direcionando para o WhatsApp...
             </p>
         </div>
     </div>
@@ -303,30 +243,28 @@
     <header class="bg-[#0a0a0a]/80 backdrop-blur-lg py-3 sticky top-0 z-50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-b border-white/5">
         <div class="container mx-auto px-4 flex justify-between items-center max-w-2xl">
             <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Xandão Barber Shop" class="h-10 object-contain hover:scale-105 transition-transform cursor-pointer">
-            <button onclick="App.showToast('Chat interno em desenvolvimento!', 'success')" class="text-sm font-bold bg-gold/10 text-gold px-4 py-2 rounded-full border border-gold/30 hover:bg-gold hover:text-dark hover:shadow-[0_0_15px_rgba(245,184,0,0.4)] transition-all duration-300 flex items-center gap-2">
-                <i class="fas fa-comment-dots text-lg"></i> Mensagens
-            </button>
+            <a href="https://wa.me/558396340618" target="_blank" rel="noopener noreferrer" class="text-sm font-bold bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-full border border-[#25D366]/30 hover:bg-[#25D366] hover:text-white hover:shadow-[0_0_15px_rgba(37,211,102,0.4)] transition-all duration-300 flex items-center gap-2">
+                <i class="fab fa-whatsapp text-lg"></i> Contato
+            </a>
         </div>
     </header>
 
-    <!-- NOTIFICAÇÃO FOMO (Social Proof) -->
+    <!-- NOTIFICAÇÃO FOMO -->
     <div id="fomo-notification" class="fixed bottom-[110px] left-4 z-[200] bg-[#111]/95 backdrop-blur-md border border-gold/40 p-3 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.9)] flex items-center gap-3 transition-all duration-[800ms] cubic-bezier(0.68, -0.55, 0.265, 1.55) -translate-x-[150%] opacity-0 w-64 pointer-events-none">
         <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/50 shrink-0 relative overflow-hidden">
             <div class="absolute inset-0 bg-green-500/30 animate-ping rounded-full"></div>
             <i class="fas fa-calendar-check text-green-500 text-sm relative z-10"></i>
         </div>
-        <p class="text-gray-200 text-[11px] leading-tight" id="fomo-text">
-            <!-- Texto injetado via JS -->
-        </p>
+        <p class="text-gray-200 text-[11px] leading-tight" id="fomo-text"></p>
     </div>
 
     <!-- Smart Cart Flutuante -->
     <div id="smart-cart" class="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-2xl z-[100] bg-[#111]/95 backdrop-blur-xl border-t border-gold/30 p-4 pb-safe transform translate-y-full flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.9)] rounded-t-3xl sm:bottom-4 sm:rounded-b-3xl sm:border sm:pb-4 transition-transform duration-500 cubic-bezier(0.175, 0.885, 0.32, 1.275)">
         <div class="flex flex-col pl-2">
-            <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest"><span id="cart-count" class="text-white bg-white/10 px-2 py-0.5 rounded-full mr-1">0</span> Selecionado(s)</span>
+            <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest"><span id="cart-count" class="text-white bg-white/10 px-2 py-0.5 rounded-full mr-1">0</span> Itens</span>
             <span class="text-gold font-black text-2xl drop-shadow-md" id="cart-total">R$ 0,00</span>
         </div>
-        <button onclick="App.irParaAgendamento()" class="btn-shine bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark px-7 py-4 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[0_5px_20px_rgba(245,184,0,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+        <button onclick="App.avancarParaAgendamento()" class="btn-shine bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark px-7 py-4 rounded-2xl font-black uppercase tracking-widest text-sm shadow-[0_5px_20px_rgba(245,184,0,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
             Avançar <i class="fas fa-arrow-right"></i>
         </button>
     </div>
@@ -336,26 +274,16 @@
         
         <!-- CABEÇALHO COM SLIDES & SELO DE CONFIANÇA -->
         <div class="reveal relative w-full h-64 sm:h-[350px] overflow-hidden rounded-[2rem] mb-6 shadow-[0_15px_40px_rgba(0,0,0,0.6)] border border-white/10 group">
-            <div id="hero-slider" class="w-full h-full">
-                <div class="slide active">
-                    <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Ambiente Barbearia">
-                </div>
-                <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Equipamentos Barbearia">
-                </div>
-                <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Corte na régua">
-                </div>
+            <div id="hero-slider-container" class="w-full h-full">
+                <!-- Preenchido via JS (Banners) -->
             </div>
             
-            <!-- Overlay Escuro -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-20">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-20 pointer-events-none">
                 <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <h1 class="text-3xl font-black text-white mb-2 uppercase tracking-wider drop-shadow-lg">Xandão Barber</h1>
                     
-                    <!-- Selo "+5k Clientes Satisfeitos" Estilo Print -->
                     <div class="flex flex-col items-start gap-1.5 mt-2 animate-fade-in-up delay-300">
-                        <div class="flex -space-x-3 drop-shadow-lg">
+                        <div class="flex -space-x-3 drop-shadow-lg" id="selo-clientes-fotos">
                             <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" alt="Cliente 1">
                             <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=150&auto=format&fit=crop" alt="Cliente 2">
                             <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&auto=format&fit=crop" alt="Cliente 3">
@@ -382,7 +310,6 @@
                 <span class="flex items-center gap-2"><i class="fas fa-snowflake text-dark"></i> EXPERIÊNCIA PREMIUM CLIMATIZADA</span>
                 <span class="flex items-center gap-2"><i class="fas fa-cut text-dark"></i> MESTRES DA TESOURA E NAVALHA</span>
                 <span class="flex items-center gap-2"><i class="fas fa-gamepad text-dark"></i> ESPERA VIP COM PLAYSTATION E SINUCA</span>
-                <span class="flex items-center gap-2"><i class="fas fa-gem text-dark"></i> QUALIDADE E ATENÇÃO AOS DETALHES</span>
             </div>
             <div class="marquee-content" aria-hidden="true">
                 <span class="flex items-center gap-2"><i class="fas fa-fire text-dark"></i> CORTE DE ALTA PERFORMANCE</span>
@@ -390,17 +317,14 @@
                 <span class="flex items-center gap-2"><i class="fas fa-snowflake text-dark"></i> EXPERIÊNCIA PREMIUM CLIMATIZADA</span>
                 <span class="flex items-center gap-2"><i class="fas fa-cut text-dark"></i> MESTRES DA TESOURA E NAVALHA</span>
                 <span class="flex items-center gap-2"><i class="fas fa-gamepad text-dark"></i> ESPERA VIP COM PLAYSTATION E SINUCA</span>
-                <span class="flex items-center gap-2"><i class="fas fa-gem text-dark"></i> QUALIDADE E ATENÇÃO AOS DETALHES</span>
             </div>
         </div>
 
-        <!-- LISTA DE SERVIÇOS -->
-        <div id="services-container" class="space-y-5 mb-10" role="list">
-            <!-- Gerado via JavaScript -->
-        </div>
+        <!-- LISTA DE SERVIÇOS E PRODUTOS (DINÂMICO) -->
+        <div id="services-container" class="space-y-5 mb-10" role="list"></div>
 
-        <!-- SEÇÃO DE AGENDAMENTO (POSICIONADA ESTRATEGICAMENTE APÓS OS SERVIÇOS) -->
-        <section id="agendamento-section" class="reveal glass-card p-6 sm:p-8 mb-16 scroll-mt-24 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+        <!-- SEÇÃO DE AGENDAMENTO -->
+        <section id="agendamento-section" class="reveal glass-card p-6 sm:p-8 mb-16 scroll-mt-24 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all duration-500">
             <!-- Glow Effect no form -->
             <div class="absolute -top-32 -right-32 w-64 h-64 bg-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
 
@@ -408,10 +332,9 @@
                 <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Detalhes do Agendamento</h3>
             </div>
             
-            <form id="booking-form" class="space-y-10 relative z-10">
+            <form id="booking-form" class="space-y-8 relative z-10">
                 
-                <!-- 1. Profissional -->
-                <fieldset class="bg-black/30 p-5 rounded-2xl border border-white/5">
+                <fieldset id="fieldset-profissional" class="bg-black/30 p-5 rounded-2xl border border-white/5 transition-all duration-300">
                     <legend class="text-xs text-gold font-bold uppercase tracking-widest mb-4 block text-center w-full px-2"><i class="fas fa-cut mr-2"></i>1. Escolha o Profissional</legend>
                     <div class="flex gap-6 justify-center">
                         <label class="cursor-pointer group flex flex-col items-center relative">
@@ -433,64 +356,82 @@
                     </div>
                 </fieldset>
 
-                <!-- 2. Data -->
-                <div>
-                    <label for="booking-date" class="text-xs text-gold font-bold uppercase tracking-widest mb-3 block"><i class="fas fa-calendar-day mr-2"></i>2. Selecione a Data</label>
-                    <input type="date" id="booking-date" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm font-bold shadow-inner transition-colors cursor-pointer appearance-none" onchange="App.carregarHorarios()">
-                </div>
-
-                <!-- 3. Horários Disponíveis -->
-                <div class="bg-black/30 p-5 rounded-2xl border border-white/5">
-                    <div class="flex justify-between items-end mb-4 border-b border-white/10 pb-3">
-                        <label class="text-xs text-gold font-bold uppercase tracking-widest block"><i class="fas fa-clock mr-2"></i>3. Horários Livres</label>
-                        <span class="text-[9px] text-gold-light uppercase bg-gold/10 border border-gold/20 px-2 py-1 rounded-md font-bold">Intervalo: 25 min</span>
-                    </div>
+                <!-- 2 e 3. CALENDÁRIO E HORÁRIOS (Split View Estilo App) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-start">
                     
-                    <div id="slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-                        <div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">
-                            Selecione uma data para ver os horários.
+                    <!-- Coluna 1: Calendário Customizado -->
+                    <div id="fieldset-data" class="bg-black/30 p-5 rounded-2xl border border-white/5 transition-all duration-300 h-full flex flex-col">
+                        <label class="text-xs text-gold font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fas fa-calendar-day"></i> 2. Selecione a Data
+                        </label>
+                        
+                        <div class="bg-black/50 rounded-2xl p-5 border border-white/10 shadow-inner flex-1">
+                            <div class="flex justify-between items-center mb-6 px-2">
+                                <button type="button" onclick="App.mudarMes(-1)" class="text-gray-400 hover:text-gold w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fas fa-chevron-left"></i></button>
+                                <span id="mes-ano-display" class="text-white font-black uppercase tracking-widest text-sm"></span>
+                                <button type="button" onclick="App.mudarMes(1)" class="text-gray-400 hover:text-gold w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-[10px] text-gray-500 mb-3 font-black uppercase tracking-wider">
+                                <div class="text-red-900/80">Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+                            </div>
+                            <div id="calendar-dias" class="grid grid-cols-7 gap-y-3 gap-x-1 text-center"></div>
                         </div>
+                        <input type="hidden" id="booking-date">
+                        <p id="date-text-display" class="text-gray-400 text-xs mt-3 ml-1 font-medium capitalize"></p>
                     </div>
-                    <!-- Spinner Loading -->
-                    <div id="slots-loader" class="hidden justify-center py-8 bg-black/50 rounded-xl border border-dashed border-white/10">
-                        <div class="loader"></div>
+
+                    <!-- Coluna 2: Horários Dinâmicos (Como no Print) -->
+                    <div class="bg-black/30 p-5 rounded-2xl border border-white/5 h-full flex flex-col">
+                        
+                        <!-- Cabeçalho Dinâmico de Serviços (Visível após escolher data) -->
+                        <div id="slots-header" class="hidden justify-between items-start mb-4 pb-4 border-b border-white/5 animate-fade-in-up">
+                            <!-- Preenchido via JS -->
+                        </div>
+
+                        <div id="slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-2 content-start flex-1">
+                            <div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">
+                                Selecione uma data no calendário ao lado.
+                            </div>
+                        </div>
+                        
+                        <div id="slots-loader" class="hidden justify-center py-8 bg-black/50 rounded-xl border border-dashed border-white/10 flex-1">
+                            <div class="loader mt-4"></div>
+                        </div>
+
+                        <!-- Botão Encontrar Mais Horários -->
+                        <button type="button" id="btn-mais-horarios" class="hidden mt-5 w-full py-3 rounded-full border border-gold/50 text-gold text-xs font-bold hover:bg-gold hover:text-dark transition-colors items-center justify-center gap-2">
+                            Encontrar mais horários <i class="fas fa-search"></i>
+                        </button>
                     </div>
                 </div>
 
-                <!-- 4. Seus Dados (Com memória LocalStorage) -->
-                <div class="bg-black/30 p-5 rounded-2xl border border-white/5 space-y-4">
+                <!-- 4. Seus Dados (Com memória LocalStorage e Autocomplete) -->
+                <div id="fieldset-dados" class="bg-black/30 p-5 rounded-2xl border border-white/5 space-y-4 transition-all duration-300">
                     <label class="text-xs text-gold font-bold uppercase tracking-widest block mb-1"><i class="fas fa-user mr-2"></i>4. Seus Dados</label>
-                    
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-id-card text-gray-500"></i>
-                        </div>
-                        <input type="text" id="client-name" placeholder="Seu Nome Completo" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><i class="fas fa-id-card text-gray-500"></i></div>
+                        <input type="text" id="client-name" autocomplete="name" placeholder="Seu Primeiro Nome" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
                     </div>
-                    
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fab fa-whatsapp text-gray-500"></i>
-                        </div>
-                        <input type="tel" id="client-phone" placeholder="WhatsApp Ex: (11) 99999-9999" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><i class="fab fa-whatsapp text-gray-500"></i></div>
+                        <input type="tel" id="client-phone" autocomplete="tel" placeholder="WhatsApp Ex: (11) 99999-9999" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
                     </div>
+                    <p class="text-[9px] text-gray-500 text-center"><i class="fas fa-lock"></i> Seus dados ficam salvos apenas no seu celular.</p>
                 </div>
 
-                <!-- Resumo & Botão Final -->
                 <div class="bg-[#050505] rounded-2xl p-6 border border-gold/30 shadow-[0_0_30px_rgba(245,184,0,0.1)] relative overflow-hidden group">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-gold-light via-gold to-gold-dark"></div>
                     <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><i class="fas fa-receipt"></i> Resumo do Pedido</h4>
-                    <div id="resumo-final" class="text-sm text-gray-400 mb-6 space-y-2">Nenhum serviço selecionado.</div>
+                    <div id="resumo-final" class="text-sm text-gray-400 mb-6 space-y-2">Nenhum item selecionado.</div>
                     
                     <button type="button" id="btn-confirmar" onclick="App.finalizarAgendamento()" class="btn-shine w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark font-black py-4 rounded-xl shadow-[0_5px_15px_rgba(245,184,0,0.3)] hover:shadow-[0_5px_25px_rgba(245,184,0,0.5)] active:scale-95 transition-all flex items-center justify-center gap-3 text-sm">
                         <i class="fas fa-calendar-check text-xl"></i> CONFIRMAR AGENDAMENTO
                     </button>
                 </div>
-
             </form>
         </section>
 
-        <!-- NOVA SEÇÃO: GALERIA INFINITA (NOSSA ARTE) -->
+        <!-- GALERIA INFINITA -->
         <section class="reveal mb-16">
             <div class="flex items-center justify-center gap-3 mb-6">
                 <div class="h-[1px] bg-gradient-to-r from-transparent to-gold w-12"></div>
@@ -519,7 +460,7 @@
             </div>
         </section>
 
-        <!-- DEPOIMENTOS COM FOTOS -->
+        <!-- DEPOIMENTOS CARROSSEL DINÂMICO -->
         <section class="reveal mb-16">
             <div class="flex items-center justify-center gap-3 mb-8">
                 <div class="h-[1px] bg-gradient-to-r from-transparent to-gold w-12"></div>
@@ -528,48 +469,7 @@
             </div>
             
             <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-4 px-4 cursor-grab active:cursor-grabbing" id="testimonials-scroll">
-                <!-- Card 1 -->
-                <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
-                    <div class="flex text-gold text-xs mb-4 gap-1">
-                        <i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>
-                    </div>
-                    <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"Melhor corte! O Alexandre é monstro na tesoura e no fade. Não troco por nada, ambiente sensacional."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="Marcos Silva">
-                        <div>
-                            <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">Marcos Silva <i class="fas fa-check-circle text-blue-500 text-[10px]" title="Cliente Verificado"></i></span>
-                            <span class="text-gray-500 text-[10px] uppercase">Cliente Fiel</span>
-                        </div>
-                    </div>
-                </article>
-                <!-- Card 2 -->
-                <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
-                    <div class="flex text-gold text-xs mb-4 gap-1">
-                        <i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>
-                    </div>
-                    <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"Ambiente top, agendamento super rápido pelo site. O Cleber mandou muito bem no meu degradê."</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="Rafael Gomes">
-                        <div>
-                            <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">Rafael Gomes <i class="fas fa-check-circle text-blue-500 text-[10px]"></i></span>
-                            <span class="text-gray-500 text-[10px] uppercase">Agendou pelo App</span>
-                        </div>
-                    </div>
-                </article>
-                <!-- Card 3 -->
-                <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
-                    <div class="flex text-gold text-xs mb-4 gap-1">
-                        <i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i><i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>
-                    </div>
-                    <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"A barboterapia com vapor de ozônio é sensacional. Relaxamento total. Recomendo demais!"</p>
-                    <div class="flex items-center gap-4">
-                        <img src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?q=80&w=150&auto=format&fit=crop" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="Thiago Alves">
-                        <div>
-                            <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">Thiago Alves <i class="fas fa-check-circle text-blue-500 text-[10px]"></i></span>
-                            <span class="text-gray-500 text-[10px] uppercase">Barboterapia</span>
-                        </div>
-                    </div>
-                </article>
+                <!-- Preenchido via JS (Depoimentos DB) -->
             </div>
             <div class="text-center text-[10px] text-gray-500 mt-2 uppercase tracking-widest animate-pulse"><i class="fas fa-arrows-alt-h mr-1"></i> Deslize para explorar</div>
         </section>
@@ -583,34 +483,25 @@
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Card Pontualidade (Reforço Positivo) -->
                 <div class="glass-card p-4 flex items-center gap-4 bg-gradient-to-r from-green-900/30 to-transparent border-l-4 border-l-green-500 hover:-translate-y-1 transition-transform">
-                    <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center shrink-0 border border-green-500/50 text-green-400 text-xl">
-                        <i class="fas fa-trophy"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center shrink-0 border border-green-500/50 text-green-400 text-xl"><i class="fas fa-trophy"></i></div>
                     <div>
                         <h4 class="font-black text-white uppercase text-xs tracking-wider mb-1">Mestre da Pontualidade</h4>
                         <p class="text-[10px] text-gray-400 leading-tight"><strong>Lucas M.</strong> chegou cedo, pegou a cerveja gelada e relaxou antes do corte. Pontualidade é o novo luxo!</p>
                     </div>
                 </div>
                 
-                <!-- Card Vaga Relâmpago (FOMO + Incentivo à Fila VIP) -->
                 <div class="glass-card p-4 flex items-center gap-4 bg-gradient-to-r from-blue-900/30 to-transparent border-l-4 border-l-blue-500 hover:-translate-y-1 transition-transform">
-                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/50 text-blue-400 text-xl">
-                        <i class="fas fa-bolt animate-pulse"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/50 text-blue-400 text-xl"><i class="fas fa-bolt animate-pulse"></i></div>
                     <div>
                         <h4 class="font-black text-white uppercase text-xs tracking-wider mb-1">Vaga Relâmpago</h4>
                         <p class="text-[10px] text-gray-400 leading-tight">Houve um imprevisto, mas <strong>João V.</strong> estava na <em>Fila VIP</em> e fisgou o horário de última hora!</p>
                     </div>
                 </div>
                 
-                <!-- Card IA / Gestão (Venda da Funcionalidade) -->
                 <div class="glass-card p-5 flex items-center gap-4 bg-gradient-to-r from-gold-dark/20 to-transparent border-l-4 border-l-gold sm:col-span-2 relative overflow-hidden group hover:-translate-y-1 transition-transform">
                     <div class="absolute right-0 top-0 w-32 h-32 bg-gold/5 rounded-full blur-[40px] group-hover:bg-gold/10 transition-colors"></div>
-                    <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 text-gold text-xl">
-                        <i class="fas fa-satellite-dish"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 text-gold text-xl"><i class="fas fa-satellite-dish"></i></div>
                     <div class="relative z-10">
                         <h4 class="font-black text-white uppercase text-sm tracking-wider mb-1 flex items-center gap-2">Radar de Vagas Ativado <span class="bg-gold text-dark text-[8px] px-2 py-0.5 rounded-full font-black">IA</span></h4>
                         <p class="text-xs text-gray-300 leading-relaxed">Agenda fechada? Não desanime. Ative o aviso no horário desejado. Nosso sistema monitora a agenda em tempo real e avisa você no mesmo segundo se alguém cancelar. A cadeira nunca esfria!</p>
@@ -628,12 +519,10 @@
             </div>
             
             <div class="glass-card p-4 bg-[#111] overflow-hidden group">
-                <!-- Imagem representativa da barbearia -->
                 <div class="rounded-2xl overflow-hidden h-56 mb-6 relative border border-white/10">
                     <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" alt="Fachada Xandão Barber Shop">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                     
-                    <!-- Badge Aberto Agora (Dinâmico via JS) -->
                     <div id="status-loja" class="absolute top-4 right-4 bg-gray-600/90 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 backdrop-blur-md border border-gray-400/50 transition-colors duration-500">
                         <div id="status-loja-dot" class="w-1.5 h-1.5 bg-white rounded-full opacity-50"></div>
                         <span id="status-loja-text">Verificando...</span>
@@ -645,7 +534,6 @@
                     </div>
                 </div>
                 
-                <!-- Informações e Botão -->
                 <div class="flex flex-col gap-6 px-2">
                     <div class="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
                         <div class="mt-1 w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 shadow-inner group-hover:bg-gold/20 transition-colors">
@@ -660,11 +548,8 @@
                             </p>
                         </div>
                     </div>
-                    
-                    <!-- Botão Como Chegar Lá -->
                     <a href="https://maps.google.com/?q=Barbearia" target="_blank" rel="noopener noreferrer" class="btn-shine w-full bg-[#1a1a1a] border border-gold text-gold hover:bg-gold hover:text-dark font-black py-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_0_15px_rgba(245,184,0,0.1)] hover:shadow-[0_0_25px_rgba(245,184,0,0.4)]">
-                        Como chegar lá 
-                        <i class="fas fa-location-arrow text-lg"></i>
+                        Como chegar lá <i class="fas fa-location-arrow text-lg"></i>
                     </a>
                 </div>
             </div>
@@ -674,9 +559,7 @@
         <section class="reveal mb-8">
             <div class="bg-gradient-to-br from-[#405de6] via-[#fd1d1d] to-[#ffdc80] p-[2px] rounded-[2.5rem] shadow-2xl hover:scale-[1.03] transition-transform duration-500 cursor-pointer" onclick="window.open('https://instagram.com', '_blank')">
                 <div class="bg-[#0a0a0a] rounded-[2.4rem] p-10 text-center flex flex-col items-center relative overflow-hidden">
-                    <!-- Brilho interno -->
                     <div class="absolute -top-20 -right-20 w-40 h-40 bg-[#fd1d1d]/20 blur-[50px]"></div>
-                    
                     <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-[#ffdc80] via-[#fd1d1d] to-[#405de6] flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(253,29,29,0.5)]">
                         <i class="fab fa-instagram text-4xl text-white drop-shadow-md"></i>
                     </div>
@@ -691,12 +574,115 @@
 
     </main>
 
-    <!-- Footer -->
+    <!-- Footer com o Acesso Restrito Oculto -->
     <footer class="bg-[#030303] pt-12 pb-36 sm:pb-24 text-center border-t border-white/5 relative z-20">
         <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Logo Xandão Barber Shop" class="h-14 object-contain mx-auto mb-6 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
         <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">&copy; <span id="current-year"></span> Xandão Barber Shop. Todos os direitos reservados.</p>
         <p class="text-gray-800 text-[9px] mt-2">Tecnologia por Inovamos.</p>
+        <button onclick="Admin.abrirPainel()" class="mt-8 text-[10px] bg-white/5 px-4 py-2 rounded-full text-gray-500 hover:text-gold hover:bg-gold/10 uppercase tracking-widest transition-all font-bold"><i class="fas fa-lock mr-1"></i> Acesso Restrito</button>
     </footer>
+
+    <!-- PAINEL ADMIN AVANÇADO (ÁREA DO BARBEIRO) -->
+    <div id="admin-modal" class="fixed inset-0 z-[99999] bg-[#0a0a0a] hidden flex-col transition-transform duration-500 transform translate-y-full overflow-hidden">
+        
+        <div class="bg-[#050505] border-b border-gold/20 p-4 flex justify-between items-center z-20 shadow-lg shrink-0">
+            <h2 class="text-gold font-black uppercase tracking-widest flex items-center gap-2">
+                <i class="fas fa-shield-alt text-xl"></i> 
+                <div>Gestão <span class="text-white">Pro</span><div class="text-[8px] text-gray-500">Acesso Restrito</div></div>
+            </h2>
+            <button onclick="Admin.fecharPainel()" class="text-white bg-white/10 w-8 h-8 rounded-full hover:bg-red-500/80 transition-colors"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="flex justify-between bg-[#111] border-b border-white/5 shrink-0 overflow-x-auto no-scrollbar px-2">
+            <button onclick="Admin.switchTab('resumo')" id="tab-resumo" class="admin-tab active flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-chart-line mr-1"></i> Resumo</button>
+            <button onclick="Admin.switchTab('agenda')" id="tab-agenda" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-calendar-day mr-1"></i> Agenda</button>
+            <button onclick="Admin.switchTab('catalogo')" id="tab-catalogo" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-box-open mr-1"></i> Catálogo</button>
+            <button onclick="Admin.switchTab('avaliacoes')" id="tab-avaliacoes" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-star mr-1"></i> Avaliações</button>
+            <button onclick="Admin.switchTab('banners')" id="tab-banners" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-image mr-1"></i> Banners</button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 pb-20 relative">
+            
+            <!-- TAB: RESUMO -->
+            <div id="content-resumo" class="space-y-4 animate-fade-in-up">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-gradient-to-br from-green-900/40 to-black border border-green-500/30 p-4 rounded-2xl relative overflow-hidden">
+                        <i class="fas fa-dollar-sign absolute -right-2 -bottom-4 text-6xl text-green-500/10"></i>
+                        <h3 class="text-gray-400 text-[10px] uppercase font-bold tracking-widest mb-1">Ganhos da Sessão</h3>
+                        <div class="text-2xl font-black text-green-400 drop-shadow-md" id="admin-ganhos-dia">R$ 0,00</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gold-dark/40 to-black border border-gold/30 p-4 rounded-2xl relative overflow-hidden">
+                        <i class="fas fa-cut absolute -right-2 -bottom-2 text-6xl text-gold/10"></i>
+                        <h3 class="text-gray-400 text-[10px] uppercase font-bold tracking-widest mb-1">Cortes Feitos</h3>
+                        <div class="text-2xl font-black text-gold drop-shadow-md" id="admin-cortes-dia">0</div>
+                    </div>
+                </div>
+                <div class="bg-[#111] rounded-2xl border border-white/5 p-5 mt-4">
+                    <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4 border-b border-white/10 pb-2"><i class="fas fa-robot mr-2 text-gold"></i> Dica do Sistema</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Olá! Lembre-se de usar a aba <strong>"Agenda"</strong> para enviar mensagens automáticas de confirmação no WhatsApp para seus clientes com apenas 1 clique!</p>
+                </div>
+            </div>
+
+            <!-- TAB: AGENDA (Gestão Completa) -->
+            <div id="content-agenda" class="hidden space-y-4 animate-fade-in-up">
+                <div class="flex justify-between items-center bg-[#111] p-3 rounded-xl border border-white/5">
+                    <span class="text-xs text-gray-400 font-bold uppercase"><i class="fas fa-filter mr-1"></i> Filtro: Recentes</span>
+                    <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded font-bold border border-green-500/30" id="admin-total-agendas">0 Clientes</span>
+                </div>
+                <div id="admin-agenda-list" class="space-y-3"></div>
+            </div>
+
+            <!-- TAB: CATÁLOGO -->
+            <div id="content-catalogo" class="hidden space-y-6 animate-fade-in-up">
+                <div class="bg-gold/10 border border-gold/30 rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-gold font-black text-sm uppercase">Gerir Catálogo</h3>
+                        <p class="text-[10px] text-gray-400">Adicione novos cortes ou produtos de upsell.</p>
+                    </div>
+                    <button onclick="Admin.abrirEditorCatalogo()" class="bg-gold text-dark font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
+                </div>
+                <div id="admin-catalogo-list" class="space-y-4 pb-10"></div>
+            </div>
+
+            <!-- TAB: AVALIAÇÕES (DEPOIMENTOS) -->
+            <div id="content-avaliacoes" class="hidden space-y-6 animate-fade-in-up">
+                <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-blue-400 font-black text-sm uppercase">Depoimentos</h3>
+                        <p class="text-[10px] text-gray-400">Gerencie a prova social da sua barbearia.</p>
+                    </div>
+                    <button onclick="Admin.abrirEditorDepoimento()" class="bg-blue-500 text-white font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
+                </div>
+                <div id="admin-depoimentos-list" class="space-y-3 pb-10"></div>
+            </div>
+
+            <!-- TAB: BANNERS -->
+            <div id="content-banners" class="hidden space-y-6 animate-fade-in-up">
+                <div class="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-purple-400 font-black text-sm uppercase">Banners (Topo)</h3>
+                        <p class="text-[10px] text-gray-400">Adicione imagens da sua barbearia.</p>
+                    </div>
+                    <button onclick="Admin.abrirEditorBanner()" class="bg-purple-500 text-white font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
+                </div>
+                <div id="admin-banners-list" class="space-y-3 pb-10 grid grid-cols-2 gap-3"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAIS DO ADMIN (Editor Dinâmico) -->
+    <div id="editor-modal" class="fixed inset-0 z-[999999] bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-[#111] border border-gold/30 rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
+            <div class="bg-gradient-to-r from-gold-dark to-gold p-4 flex justify-between items-center shrink-0">
+                <h3 class="font-black text-dark uppercase tracking-widest text-sm" id="editor-titulo"><i class="fas fa-edit mr-1"></i> Editor</h3>
+                <button onclick="Admin.fecharEditorGeral()" class="text-dark bg-white/20 w-7 h-7 rounded-full hover:bg-white/40"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-5 space-y-4 overflow-y-auto no-scrollbar flex-1" id="editor-dynamic-body">
+                <!-- Preenchido via JS -->
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Fila de Espera -->
     <div id="modal-fila" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm hidden items-center justify-center px-4 opacity-0 transition-opacity" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -738,101 +724,69 @@
             carrinho: [],
             horaSelecionada: null,
             slotNaFila: null,
-            meusAgendamentos: [], // Guarda o histórico da sessão atual
-            agendasCache: {}, // Garante que a agenda simulada não mude durante a sessão
+            meusAgendamentos: [], // Histórico da sessão atual
+            agendamentosGlobais: [], 
+            agendasCache: {}, 
+            nomesPublicos: ["Matheus", "João", "Pedro", "Felipe", "Carlos", "Rafael", "Thiago", "Victor", "Lucas", "Gabriel"],
+            
+            // Estado do Calendário Customizado
+            dataAtual: new Date(),
+            mesExibido: new Date().getMonth(),
+            anoExibido: new Date().getFullYear(),
+            dataSelecionada: null,
+            dataMaxima: null,
 
-            // Banco de Dados
-            servicosDB: [
-                {
-                    categoria: "Barba",
-                    icon: "fa-cut",
-                    itens: [
-                        { id: "b1", nome: "Barba com Vapor de Ozônio", desc: "Limpeza profunda, hidratação e combate bactérias.", tempo: "25 min", preco: 20.00 },
-                        { id: "b2", nome: "Barba com Vapor de Ozônio e Pezinho", desc: "Barba completa + alinhamento de acabamento.", tempo: "30 min", preco: 25.00 },
-                        { id: "b3", nome: "Barba Simples", desc: "Tirar barba ou alinhar!", tempo: "20 min", preco: 15.00 },
-                        { id: "b4", nome: "Barba Simples e Pezinho", desc: "Fazer a barba e alinhar acabamento.", tempo: "30 min", preco: 20.00 }
-                    ]
-                },
-                {
-                    categoria: "Cabelo",
-                    icon: "fa-user",
-                    itens: [
-                        { id: "c1", nome: "Degradê", desc: "Corte Degradê / Fade na régua", tempo: "45 min", preco: 30.00 },
-                        { id: "c2", nome: "Degradê + Barba com Ozônio", desc: "Corte + Barba completa VIP.", tempo: "1 h", preco: 50.00 },
-                        { id: "c3", nome: "Degradê + Barba Simples", desc: "Corte degradê e alinhamento de barba.", tempo: "1 h", preco: 45.00 },
-                        { id: "c4", nome: "Raspar a Cabeça", desc: "Raspar na Zero ou Gillette!", tempo: "20 min", preco: 15.00 },
-                        { id: "c5", nome: "Social na Tesoura", desc: "Corte 100% na tesoura, acabamento perfeito.", tempo: "50 min", preco: 30.00 }
-                    ]
-                },
-                {
-                    categoria: "Química",
-                    icon: "fa-flask",
-                    itens: [
-                        { id: "q1", nome: "Botox Orgânico (Topo)", desc: "Botox apenas na parte de cima.", tempo: "1 h", preco: 70.00 },
-                        { id: "q2", nome: "Selagem Orgânica", desc: "Selagem em cabelos maiores.", tempo: "1 h 20 min", preco: 90.00 }
-                    ]
-                },
-                {
-                    categoria: "Estética",
-                    icon: "fa-spa",
-                    itens: [
-                        { id: "s1", nome: "Sobrancelha na Navalha", desc: "Design completo de sobrancelha.", tempo: "10 min", preco: 10.00 },
-                        { id: "s2", nome: "Hidratação Capilar", desc: "Maciez, brilho e saúde aos fios.", tempo: "25 min", preco: 25.00 },
-                        { id: "s3", nome: "Máscara Black", desc: "Remoção de cravos e oleosidade.", tempo: "15 min", preco: 15.00 }
-                    ]
-                }
-            ],
+            // Banco de Dados Dinâmico
+            servicosDB: [], 
+            depoimentosDB: [],
+            bannersDB: [],
 
-            formatarMoeda(valor) {
-                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
-            },
-
+            formatarMoeda(valor) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor); },
             mascaraTelefone(input) {
                 let v = input.value.replace(/\D/g, ""); 
                 if (v.length > 11) v = v.slice(0, 11); 
-
-                if (v.length > 2) {
-                    v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
-                }
-                if (v.length > 9) {
-                    v = v.replace(/(\d{5})(\d)/, "$1-$2");
-                } else if (v.length > 6) {
-                    v = v.replace(/(\d{4})(\d)/, "$1-$2"); 
-                }
-                
+                if (v.length > 2) v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
+                if (v.length > 9) v = v.replace(/(\d{5})(\d)/, "$1-$2");
+                else if (v.length > 6) v = v.replace(/(\d{4})(\d)/, "$1-$2"); 
                 input.value = v;
             },
+            removerMascara(telefone) { return telefone.replace(/\D/g, ''); },
 
-            removerMascara(telefone) {
-                return telefone.replace(/\D/g, '');
-            },
-
+            // --- INICIALIZAÇÃO ---
             init() {
-                const inputDate = document.getElementById('booking-date');
-                const today = new Date();
-                const yyyy = today.getFullYear();
-                const mm = String(today.getMonth() + 1).padStart(2, '0');
-                const dd = String(today.getDate()).padStart(2, '0');
-                const dataAtual = `${yyyy}-${mm}-${dd}`;
-                
-                inputDate.min = dataAtual;
-                inputDate.value = dataAtual;
-                document.getElementById('current-year').innerText = yyyy;
+                this.carregarBancosDeDados();
 
-                // Restaura os dados do LocalStorage se existirem
+                // Configurações do Calendário
+                this.dataAtual = new Date();
+                this.mesExibido = this.dataAtual.getMonth();
+                this.anoExibido = this.dataAtual.getFullYear();
+                this.dataMaxima = new Date();
+                this.dataMaxima.setDate(this.dataAtual.getDate() + 30); // Limite de 30 dias
+                
+                this.renderizarCalendario();
+
+                document.getElementById('current-year').innerText = this.dataAtual.getFullYear();
+
+                // Restaura Memória do Celular
                 const savedName = localStorage.getItem('xandao_nome');
                 const savedPhone = localStorage.getItem('xandao_whatsapp');
                 if(savedName) document.getElementById('client-name').value = savedName;
-                if(savedPhone) document.getElementById('client-phone').value = savedPhone;
+                if(savedPhone) {
+                    document.getElementById('client-phone').value = savedPhone;
+                    this.mascaraTelefone(document.getElementById('client-phone'));
+                }
 
+                // Renderizações do site baseadas no DB Dinâmico
+                this.renderizarBanners();
                 this.renderizarServicos();
-                this.carregarHorarios(); 
+                this.renderizarDepoimentos();
+
                 this.iniciarSlider();
+                this.iniciarCarrosselDepoimentos();
                 this.iniciarNotificacoesFOMO();
                 this.iniciarScrollReveal();
                 this.atualizarStatusLoja();
 
-                // Mantem o badge atualizado em tempo real a cada minuto
                 setInterval(() => this.atualizarStatusLoja(), 60000);
 
                 window.addEventListener('load', () => {
@@ -844,23 +798,263 @@
                 });
             },
 
-            // --- Status da Loja Dinâmico (Aberto Agora / Fechado) ---
+            // --- LÓGICA DO CALENDÁRIO CUSTOMIZADO PREMIUM ---
+            mudarMes(step) {
+                this.mesExibido += step;
+                if (this.mesExibido < 0) {
+                    this.mesExibido = 11;
+                    this.anoExibido--;
+                } else if (this.mesExibido > 11) {
+                    this.mesExibido = 0;
+                    this.anoExibido++;
+                }
+                this.renderizarCalendario();
+            },
+
+            renderizarCalendario() {
+                const container = document.getElementById('calendar-dias');
+                const display = document.getElementById('mes-ano-display');
+                if(!container || !display) return;
+                
+                const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+                display.innerText = `${meses[this.mesExibido]} ${this.anoExibido}`;
+
+                container.innerHTML = '';
+
+                const primeiroDia = new Date(this.anoExibido, this.mesExibido, 1).getDay();
+                const diasNoMes = new Date(this.anoExibido, this.mesExibido + 1, 0).getDate();
+
+                for (let i = 0; i < primeiroDia; i++) {
+                    container.innerHTML += `<div></div>`;
+                }
+
+                const hojeApenasData = new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth(), this.dataAtual.getDate());
+                const maxApenasData = new Date(this.dataMaxima.getFullYear(), this.dataMaxima.getMonth(), this.dataMaxima.getDate());
+
+                for (let dia = 1; dia <= diasNoMes; dia++) {
+                    const dataObj = new Date(this.anoExibido, this.mesExibido, dia);
+                    const dataStr = `${this.anoExibido}-${String(this.mesExibido + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+                    
+                    const isDomingo = dataObj.getDay() === 0;
+                    const isPassado = dataObj < hojeApenasData;
+                    const isFuturoDistante = dataObj > maxApenasData;
+                    
+                    const isDesabilitado = isDomingo || isPassado || isFuturoDistante;
+                    const isSelecionado = this.dataSelecionada === dataStr;
+
+                    let classes = "w-8 h-8 sm:w-10 sm:h-10 mx-auto flex items-center justify-center rounded-full text-sm transition-all duration-300 ";
+                    
+                    if (isDesabilitado) {
+                        classes += "text-gray-700 opacity-30 cursor-not-allowed";
+                        if(isDomingo) classes += " line-through text-red-900/50";
+                    } else if (isSelecionado) {
+                        classes += "bg-gold text-dark font-black shadow-[0_0_15px_rgba(245,184,0,0.6)] scale-110";
+                    } else {
+                        classes += "text-gray-300 cursor-pointer border border-transparent hover:border-gold/50 hover:text-gold hover:bg-white/5";
+                    }
+
+                    const onClick = isDesabilitado ? "" : `onclick="App.selecionarData('${dataStr}')"`;
+
+                    container.innerHTML += `
+                        <div class="flex items-center justify-center">
+                            <button type="button" ${onClick} class="${classes}">${dia}</button>
+                        </div>
+                    `;
+                }
+            },
+
+            selecionarData(dataStr) {
+                this.dataSelecionada = dataStr;
+                document.getElementById('booking-date').value = dataStr;
+                this.renderizarCalendario(); 
+                this.carregarHorarios();
+                
+                // Move o scroll para focar nos horários quando seleciona data no mobile
+                if (window.innerWidth < 640) {
+                    setTimeout(() => {
+                        document.getElementById('label-horarios-prof').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 200);
+                }
+            },
+
+            // --- BANCOS DE DADOS DINÂMICOS (LOCAL STORAGE) ---
+            carregarBancosDeDados() {
+                const servSalvo = localStorage.getItem('xandao_db_servicos');
+                if (servSalvo) {
+                    this.servicosDB = JSON.parse(servSalvo);
+                } else {
+                    this.servicosDB = [
+                        {
+                            categoria: "Cortes", icon: "fa-cut",
+                            itens: [
+                                { id: "c1", nome: "Degradê na Régua", desc: "Corte Fade impecável com acabamento.", tempo: "45 min", preco: 35.00 },
+                                { id: "c2", nome: "Social Premium", desc: "Corte clássico 100% tesoura.", tempo: "50 min", preco: 40.00 },
+                                { id: "c3", nome: "Taper Fade", desc: "Degradê apenas nas têmporas e nuca.", tempo: "40 min", preco: 35.00 },
+                                { id: "c4", nome: "Corte Kids", desc: "Paciência e estilo para os pequenos.", tempo: "45 min", preco: 30.00 },
+                                { id: "c5", nome: "Nevou (Platinado)", desc: "Descoloração global profissional.", tempo: "2 h", preco: 120.00 }
+                            ]
+                        },
+                        {
+                            categoria: "Barba", icon: "fa-user",
+                            itens: [
+                                { id: "b1", nome: "Barboterapia Premium", desc: "Vapor de ozônio, toalha quente e massagem.", tempo: "35 min", preco: 30.00 },
+                                { id: "b2", nome: "Barba Simples", desc: "Alinhamento e máquina.", tempo: "20 min", preco: 20.00 }
+                            ]
+                        },
+                        {
+                            categoria: "Produtos", icon: "fa-shopping-bag",
+                            itens: [
+                                { id: "p1", nome: "Pomada Matte", desc: "Efeito seco com alta fixação.", tempo: "0 min", preco: 45.00, imagem: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=200&auto=format&fit=crop" },
+                                { id: "p2", nome: "Óleo de Barba", desc: "Hidratação intensa e brilho.", tempo: "0 min", preco: 35.00, imagem: "https://images.unsplash.com/photo-1624453966567-33182b82c615?q=80&w=200&auto=format&fit=crop" },
+                                { id: "p3", nome: "Tônico Minoxidil", desc: "Tratamento para falhas.", tempo: "0 min", preco: 89.90, imagem: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=200&auto=format&fit=crop" }
+                            ]
+                        }
+                    ];
+                    this.salvarBanco('xandao_db_servicos', this.servicosDB);
+                }
+
+                const depSalvo = localStorage.getItem('xandao_db_depoimentos');
+                if (depSalvo) {
+                    this.depoimentosDB = JSON.parse(depSalvo);
+                } else {
+                    this.depoimentosDB = [
+                        { id: "d1", nome: "Marcos Silva", texto: "Melhor corte! O Alexandre é monstro na tesoura e no fade. Não troco por nada, ambiente sensacional.", estrelas: 5, tag: "Cliente Fiel", imagem: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" },
+                        { id: "d2", nome: "Rafael Gomes", texto: "Ambiente top, agendamento super rápido pelo site. O Cleber mandou muito bem no meu degradê.", estrelas: 5, tag: "Agendou pelo App", imagem: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" },
+                        { id: "d3", nome: "Thiago Alves", texto: "A barboterapia com vapor de ozônio é sensacional. Relaxamento total. Recomendo demais!", estrelas: 5, tag: "Barboterapia", imagem: "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?q=80&w=150&auto=format&fit=crop" }
+                    ];
+                    this.salvarBanco('xandao_db_depoimentos', this.depoimentosDB);
+                }
+
+                const banSalvo = localStorage.getItem('xandao_db_banners');
+                if(banSalvo) {
+                    this.bannersDB = JSON.parse(banSalvo);
+                } else {
+                    this.bannersDB = [
+                        { id: "ban1", url: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop", alt: "Ambiente Barbearia" },
+                        { id: "ban2", url: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop", alt: "Equipamentos" },
+                        { id: "ban3", url: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop", alt: "Corte na régua" }
+                    ];
+                    this.salvarBanco('xandao_db_banners', this.bannersDB);
+                }
+            },
+
+            salvarBanco(key, data) {
+                localStorage.setItem(key, JSON.stringify(data));
+            },
+
+            // --- FUNÇÕES DE RENDERIZAÇÃO CLIENTE ---
+            renderizarBanners() {
+                const container = document.getElementById('hero-slider-container');
+                if(!container) return;
+                
+                let html = '';
+                this.bannersDB.forEach((banner, idx) => {
+                    html += `<div class="slide ${idx === 0 ? 'active' : ''}"><img src="${banner.url}" class="w-full h-full object-cover" alt="${banner.alt}"></div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            renderizarDepoimentos() {
+                const container = document.getElementById('testimonials-scroll');
+                if(!container) return;
+                
+                let html = '';
+                this.depoimentosDB.forEach(dep => {
+                    let starsHtml = '';
+                    for(let i=0; i<dep.estrelas; i++) starsHtml += `<i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>`;
+                    
+                    html += `
+                    <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
+                        <div class="flex text-gold text-xs mb-4 gap-1">${starsHtml}</div>
+                        <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"${dep.texto}"</p>
+                        <div class="flex items-center gap-4">
+                            ${dep.imagem ? `<img src="${dep.imagem}" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="${dep.nome}">` : `<div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center font-black text-gold border border-gold/50">${dep.nome.charAt(0)}</div>`}
+                            <div>
+                                <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">${dep.nome} <i class="fas fa-check-circle text-blue-500 text-[10px]"></i></span>
+                                <span class="text-gray-500 text-[10px] uppercase">${dep.tag}</span>
+                            </div>
+                        </div>
+                    </article>`;
+                });
+                container.innerHTML = html;
+            },
+
+            renderizarServicos() {
+                const container = document.getElementById('services-container');
+                let html = '';
+
+                this.servicosDB.forEach((cat, index) => {
+                    const isOpen = index === 0; 
+                    const contentId = `cat-content-${index}`;
+                    const isProduto = cat.categoria.toLowerCase() === 'produtos';
+                    const bgClass = isProduto ? 'bg-gradient-to-r from-purple-900/20 to-[#111]' : 'bg-[#111]/80';
+                    const borderClass = isProduto ? 'border-purple-500/30' : 'border-white/5';
+                    const iconColor = isProduto ? 'text-purple-400' : 'text-gold';
+                    const badge = isProduto ? '<span class="ml-2 bg-purple-500 text-white text-[8px] px-2 py-0.5 rounded-full font-black animate-pulse">NOVIDADE</span>' : '';
+
+                    html += `
+                    <div class="reveal glass-card overflow-hidden hover:bg-[#111] transition-colors border ${borderClass} ${bgClass}">
+                        <button type="button" class="w-full flex justify-between items-center p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${isOpen ? 'accordion-open border-b border-white/5' : ''}" 
+                                onclick="App.toggleAccordion(this)" 
+                                aria-expanded="${isOpen}" 
+                                aria-controls="${contentId}">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-black/40 flex items-center justify-center border border-white/10 shadow-inner">
+                                    <i class="fas ${cat.icon || 'fa-star'} ${iconColor} text-sm"></i>
+                                </div>
+                                <span class="font-black text-white uppercase tracking-wider text-sm flex items-center">${cat.categoria} ${badge}</span>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center accordion-icon-container border border-white/10 shadow-inner">
+                                <i class="fas fa-chevron-down text-gray-400 accordion-icon text-xs"></i>
+                            </div>
+                        </button>
+                        <div id="${contentId}" class="accordion-content bg-[#050505] ${isOpen ? 'open' : ''}">
+                            <div class="p-4 space-y-3">
+                    `;
+
+                    if(cat.itens.length === 0) html += `<div class="text-gray-500 text-xs text-center py-4 italic">Nenhum item nesta categoria.</div>`;
+
+                    cat.itens.forEach(item => {
+                        const itemParams = `'${item.id}', '${item.nome.replace(/'/g, "\\'")}', ${item.preco}`;
+                        const isSelecionado = this.carrinho.find(s => s.id === item.id) ? 'selected-service' : '';
+                        const circleColor = isSelecionado ? 'border-gold' : 'border-gray-600';
+                        
+                        html += `
+                            <div class="service-item flex items-center gap-4 p-4 rounded-xl bg-black/40 border border-white/5 hover:border-white/10 shadow-sm ${isSelecionado}" onclick="App.toggleService(${itemParams}, this)" role="checkbox" aria-checked="${isSelecionado ? 'true' : 'false'}" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') App.toggleService(${itemParams}, this)">
+                                <div class="shrink-0"><div class="radio-circle w-5 h-5 rounded-full border-2 ${circleColor} flex items-center justify-center"></div></div>
+                                ${item.imagem ? `<img src="${item.imagem}" class="w-12 h-12 rounded-lg object-cover border border-white/10 shadow" alt="${item.nome}">` : ''}
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-bold text-sm leading-tight truncate">${item.nome}</h4>
+                                    <p class="text-gray-500 text-[10px] mt-0.5 leading-snug truncate pr-2">${item.desc}</p>
+                                </div>
+                                <div class="text-right shrink-0 flex flex-col items-end gap-1">
+                                    <div class="text-gold text-sm font-black tracking-wide">${this.formatarMoeda(item.preco)}</div>
+                                    ${item.tempo && item.tempo !== "0 min" ? `<div class="text-[9px] font-bold text-gray-500 uppercase flex items-center gap-1"><i class="far fa-clock"></i> ${item.tempo}</div>` : `<div class="text-[9px] font-bold text-purple-400 uppercase flex items-center gap-1"><i class="fas fa-box"></i> Produto</div>`}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div></div></div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            // --- UTILITÁRIOS E UI ---
             atualizarStatusLoja() {
                 const agora = new Date();
                 const dia = agora.getDay(); 
                 const hora = agora.getHours();
                 const min = agora.getMinutes();
-                const tempoAtualEmMinutos = hora * 60 + min;
+                const tempoAtual = hora * 60 + min;
                 
-                // Horário de funcionamento: 07:30 às 18:25
-                const horarioAbertura = 7 * 60 + 30; 
-                const horarioFechamento = 18 * 60 + 25; 
+                const abertura = 7 * 60 + 30; 
+                const fechamento = 18 * 60 + 25; 
 
                 const badge = document.getElementById('status-loja');
                 const dot = document.getElementById('status-loja-dot');
                 const text = document.getElementById('status-loja-text');
 
-                if (dia !== 0 && tempoAtualEmMinutos >= horarioAbertura && tempoAtualEmMinutos <= horarioFechamento) {
+                if (dia !== 0 && tempoAtual >= abertura && tempoAtual <= fechamento) {
                     badge.className = "absolute top-4 right-4 bg-green-600/90 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.5)] animate-pulse flex items-center gap-1 backdrop-blur-md border border-green-400/50 transition-colors duration-500";
                     dot.className = "w-1.5 h-1.5 bg-white rounded-full";
                     text.innerText = "Aberto Agora";
@@ -871,38 +1065,40 @@
                 }
             },
 
-            // --- Scroll Reveal Animado ---
             iniciarScrollReveal() {
                 const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
                 const observer = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('active');
-                        }
-                    });
+                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
                 }, observerOptions);
-
-                document.querySelectorAll('.reveal').forEach((el) => {
-                    observer.observe(el);
-                });
+                document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
             },
 
             iniciarSlider() {
-                const slides = document.querySelectorAll('#hero-slider .slide');
-                let atual = 0;
-                if(slides.length === 0) return;
-
                 setInterval(() => {
+                    const slides = document.querySelectorAll('#hero-slider-container .slide');
+                    if(slides.length === 0) return;
+                    let atual = Array.from(slides).findIndex(s => s.classList.contains('active'));
                     slides[atual].classList.remove('active');
                     atual = (atual + 1) % slides.length;
                     slides[atual].classList.add('active');
                 }, 5000); 
             },
 
+            iniciarCarrosselDepoimentos() {
+                const container = document.getElementById('testimonials-scroll');
+                if(!container) return;
+                setInterval(() => {
+                    if(container.scrollWidth - container.clientWidth <= container.scrollLeft + 10) {
+                        container.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        container.scrollBy({ left: 320, behavior: 'smooth' });
+                    }
+                }, 4000);
+            },
+
             iniciarNotificacoesFOMO() {
                 const nomes = ["Lucas M.", "Mateus", "João Vitor", "Pedro H.", "Thiago", "Rafael", "Carlos E.", "Felipe"];
-                const servicosFake = ["Degradê na Régua", "Barboterapia", "Social Premium", "Platinado", "Degradê + Barba", "Sobrancelha"];
-                
+                const servicosFake = ["Degradê na Régua", "Pomada Matte", "Óleo de Barba", "Platinado", "Degradê + Barba"];
                 setTimeout(() => this.dispararFomo(nomes, servicosFake), 5000);
             },
 
@@ -911,74 +1107,19 @@
                 const servico = servicosFake[Math.floor(Math.random() * servicosFake.length)];
                 const tempo = Math.floor(Math.random() * 45) + 1; 
                 
-                document.getElementById('fomo-text').innerHTML = `<span class="font-bold text-gold">${nome}</span> agendou <br> <span class="font-bold text-white">${servico}</span> há ${tempo} min.`;
-                
+                document.getElementById('fomo-text').innerHTML = `<span class="font-bold text-gold">${nome}</span> reservou <br> <span class="font-bold text-white">${servico}</span> há ${tempo} min.`;
                 const fomo = document.getElementById('fomo-notification');
-                fomo.classList.remove('-translate-x-[150%]', 'opacity-0');
                 
-                setTimeout(() => {
-                    fomo.classList.add('-translate-x-[150%]', 'opacity-0');
-                }, 5000);
+                fomo.classList.remove('-translate-x-[150%]', 'opacity-0');
+                setTimeout(() => fomo.classList.add('-translate-x-[150%]', 'opacity-0'), 5000);
 
                 const proximoIntervalo = Math.floor(Math.random() * (25000 - 15000 + 1)) + 15000; 
                 setTimeout(() => this.dispararFomo(nomes, servicosFake), proximoIntervalo);
             },
 
-            renderizarServicos() {
-                const container = document.getElementById('services-container');
-                let html = '';
-
-                this.servicosDB.forEach((cat, index) => {
-                    const isOpen = index === 0; 
-                    const contentId = `cat-content-${index}`;
-                    
-                    html += `
-                    <div class="reveal glass-card overflow-hidden bg-[#111]/80 hover:bg-[#111] transition-colors border border-white/5">
-                        <button type="button" class="w-full flex justify-between items-center p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${isOpen ? 'accordion-open border-b border-white/5' : ''}" 
-                                onclick="App.toggleAccordion(this)" 
-                                aria-expanded="${isOpen}" 
-                                aria-controls="${contentId}">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20">
-                                    <i class="fas ${cat.icon} text-gold text-sm"></i>
-                                </div>
-                                <span class="font-black text-white uppercase tracking-wider text-sm">${cat.categoria}</span>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center accordion-icon-container border border-white/10 shadow-inner">
-                                <i class="fas fa-chevron-down text-gray-400 accordion-icon text-xs"></i>
-                            </div>
-                        </button>
-                        <div id="${contentId}" class="accordion-content bg-[#050505] ${isOpen ? 'open' : ''}">
-                            <div class="p-4 space-y-3">
-                    `;
-
-                    cat.itens.forEach(item => {
-                        const itemParams = `'${item.id}', '${item.nome.replace(/'/g, "\\'")}', ${item.preco}`;
-                        
-                        html += `
-                            <div class="service-item flex items-center gap-4 p-4 rounded-xl bg-black/40 border border-white/5 hover:border-white/10 shadow-sm" onclick="App.toggleService(${itemParams}, this)" role="checkbox" aria-checked="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') App.toggleService(${itemParams}, this)">
-                                <div class="shrink-0"><div class="radio-circle w-5 h-5 rounded-full border-2 border-gray-600 flex items-center justify-center"></div></div>
-                                <div class="flex-1 min-w-0">
-                                    <h4 class="text-white font-bold text-sm leading-tight truncate">${item.nome}</h4>
-                                    <p class="text-gray-500 text-[10px] mt-0.5 leading-snug truncate pr-2">${item.desc}</p>
-                                </div>
-                                <div class="text-right shrink-0 flex flex-col items-end gap-1">
-                                    <div class="text-gold text-sm font-black tracking-wide">${this.formatarMoeda(item.preco)}</div>
-                                    <div class="text-[9px] font-bold text-gray-500 uppercase flex items-center gap-1"><i class="far fa-clock"></i> ${item.tempo}</div>
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                    html += `</div></div></div>`;
-                });
-                container.innerHTML = html;
-            },
-
             toggleAccordion(btn) {
                 const content = btn.nextElementSibling;
                 const isOpen = content.classList.contains('open');
-                
                 if (!isOpen) {
                     content.classList.add('open');
                     btn.classList.add('accordion-open', 'border-b', 'border-white/5');
@@ -993,7 +1134,6 @@
             toggleService(id, nome, preco, el) {
                 const index = this.carrinho.findIndex(s => s.id === id);
                 const circle = el.querySelector('.radio-circle');
-                
                 if (index > -1) {
                     this.carrinho.splice(index, 1);
                     el.classList.remove('selected-service');
@@ -1014,15 +1154,12 @@
                 document.getElementById('cart-total').innerText = this.formatarMoeda(total);
                 
                 const cartUI = document.getElementById('smart-cart');
-                if (this.carrinho.length > 0) {
-                    cartUI.classList.remove('translate-y-full');
-                } else {
-                    cartUI.classList.add('translate-y-full');
-                }
+                if (this.carrinho.length > 0) cartUI.classList.remove('translate-y-full');
+                else cartUI.classList.add('translate-y-full');
 
                 const resumo = document.getElementById('resumo-final');
                 if (this.carrinho.length === 0) {
-                    resumo.innerHTML = 'Nenhum serviço selecionado.';
+                    resumo.innerHTML = 'Nenhum item selecionado.';
                 } else {
                     resumo.innerHTML = this.carrinho.map(i => `
                         <div class="flex justify-between text-xs font-bold text-white mb-2 bg-black/30 p-2 rounded border border-white/5">
@@ -1037,110 +1174,161 @@
                         </div>
                     `;
                 }
+
+                // Atualiza o mini-header dos horários se já estiver visível
+                this.atualizarHeaderHorarios();
             },
 
-            irParaAgendamento() {
+            avancarParaAgendamento() {
+                if (this.carrinho.length === 0) return this.showToast("Selecione pelo menos um corte ou produto antes de avançar!");
                 document.getElementById('agendamento-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                ['fieldset-profissional', 'fieldset-data'].forEach(id => {
+                    const el = document.getElementById(id);
+                    el.classList.add('focus-highlight');
+                    setTimeout(() => el.classList.remove('focus-highlight'), 2000);
+                });
             },
+            irParaAgendamento() { this.avancarParaAgendamento(); },
 
             showToast(msg, type = 'error') {
                 const toast = document.getElementById('toast');
                 const icon = toast.querySelector('i');
                 document.getElementById('toast-msg').innerText = msg;
-                
                 toast.className = `fixed top-5 left-1/2 transform -translate-x-1/2 z-[300] text-white font-bold px-6 py-4 rounded-full shadow-2xl transition-all duration-500 flex items-center gap-3 ${type === 'error' ? 'bg-red-600' : 'bg-[#25D366]'}`;
                 icon.className = type === 'error' ? "fas fa-exclamation-circle text-xl" : "fas fa-check-circle text-xl";
-                
                 toast.classList.remove('-translate-y-20', 'opacity-0');
-                
                 if(this.toastTimeout) clearTimeout(this.toastTimeout);
+                this.toastTimeout = setTimeout(() => toast.classList.add('-translate-y-20', 'opacity-0'), 4000);
+            },
+
+            atualizarTextoDaData() {
+                const dataVal = document.getElementById('booking-date').value;
+                const dateDisplay = document.getElementById('date-text-display');
+                if(!dataVal) return;
+                const dataObj = new Date(dataVal + 'T00:00:00');
+                const options = { weekday: 'long', day: 'numeric', month: 'long' };
+                let dataFormatada = dataObj.toLocaleDateString('pt-BR', options);
                 
-                this.toastTimeout = setTimeout(() => { 
-                    toast.classList.add('-translate-y-20', 'opacity-0'); 
-                }, 4000);
+                if (dataObj.getDay() === 0) {
+                    dateDisplay.innerHTML = `<span class="text-red-500"><i class="fas fa-store-alt-slash"></i> ${dataFormatada} (Fechado)</span>`;
+                } else {
+                    dateDisplay.innerHTML = `<i class="fas fa-calendar-check text-gold"></i> ${dataFormatada}`;
+                }
+            },
+
+            // --- HEADER DE HORÁRIOS ESTILO PRINT ---
+            atualizarHeaderHorarios() {
+                const slotsHeader = document.getElementById('slots-header');
+                const btnMaisHorarios = document.getElementById('btn-mais-horarios');
+                if(!this.dataSelecionada || !slotsHeader) return;
+
+                const barberRadio = document.querySelector('input[name="barber"]:checked');
+                const barbeiroName = barberRadio.value;
+                const barberImgSrc = barberRadio.nextElementSibling.querySelector('img').src;
+                
+                let servicosNome = "Vários serviços";
+                let servicosPreco = 0;
+                
+                if (this.carrinho.length === 1) {
+                    servicosNome = this.carrinho[0].nome;
+                    servicosPreco = this.carrinho[0].preco;
+                } else if (this.carrinho.length > 1) {
+                    servicosPreco = this.carrinho.reduce((sum, i) => sum + i.preco, 0);
+                } else {
+                    servicosNome = "Nenhum serviço selecionado";
+                }
+                
+                const timeText = this.carrinho.length > 0 ? `${this.carrinho.length} item(s) - ${this.formatarMoeda(servicosPreco)}` : "Selecione na lista acima";
+
+                slotsHeader.innerHTML = `
+                    <div class="flex-1 min-w-0 pr-3">
+                        <h4 class="text-white text-sm font-bold truncate">${servicosNome}</h4>
+                        <p class="text-gold text-[10px] mt-1">${timeText}</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-[#111] border border-white/10 rounded-full pl-1.5 pr-3 py-1 shrink-0 shadow-inner">
+                        <img src="${barberImgSrc}" class="w-6 h-6 rounded-full object-cover border border-white/10">
+                        <span class="text-white text-xs font-bold">${barbeiroName}</span>
+                    </div>
+                `;
+                slotsHeader.classList.remove('hidden');
+                slotsHeader.classList.add('flex');
+                if(btnMaisHorarios) btnMaisHorarios.classList.remove('hidden');
+                if(btnMaisHorarios) btnMaisHorarios.classList.add('flex');
             },
 
             async carregarHorarios() {
+                this.atualizarTextoDaData();
                 const dataInput = document.getElementById('booking-date');
                 const dataVal = dataInput.value;
                 const barbeiro = document.querySelector('input[name="barber"]:checked').value;
                 const container = document.getElementById('slots-container');
                 const loader = document.getElementById('slots-loader');
+                const header = document.getElementById('slots-header');
+                const btnMais = document.getElementById('btn-mais-horarios');
                 
                 if(!dataVal) return;
 
-                // Bloqueia domingos no Front-End
-                const dataObj = new Date(dataVal + 'T00:00:00');
-                if (dataObj.getDay() === 0) { 
-                    this.showToast("Não funcionamos aos domingos. Por favor, escolha outra data.", "error");
-                    dataInput.value = ""; 
+                if (new Date(dataVal + 'T00:00:00').getDay() === 0) { 
+                    this.showToast("Não funcionamos aos domingos. Escolha outra data.", "error");
+                    dataInput.value = ""; this.atualizarTextoDaData();
                     container.innerHTML = '<div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">Selecione uma data válida para ver os horários.</div>';
+                    if(header) header.classList.add('hidden');
+                    if(btnMais) btnMais.classList.add('hidden');
                     return;
                 }
 
+                this.atualizarHeaderHorarios();
+
                 this.horaSelecionada = null; 
                 container.innerHTML = '';
-                loader.classList.remove('hidden');
-                loader.classList.add('flex');
+                loader.classList.remove('hidden'); loader.classList.add('flex');
 
                 let slots = [];
-                // Simulando um mini-delay de inteligência
-                await new Promise(r => setTimeout(r, 600)); 
+                await new Promise(r => setTimeout(r, 400)); 
                 
-                // LÓGICA ESTRATÉGICA: Sempre carrega o grid local para garantir a experiência!
                 const cacheKey = `${dataVal}-${barbeiro}`;
-                
                 if (this.agendasCache[cacheKey]) {
                     slots = this.agendasCache[cacheKey];
                 } else {
-                    let start = 7 * 60 + 30; // 07:30
-                    let end = 18 * 60 + 25;  // 18:25
-                    
-                    const chanceLivre = barbeiro === "Alexandre" ? 0.4 : 0.7; 
+                    let start = 7 * 60 + 30; let end = 18 * 60 + 25;  
+                    const chanceLivre = barbeiro === "Alexandre" ? 0.4 : 0.6; 
                     
                     for(let i = start; i <= end; i += 25) {
                         let h = Math.floor(i/60).toString().padStart(2,'0');
                         let m = (i%60).toString().padStart(2,'0');
-                        let disponivel = Math.random() > (1 - chanceLivre); 
-                        slots.push({ hora: `${h}:${m}`, disponivel: disponivel });
+                        let isLivre = Math.random() > (1 - chanceLivre); 
+                        let publicName = isLivre ? "" : this.nomesPublicos[Math.floor(Math.random() * this.nomesPublicos.length)];
+                        slots.push({ hora: `${h}:${m}`, disponivel: isLivre, nomePublico: publicName });
                     }
                     this.agendasCache[cacheKey] = slots; 
                 }
 
-                loader.classList.add('hidden');
-                loader.classList.remove('flex');
+                loader.classList.add('hidden'); loader.classList.remove('flex');
 
                 slots.forEach(slot => {
-                    // SE ELE ESTIVER NESSA SESSÃO, PINTA A FOTO
                     const meuAgendamento = this.meusAgendamentos.find(a => a.data === dataVal && a.barbeiro === barbeiro && a.hora === slot.hora);
-                    
                     const div = document.createElement('div');
                     
                     if (meuAgendamento) {
-                        // O Gatilho de Pertencimento!
-                        const primeiroNome = meuAgendamento.nome.split(' ')[0];
+                        const primeiroNome = meuAgendamento.nome.split(' ')[0] || "Você";
                         const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(primeiroNome)}&background=25D366&color=fff&rounded=true&bold=true`;
-                        
-                        div.className = `time-slot text-center py-2.5 rounded-xl text-sm font-bold flex flex-col items-center justify-center gap-1 border-2 border-[#25D366] bg-[#25D366]/10 text-white relative overflow-hidden shadow-[0_0_15px_rgba(37,211,102,0.15)] transform scale-[1.02]`;
+                        div.className = `time-slot text-center py-1.5 rounded-lg text-sm font-bold flex flex-col items-center justify-center gap-0.5 border-2 border-[#25D366] bg-[#25D366]/10 text-white shadow-[0_0_15px_rgba(37,211,102,0.15)] transform scale-[1.02]`;
                         div.innerHTML = `
-                            <div class="flex items-center gap-2">
-                                <img src="${avatarUrl}" class="w-6 h-6 rounded-full border border-[#25D366] shadow-sm" alt="Sua foto">
-                                <span class="text-lg tracking-wide">${slot.hora}</span>
-                            </div>
-                            <span class="text-[9px] uppercase tracking-widest text-[#25D366]">Seu Horário</span>
+                            <div class="flex items-center gap-1.5"><img src="${avatarUrl}" class="w-4 h-4 rounded-full border border-[#25D366] shadow-sm" alt="Você"><span class="text-sm tracking-wide">${slot.hora}</span></div>
+                            <span class="text-[7px] uppercase tracking-widest text-[#25D366]">Seu Horário</span>
                         `;
                     } else if(slot.disponivel) {
-                        div.className = `time-slot text-center py-4 rounded-xl text-sm font-bold flex flex-col items-center justify-center gap-1 border border-white/5 available bg-[#111] text-gray-300`;
-                        div.innerHTML = `<span class="text-lg tracking-wide">${slot.hora}</span>`;
+                        div.className = `time-slot text-center py-2.5 rounded-lg text-sm font-bold flex items-center justify-center border border-white/20 available bg-[#111] text-gray-300 transition-all hover:border-gold hover:text-gold hover:bg-gold/5`;
+                        div.innerHTML = `${slot.hora}`;
                         div.onclick = () => this.selecionarHora(div, slot.hora);
                     } else {
-                        div.className = `time-slot text-center py-4 rounded-xl text-sm font-bold flex flex-col items-center justify-center gap-1 border border-white/5 booked bg-black/60 text-gray-600`;
+                        const avatarPublicoUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(slot.nomePublico)}&background=333&color=999&rounded=true&bold=true`;
+                        div.className = `time-slot booked-other text-center py-1.5 rounded-lg font-bold flex flex-col items-center justify-center border border-white/5 bg-black/40 relative opacity-70`;
                         div.innerHTML = `
-                            <span class="line-through opacity-50">${slot.hora}</span>
-                            <button type="button" onclick="App.abrirModalFila('${slot.hora}', event)" class="text-[9px] bg-white/5 text-gold hover:bg-gold hover:text-dark px-3 py-1.5 rounded-full mt-1 border border-gold/20 transition-all duration-300 flex items-center gap-1 z-10 relative shadow-inner uppercase tracking-wider font-black">
-                                <i class="fas fa-bell"></i> Avisar
-                            </button>
+                            <div class="flex items-center gap-1.5 opacity-60"><img src="${avatarPublicoUrl}" class="w-3 h-3 rounded-full grayscale" alt="Cliente"><span class="line-through text-xs">${slot.hora}</span></div>
+                            <span class="text-[7px] text-gray-500 uppercase leading-none mt-0.5">${slot.nomePublico}</span>
                         `;
+                        div.onclick = (e) => App.abrirModalFila(slot.hora, e);
                     }
                     container.appendChild(div);
                 });
@@ -1150,6 +1338,9 @@
                 document.querySelectorAll('.time-slot.available').forEach(s => s.classList.remove('selected'));
                 el.classList.add('selected');
                 this.horaSelecionada = hora;
+                document.getElementById('fieldset-dados').classList.add('focus-highlight');
+                setTimeout(() => document.getElementById('fieldset-dados').classList.remove('focus-highlight'), 2000);
+                document.getElementById('client-name').focus();
             },
 
             async finalizarAgendamento() {
@@ -1159,60 +1350,35 @@
                 const telLimpo = this.removerMascara(telInput);
                 const barbeiro = document.querySelector('input[name="barber"]:checked').value;
 
-                // Validação inteligente via JS (Sem quebrar a tela)
-                if (this.carrinho.length === 0) return this.showToast("Selecione pelo menos 1 serviço para agendar!");
-                if (!data) return this.showToast("Selecione a data que deseja agendar!");
-                if (!this.horaSelecionada) return this.showToast("Por favor, selecione um horário disponível na grade!");
-                if (!nome) return this.showToast("Qual é o seu nome? Preencha no campo de dados!");
-                if (telLimpo.length < 10) return this.showToast("Preencha seu WhatsApp corretamente com o DDD.");
+                if (this.carrinho.length === 0) return this.showToast("Selecione pelo menos 1 serviço!");
+                if (!data) return this.showToast("Selecione a data!");
+                if (!this.horaSelecionada) return this.showToast("Selecione um horário disponível!");
+                if (!nome) return this.showToast("Qual é o seu nome?");
+                if (telLimpo.length < 10) return this.showToast("Preencha seu WhatsApp com DDD.");
 
                 const total = this.carrinho.reduce((sum, item) => sum + item.preco, 0);
                 const servicosStr = this.carrinho.map(i => i.nome).join(', ');
 
-                const payload = {
-                    nome: nome,
-                    whatsapp: telLimpo,
-                    barbeiro: barbeiro,
-                    data: data,
-                    hora: this.horaSelecionada,
-                    servicos: servicosStr,
-                    total: total
-                };
+                const payload = { nome, whatsapp: telLimpo, barbeiro, data, hora: this.horaSelecionada, servicos: servicosStr, total };
 
-                // Salva no LocalStorage do usuário para as próximas vezes
                 localStorage.setItem('xandao_nome', nome);
                 localStorage.setItem('xandao_whatsapp', telInput);
 
                 const btn = document.getElementById('btn-confirmar');
-                btn.innerHTML = '<div class="loader border-dark border-t-white"></div>';
-                btn.disabled = true;
+                btn.innerHTML = '<div class="loader border-dark border-t-white"></div>'; btn.disabled = true;
 
-                // Ocupa o horário no banco virtual (para pintar a foto depois)
                 const cacheKey = `${data}-${barbeiro}`;
                 if (this.agendasCache[cacheKey]) {
                     const slotMarcado = this.agendasCache[cacheKey].find(s => s.hora === this.horaSelecionada);
                     if(slotMarcado) slotMarcado.disponivel = false;
                 }
 
-                // =========================================================================
-                // ENVIO SILENCIOSO PARA O GOOGLE SHEETS
-                // Não bloqueia a tela, ele envia em background perfeitamente!
-                // =========================================================================
                 if(this.GOOGLE_APP_URL && this.GOOGLE_APP_URL.includes("script.google.com")) {
                     const formData = new URLSearchParams();
                     Object.keys(payload).forEach(key => formData.append(key, payload[key]));
-
-                    fetch(this.GOOGLE_APP_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: formData.toString(),
-                        mode: 'no-cors' 
-                    }).catch(e => console.error("Envio em background:", e));
+                    fetch(this.GOOGLE_APP_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: formData.toString(), mode: 'no-cors' }).catch(e => console.log(e));
                 }
 
-                // DISPARA A EXPERIÊNCIA VISUAL INSTANTANEAMENTE
                 setTimeout(() => {
                     this.mostrarSucessoAnimado(payload);
                     btn.innerHTML = '<i class="fas fa-calendar-check text-xl"></i> CONFIRMAR AGENDAMENTO';
@@ -1221,129 +1387,467 @@
             },
 
             mostrarSucessoAnimado(dados) {
-                // Guarda esse agendamento para mostrar a fotinho no grid
-                this.meusAgendamentos.push({
-                    data: dados.data,
-                    hora: dados.hora,
-                    barbeiro: dados.barbeiro,
-                    nome: dados.nome
-                });
-
+                this.meusAgendamentos.push(dados);
                 const modal = document.getElementById('success-modal');
                 const card = document.getElementById('success-card');
                 
                 const primeiroNome = dados.nome.split(' ')[0];
-                const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(primeiroNome)}&background=25D366&color=111&rounded=true&bold=true&size=128`;
-                
-                document.getElementById('success-avatar').src = avatarUrl;
+                document.getElementById('success-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(primeiroNome)}&background=25D366&color=111&rounded=true&bold=true&size=128`;
                 document.getElementById('success-nome').innerText = primeiroNome;
                 
                 const dataParts = dados.data.split('-');
-                document.getElementById('success-data').innerText = `${dataParts[2]}/${dataParts[1]}/${dataParts[0]}`;
+                const dataFmt = `${dataParts[2]}/${dataParts[1]}/${dataParts[0]}`;
+                document.getElementById('success-data').innerText = dataFmt;
                 document.getElementById('success-hora').innerText = dados.hora;
                 document.getElementById('success-barbeiro').innerText = dados.barbeiro;
 
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                
-                void modal.offsetWidth; 
+                modal.classList.remove('hidden'); modal.classList.add('flex'); void modal.offsetWidth; 
+                modal.classList.remove('opacity-0'); card.classList.remove('scale-0');
 
-                modal.classList.remove('opacity-0');
-                card.classList.remove('scale-0');
-
-                // Retorna à plataforma limpando as marcações (depois de 4,5 segundos)
+                // Após 4.5s redireciona o cliente para o WhatsApp da barbearia confirmando
                 setTimeout(() => {
-                    modal.classList.add('opacity-0');
-                    card.classList.add('scale-0');
+                    modal.classList.add('opacity-0'); card.classList.add('scale-0');
                     
+                    const numZapShop = "558396340618"; // Número da Barbearia
+                    const servicosFormatados = dados.servicos;
+                    const msgClienteParaBarbeiro = `Olá ${dados.barbeiro}! Acabei de fazer um agendamento pelo App.\n\n📅 Data: ${dataFmt} às ${dados.hora}\n✂️ Serviços: ${servicosFormatados}\n\nAqui é o ${primeiroNome}, te vejo lá!`;
+                    
+                    window.location.href = `https://wa.me/${numZapShop}?text=${encodeURIComponent(msgClienteParaBarbeiro)}`;
+
                     setTimeout(() => {
-                        modal.classList.add('hidden');
-                        modal.classList.remove('flex');
-                        this.showToast('Tudo pronto! Te esperamos lá.', 'success');
+                        modal.classList.add('hidden'); modal.classList.remove('flex');
                         
-                        // Desmarca visualmente os serviços
                         document.querySelectorAll('.service-item.selected-service').forEach(el => {
-                            el.classList.remove('selected-service');
-                            el.setAttribute('aria-checked', 'false');
+                            el.classList.remove('selected-service'); el.setAttribute('aria-checked', 'false');
                             const circle = el.querySelector('.radio-circle');
                             if (circle) circle.classList.replace('border-gold', 'border-gray-600');
                         });
                         
-                        // Reseta a interface, mas preserva o nome pra ele ver no Grid!
-                        this.carrinho = [];
-                        this.atualizarCarrinho();
-                        this.horaSelecionada = null; 
-
-                        // Recarrega o grid. Como salvamos no "meusAgendamentos", a foto vai aparecer na hora marcada!
+                        this.carrinho = []; this.atualizarCarrinho(); this.horaSelecionada = null; 
                         this.carregarHorarios(); 
                     }, 500);
                 }, 4500); 
             },
 
-            abrirModalFila(hora, event) {
-                if(event) event.stopPropagation(); 
-                this.slotNaFila = hora;
-                document.getElementById('fila-hora-txt').innerText = hora;
-                
-                const modal = document.getElementById('modal-fila');
-                const content = document.getElementById('modal-fila-content');
-                
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    content.classList.remove('scale-95');
-                    document.getElementById('fila-phone').focus();
-                }, 10);
+            // ==========================================
+            // ADMIN PANEL LOGIC (O SISTEMA DO BARBEIRO)
+            // ==========================================
+            abrirAdminPanel() {
+                const painel = document.getElementById('admin-modal');
+                painel.classList.remove('hidden'); painel.classList.add('flex');
+                setTimeout(() => painel.classList.remove('translate-y-full'), 10);
+                this.switchTab('resumo');
             },
 
-            fecharModalFila() {
-                const modal = document.getElementById('modal-fila');
-                const content = document.getElementById('modal-fila-content');
+            fecharPainel() {
+                const painel = document.getElementById('admin-modal');
+                painel.classList.add('translate-y-full');
+                setTimeout(() => { painel.classList.add('hidden'); painel.classList.remove('flex'); }, 500);
+            },
+
+            switchTab(tabName) {
+                document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active', 'border-gold', 'text-white'));
+                document.getElementById(`tab-${tabName}`).classList.add('active', 'border-gold', 'text-white');
+                ['resumo', 'agenda', 'catalogo', 'avaliacoes', 'banners'].forEach(id => document.getElementById(`content-${id}`).classList.add('hidden'));
+                document.getElementById(`content-${tabName}`).classList.remove('hidden');
                 
+                if(tabName === 'resumo' || tabName === 'agenda') this.atualizarAdminDashboard();
+                if(tabName === 'catalogo') this.renderizarAdminCatalogo();
+                if(tabName === 'avaliacoes') this.renderizarAdminDepoimentos();
+                if(tabName === 'banners') this.renderizarAdminBanners();
+            },
+
+            atualizarAdminDashboard() {
+                let totalGanhos = 0; let totalProdutos = 0; let htmlAgendas = '';
+                if(this.meusAgendamentos.length === 0) {
+                    htmlAgendas = '<p class="text-gray-500 text-xs italic text-center py-6">Nenhum agendamento na sua sessão hoje.</p>';
+                } else {
+                    this.meusAgendamentos.forEach((a, index) => {
+                        totalGanhos += a.total;
+                        if(a.servicos.toLowerCase().includes('pomada') || a.servicos.toLowerCase().includes('óleo') || a.servicos.toLowerCase().includes('tônico')) totalProdutos++;
+                        
+                        const dataFormatada = a.data.split('-').reverse().join('/');
+                        
+                        // Mensagem que o Barbeiro envia para o Cliente (Confirmando)
+                        const msgDoBarbeiro = encodeURIComponent(`Fala ${a.nome.split(' ')[0]}, beleza? Aqui é do Xandão Barber Shop. Confirmando seu agendamento de ${a.servicos} para o dia ${dataFormatada} às ${a.hora} com o ${a.barbeiro}. Te esperamos lá! ✂️💈`);
+                        const linkWhatsAppCliente = `https://wa.me/55${a.whatsapp}?text=${msgDoBarbeiro}`;
+
+                        htmlAgendas += `
+                        <div class="flex flex-col bg-black/40 p-3 rounded-xl border border-white/5 hover:border-gold/30 transition-colors">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-3">
+                                    <div class="bg-gold text-dark font-black text-xs px-2 py-1 rounded">${a.hora}</div>
+                                    <div>
+                                        <a href="${linkWhatsAppCliente}" target="_blank" class="text-white text-xs font-bold hover:text-[#25D366] transition-colors flex items-center gap-1" title="Abrir WhatsApp do Cliente">
+                                            ${a.nome} <i class="fab fa-whatsapp"></i>
+                                        </a>
+                                        <div class="text-gray-500 text-[9px] truncate max-w-[150px] sm:max-w-[200px]">${a.servicos}</div>
+                                    </div>
+                                </div>
+                                <div class="text-gold text-xs font-black">${this.formatarMoeda(a.total)}</div>
+                            </div>
+                            <div class="flex justify-between items-center border-t border-white/5 pt-2 mt-1">
+                                <span class="text-[9px] text-gray-500"><i class="far fa-calendar"></i> ${dataFormatada} • ${a.barbeiro}</span>
+                                <div class="flex gap-2">
+                                    <button onclick="Admin.abrirEditorAgendamento(${index})" class="text-blue-400 hover:bg-blue-400/20 w-6 h-6 rounded bg-blue-400/10 flex items-center justify-center transition-colors" title="Reagendar/Editar"><i class="fas fa-pen text-[10px]"></i></button>
+                                    <a href="${linkWhatsAppCliente}" target="_blank" class="text-[#25D366] hover:bg-[#25D366]/20 w-6 h-6 rounded bg-[#25D366]/10 flex items-center justify-center transition-colors" title="Enviar Confirmação"><i class="fas fa-paper-plane text-[10px]"></i></a>
+                                    <button onclick="Admin.excluirAgendamento(${index})" class="text-red-400 hover:bg-red-400/20 w-6 h-6 rounded bg-red-400/10 flex items-center justify-center transition-colors" title="Cancelar Agendamento"><i class="fas fa-trash text-[10px]"></i></button>
+                                </div>
+                            </div>
+                        </div>`;
+                    });
+                }
+                const cortes = this.meusAgendamentos.length;
+                document.getElementById('admin-ganhos-dia').innerText = this.formatarMoeda(totalGanhos);
+                document.getElementById('admin-cortes-dia').innerText = cortes;
+                document.getElementById('admin-ticket-medio').innerText = this.formatarMoeda(cortes > 0 ? totalGanhos/cortes : 0);
+                document.getElementById('admin-produtos-vendidos').innerText = `${totalProdutos} Vendidos`;
+                document.getElementById('admin-agenda-list').innerHTML = htmlAgendas;
+                document.getElementById('admin-total-agendas').innerText = `${cortes} Agendamentos`;
+            },
+
+            // EDITA O AGENDAMENTO DENTRO DO ADMIN
+            abrirEditorAgendamento(idx) {
+                const ag = this.meusAgendamentos[idx];
+                document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-calendar-alt mr-1"></i> Reagendar Cliente';
+
+                document.getElementById('editor-dynamic-body').innerHTML = `
+                    <input type="hidden" id="ag-idx" value="${idx}">
+                    <input type="hidden" id="ag-old-data" value="${ag.data}">
+                    <input type="hidden" id="ag-old-hora" value="${ag.hora}">
+                    <input type="hidden" id="ag-old-barbeiro" value="${ag.barbeiro}">
+
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Nome do Cliente</label><input type="text" id="ag-nome" value="${ag.nome}" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">WhatsApp</label><input type="text" id="ag-whatsapp" value="${ag.whatsapp}" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Nova Data</label><input type="date" id="ag-data" value="${ag.data}" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                        <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Nova Hora</label><input type="time" id="ag-hora" value="${ag.hora}" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    </div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Barbeiro</label><select id="ag-barbeiro" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none">
+                        <option value="Alexandre" ${ag.barbeiro === 'Alexandre' ? 'selected' : ''}>Alexandre</option>
+                        <option value="Cleber" ${ag.barbeiro === 'Cleber' ? 'selected' : ''}>Cleber</option>
+                    </select></div>
+                    <button onclick="Admin.salvarAgendamento()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar Reagendamento</button>
+                `;
+                this.mostrarModalEditor();
+            },
+
+            salvarAgendamento() {
+                const idx = parseInt(document.getElementById('ag-idx').value);
+                const nome = document.getElementById('ag-nome').value;
+                const whatsapp = document.getElementById('ag-whatsapp').value;
+                const data = document.getElementById('ag-data').value;
+                const hora = document.getElementById('ag-hora').value;
+                const barbeiro = document.getElementById('ag-barbeiro').value;
+
+                const oldData = document.getElementById('ag-old-data').value;
+                const oldHora = document.getElementById('ag-old-hora').value;
+                const oldBarbeiro = document.getElementById('ag-old-barbeiro').value;
+
+                if(!nome || !data || !hora) return this.showToast("Preencha todos os campos!");
+
+                // Libera a vaga velha do cache (Para ela voltar a ficar disponível no grid público)
+                const oldCacheKey = `${oldData}-${oldBarbeiro}`;
+                if (this.agendasCache[oldCacheKey]) {
+                    const oldSlot = this.agendasCache[oldCacheKey].find(s => s.hora === oldHora);
+                    if (oldSlot) oldSlot.disponivel = true;
+                }
+
+                // Bloqueia a nova vaga no cache
+                const newCacheKey = `${data}-${barbeiro}`;
+                if (this.agendasCache[newCacheKey]) {
+                    const newSlot = this.agendasCache[newCacheKey].find(s => s.hora === hora);
+                    if (newSlot) newSlot.disponivel = false;
+                }
+
+                this.meusAgendamentos[idx].nome = nome;
+                this.meusAgendamentos[idx].whatsapp = whatsapp;
+                this.meusAgendamentos[idx].data = data;
+                this.meusAgendamentos[idx].hora = hora;
+                this.meusAgendamentos[idx].barbeiro = barbeiro;
+
+                this.atualizarAdminDashboard();
+                this.carregarHorarios(); // Recarrega o app público para mostrar as mudanças
+                this.fecharEditorGeral();
+                this.showToast("Agendamento atualizado!", "success");
+            },
+
+            excluirAgendamento(idx) {
+                if(confirm("Tem certeza que deseja cancelar e excluir este agendamento? A vaga ficará livre novamente.")) {
+                    const ag = this.meusAgendamentos[idx];
+                    
+                    // Libera a vaga no cache
+                    const cacheKey = `${ag.data}-${ag.barbeiro}`;
+                    if (this.agendasCache[cacheKey]) {
+                        const slot = this.agendasCache[cacheKey].find(s => s.hora === ag.hora);
+                        if (slot) slot.disponivel = true;
+                    }
+
+                    this.meusAgendamentos.splice(idx, 1);
+                    this.atualizarAdminDashboard();
+                    this.carregarHorarios();
+                    this.showToast("Agendamento cancelado com sucesso.", "success");
+                }
+            },
+
+            // --- GESTÃO DE CATÁLOGO ---
+            renderizarAdminCatalogo() {
+                const container = document.getElementById('admin-catalogo-list');
+                let html = '';
+                this.servicosDB.forEach((cat, catIndex) => {
+                    html += `<div class="bg-black/40 rounded-xl border border-white/10 p-4"><h4 class="text-white font-bold uppercase text-xs tracking-widest mb-3 flex items-center gap-2 border-b border-white/10 pb-2"><i class="fas ${cat.icon} text-gold"></i> ${cat.categoria}</h4><div class="space-y-2">`;
+                    cat.itens.forEach((item, itemIndex) => {
+                        const jsonItem = encodeURIComponent(JSON.stringify({...item, catIndex, itemIndex}));
+                        html += `
+                            <div class="flex justify-between items-center bg-black/60 p-2.5 rounded-lg border border-white/5">
+                                <div class="flex items-center gap-3">
+                                    ${item.imagem ? `<img src="${item.imagem}" class="w-8 h-8 rounded object-cover border border-white/10">` : ''}
+                                    <div><div class="text-white text-xs font-bold">${item.nome}</div><div class="text-gray-500 text-[9px]">${item.tempo} • ${this.formatarMoeda(item.preco)}</div></div>
+                                </div>
+                                <div class="flex gap-2 shrink-0">
+                                    <button onclick="Admin.abrirEditorCatalogo('${jsonItem}')" class="text-blue-400 hover:bg-blue-400/20 w-6 h-6 rounded bg-blue-400/10 flex items-center justify-center"><i class="fas fa-pen text-[10px]"></i></button>
+                                    <button onclick="Admin.excluirCatalogo(${catIndex}, ${itemIndex})" class="text-red-400 hover:bg-red-400/20 w-6 h-6 rounded bg-red-400/10 flex items-center justify-center"><i class="fas fa-trash text-[10px]"></i></button>
+                                </div>
+                            </div>`;
+                    });
+                    html += `</div></div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            abrirEditorCatalogo(jsonItemEncoded = null) {
+                const body = document.getElementById('editor-dynamic-body');
+                let catOptions = `<option value="Cabelos">Cabelos</option><option value="Barba">Barba</option><option value="Química">Química</option><option value="Estética">Estética</option><option value="Produtos">Produtos</option>`;
+                
+                let item = { nome: '', desc: '', tempo: '', preco: '', imagem: '', catIndex: -1, itemIndex: -1 };
+                let currentCat = "Cabelos";
+
+                if(jsonItemEncoded) {
+                    item = JSON.parse(decodeURIComponent(jsonItemEncoded));
+                    currentCat = this.servicosDB[item.catIndex].categoria;
+                    catOptions = catOptions.replace(`value="${currentCat}"`, `value="${currentCat}" selected`);
+                    document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-edit mr-1"></i> Editar Item';
+                } else {
+                    document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-plus mr-1"></i> Novo Item';
+                }
+
+                body.innerHTML = `
+                    <input type="hidden" id="edit-cat-idx" value="${item.catIndex}">
+                    <input type="hidden" id="edit-item-idx" value="${item.itemIndex}">
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Categoria</label><select id="edit-tipo" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none">${catOptions}</select></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Nome do Item</label><input type="text" id="edit-nome" value="${item.nome}" placeholder="Ex: Corte Premium" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Descrição</label><input type="text" id="edit-desc" value="${item.desc}" placeholder="Ex: Detalhes do serviço..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Tempo</label><input type="text" id="edit-tempo" value="${item.tempo}" placeholder="Ex: 30 min" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                        <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Preço (R$)</label><input type="number" step="0.01" id="edit-preco" value="${item.preco}" placeholder="0.00" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    </div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">URL da Foto (Opcional, bom para produtos)</label><input type="text" id="edit-imagem" value="${item.imagem || ''}" placeholder="https://..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    <button onclick="Admin.salvarCatalogo()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar no Catálogo</button>
+                `;
+                this.mostrarModalEditor();
+            },
+
+            salvarCatalogo() {
+                const tipo = document.getElementById('edit-tipo').value;
+                const nome = document.getElementById('edit-nome').value;
+                const desc = document.getElementById('edit-desc').value;
+                const tempo = document.getElementById('edit-tempo').value;
+                const preco = parseFloat(document.getElementById('edit-preco').value);
+                const imagem = document.getElementById('edit-imagem').value;
+                const oldCatIdx = parseInt(document.getElementById('edit-cat-idx').value);
+                const oldItemIdx = parseInt(document.getElementById('edit-item-idx').value);
+
+                if(!nome || isNaN(preco)) return this.showToast("Preencha o Nome e Preço válido!");
+
+                let catIndex = this.servicosDB.findIndex(c => c.categoria === tipo);
+                if(catIndex === -1) {
+                    let icon = tipo === "Produtos" ? "fa-shopping-bag" : (tipo === "Barba" ? "fa-cut" : "fa-user");
+                    this.servicosDB.push({ categoria: tipo, icon: icon, itens: [] });
+                    catIndex = this.servicosDB.length - 1;
+                }
+
+                const newItem = { id: `item_${Date.now()}`, nome, desc, tempo, preco };
+                if(imagem) newItem.imagem = imagem;
+
+                if (oldCatIdx > -1 && oldItemIdx > -1) {
+                    if(oldCatIdx !== catIndex) {
+                        this.servicosDB[oldCatIdx].itens.splice(oldItemIdx, 1);
+                        this.servicosDB[catIndex].itens.push(newItem);
+                    } else {
+                        newItem.id = this.servicosDB[catIndex].itens[oldItemIdx].id;
+                        this.servicosDB[catIndex].itens[oldItemIdx] = newItem;
+                    }
+                } else {
+                    this.servicosDB[catIndex].itens.push(newItem);
+                }
+
+                this.salvarBanco('xandao_db_servicos', this.servicosDB);
+                this.renderizarAdminCatalogo(); 
+                this.renderizarServicos(); 
+                this.fecharEditorGeral();
+                this.showToast("Catálogo atualizado!", "success");
+            },
+
+            excluirCatalogo(catIndex, itemIndex) {
+                if(confirm("Excluir este item?")) {
+                    this.servicosDB[catIndex].itens.splice(itemIndex, 1);
+                    this.salvarBanco('xandao_db_servicos', this.servicosDB);
+                    this.renderizarAdminCatalogo(); this.renderizarServicos();
+                }
+            },
+
+            // --- GESTÃO DE DEPOIMENTOS ---
+            renderizarAdminDepoimentos() {
+                const container = document.getElementById('admin-depoimentos-list');
+                let html = '';
+                this.depoimentosDB.forEach((dep, idx) => {
+                    const jsonEncoded = encodeURIComponent(JSON.stringify({...dep, idx}));
+                    html += `
+                        <div class="flex justify-between items-center bg-black/60 p-3 rounded-lg border border-white/5">
+                            <div class="flex items-center gap-3">
+                                ${dep.imagem ? `<img src="${dep.imagem}" class="w-10 h-10 rounded-full object-cover">` : `<div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold">${dep.nome.charAt(0)}</div>`}
+                                <div><div class="text-white text-xs font-bold">${dep.nome} <span class="text-gold ml-1"><i class="fas fa-star text-[8px]"></i> ${dep.estrelas}</span></div>
+                                <div class="text-gray-500 text-[10px] truncate max-w-[180px]">${dep.texto}</div></div>
+                            </div>
+                            <div class="flex gap-2 shrink-0">
+                                <button onclick="Admin.abrirEditorDepoimento('${jsonEncoded}')" class="text-blue-400 bg-blue-400/10 w-7 h-7 rounded"><i class="fas fa-pen text-xs"></i></button>
+                                <button onclick="Admin.excluirDepoimento(${idx})" class="text-red-400 bg-red-400/10 w-7 h-7 rounded"><i class="fas fa-trash text-xs"></i></button>
+                            </div>
+                        </div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            abrirEditorDepoimento(jsonEncoded = null) {
+                let dep = { nome: '', texto: '', tag: '', imagem: '', estrelas: 5, idx: -1 };
+                if(jsonEncoded) {
+                    dep = JSON.parse(decodeURIComponent(jsonEncoded));
+                    document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-edit mr-1"></i> Editar Avaliação';
+                } else {
+                    document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-plus mr-1"></i> Nova Avaliação';
+                }
+
+                document.getElementById('editor-dynamic-body').innerHTML = `
+                    <input type="hidden" id="dep-idx" value="${dep.idx}">
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Nome do Cliente</label><input type="text" id="dep-nome" value="${dep.nome}" placeholder="Nome" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none"></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Estrelas (1 a 5)</label><input type="number" min="1" max="5" id="dep-estrelas" value="${dep.estrelas}" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none"></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Texto / Avaliação</label><textarea id="dep-texto" rows="3" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none">${dep.texto}</textarea></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Selo / Tag (Ex: Cliente Fiel)</label><input type="text" id="dep-tag" value="${dep.tag}" placeholder="Selo" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none"></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">URL da Foto do Cliente</label><input type="text" id="dep-imagem" value="${dep.imagem}" placeholder="https://..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none"></div>
+                    <button onclick="Admin.salvarDepoimento()" class="w-full bg-blue-500 text-white font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar Avaliação</button>
+                `;
+                this.mostrarModalEditor();
+            },
+
+            salvarDepoimento() {
+                const idx = parseInt(document.getElementById('dep-idx').value);
+                const nome = document.getElementById('dep-nome').value;
+                const texto = document.getElementById('dep-texto').value;
+                const tag = document.getElementById('dep-tag').value;
+                const estrelas = parseInt(document.getElementById('dep-estrelas').value);
+                const imagem = document.getElementById('dep-imagem').value;
+
+                if(!nome || !texto) return this.showToast("Preencha o Nome e o Texto!");
+
+                const newDep = { id: `d_${Date.now()}`, nome, texto, tag, estrelas, imagem };
+                
+                if(idx > -1) this.depoimentosDB[idx] = newDep;
+                else this.depoimentosDB.unshift(newDep); 
+
+                this.salvarBanco('xandao_db_depoimentos', this.depoimentosDB);
+                this.renderizarAdminDepoimentos();
+                this.renderizarDepoimentos(); 
+                this.fecharEditorGeral();
+                this.showToast("Avaliação salva!", "success");
+            },
+
+            excluirDepoimento(idx) {
+                if(confirm("Excluir depoimento?")) {
+                    this.depoimentosDB.splice(idx, 1);
+                    this.salvarBanco('xandao_db_depoimentos', this.depoimentosDB);
+                    this.renderizarAdminDepoimentos(); this.renderizarDepoimentos();
+                }
+            },
+
+            // --- GESTÃO DE BANNERS ---
+            renderizarAdminBanners() {
+                const container = document.getElementById('admin-banners-list');
+                let html = '';
+                this.bannersDB.forEach((ban, idx) => {
+                    const jsonEncoded = encodeURIComponent(JSON.stringify({...ban, idx}));
+                    html += `
+                        <div class="bg-black/60 rounded-lg border border-white/5 overflow-hidden relative group">
+                            <img src="${ban.url}" class="w-full h-24 object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                            <div class="absolute inset-0 bg-black/50 flex flex-col justify-between p-2">
+                                <div class="text-[9px] text-white font-bold truncate">${ban.alt}</div>
+                                <div class="flex gap-1 justify-end">
+                                    <button onclick="Admin.abrirEditorBanner('${jsonEncoded}')" class="text-white bg-blue-500/80 w-6 h-6 rounded"><i class="fas fa-pen text-[10px]"></i></button>
+                                    <button onclick="Admin.excluirBanner(${idx})" class="text-white bg-red-500/80 w-6 h-6 rounded"><i class="fas fa-trash text-[10px]"></i></button>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+                container.innerHTML = html;
+            },
+
+            abrirEditorBanner(jsonEncoded = null) {
+                let ban = { url: '', alt: '', idx: -1 };
+                if(jsonEncoded) {
+                    ban = JSON.parse(decodeURIComponent(jsonEncoded));
+                    document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-edit mr-1"></i> Editar Banner';
+                } else {
+                    document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-plus mr-1"></i> Novo Banner';
+                }
+
+                document.getElementById('editor-dynamic-body').innerHTML = `
+                    <input type="hidden" id="ban-idx" value="${ban.idx}">
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">URL da Imagem</label><input type="text" id="ban-url" value="${ban.url}" placeholder="https://..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-purple-500 outline-none"></div>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Título / Texto Alternativo</label><input type="text" id="ban-alt" value="${ban.alt}" placeholder="Ex: Fachada" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-purple-500 outline-none"></div>
+                    <button onclick="Admin.salvarBanner()" class="w-full bg-purple-500 text-white font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar Banner</button>
+                `;
+                this.mostrarModalEditor();
+            },
+
+            salvarBanner() {
+                const idx = parseInt(document.getElementById('ban-idx').value);
+                const url = document.getElementById('ban-url').value;
+                const alt = document.getElementById('ban-alt').value;
+
+                if(!url) return this.showToast("Coloque a URL da imagem!");
+
+                const newBan = { id: `ban_${Date.now()}`, url, alt };
+                if(idx > -1) this.bannersDB[idx] = newBan;
+                else this.bannersDB.push(newBan);
+
+                this.salvarBanco('xandao_db_banners', this.bannersDB);
+                this.renderizarAdminBanners();
+                this.renderizarBanners(); 
+                this.fecharEditorGeral();
+                this.showToast("Banner atualizado!", "success");
+            },
+
+            excluirBanner(idx) {
+                if(confirm("Excluir este banner?")) {
+                    this.bannersDB.splice(idx, 1);
+                    this.salvarBanco('xandao_db_banners', this.bannersDB);
+                    this.renderizarAdminBanners(); this.renderizarBanners();
+                }
+            },
+
+            mostrarModalEditor() {
+                const modal = document.getElementById('editor-modal');
+                modal.classList.remove('hidden'); modal.classList.add('flex');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            },
+
+            fecharEditorGeral() {
+                const modal = document.getElementById('editor-modal');
                 modal.classList.add('opacity-0');
-                content.classList.add('scale-95');
-                
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                    this.slotNaFila = null;
-                    document.getElementById('fila-phone').value = '';
-                }, 300);
-            },
-
-            async entrarNaFila() {
-                const telInput = document.getElementById('fila-phone').value;
-                const telLimpo = this.removerMascara(telInput);
-                
-                if(telLimpo.length < 10) return this.showToast("Digite um WhatsApp válido com DDD!");
-                
-                const data = document.getElementById('booking-date').value;
-                const barbeiro = document.querySelector('input[name="barber"]:checked').value;
-                
-                const payload = {
-                    action: "filaEspera",
-                    data: data,
-                    hora: this.slotNaFila,
-                    barbeiro: barbeiro,
-                    telefone: telLimpo
-                };
-
-                const btn = document.getElementById('btn-fila');
-                const txtOriginal = btn.innerText;
-                btn.innerHTML = '<div class="loader w-4 h-4 border-2 mx-auto"></div>';
-                btn.disabled = true;
-
-                setTimeout(() => {
-                    this.showToast(`Registrado na fila VIP!`, 'success');
-                    this.fecharModalFila();
-                    btn.innerText = txtOriginal;
-                    btn.disabled = false;
-                }, 1000);
+                setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
             }
         };
 
+        const Admin = App; // Alias
         document.addEventListener("DOMContentLoaded", () => App.init());
     </script>
 </body>
