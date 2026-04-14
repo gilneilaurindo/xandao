@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-PT" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Xandão Barber Shop | Agendamento Inteligente</title>
     
     <!-- Meta Tags -->
-    <meta name="theme-color" content="#F5B800">
-    <meta name="description" content="Agendamento inteligente Xandão Barber Shop. Cortes na régua, barba com ozônio e muito mais.">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="description" content="Agendamento inteligente Xandão Barber Shop. Cortes de excelência, barba com ozono e muito mais.">
 
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +65,11 @@
             background-color: #050505; 
             color: #f3f4f6; 
             overflow-x: hidden; 
-            padding-bottom: 90px;
+            padding-bottom: 120px; 
+        }
+        
+        @media (min-width: 640px) {
+            body { padding-bottom: 40px; }
         }
         
         .glass-card { 
@@ -87,26 +91,13 @@
             transform: translateY(0) scale(1);
         }
 
-        .btn-shine {
-            position: relative;
-            overflow: hidden;
-        }
+        .btn-shine { position: relative; overflow: hidden; }
         .btn-shine::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
+            transform: skewX(-25deg); animation: shine 3s infinite;
         }
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
-        }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
 
         .marquee, .marquee-gallery { display: flex; overflow: hidden; user-select: none; }
         .marquee {
@@ -122,27 +113,15 @@
         }
         
         .marquee-gallery { gap: 1rem; padding: 10px 0; }
-        .marquee-gallery-content {
-            flex-shrink: 0; display: flex; gap: 1rem; animation: scrollGallery 35s linear infinite;
-        }
-        
-        .marquee:hover .marquee-content, .marquee-gallery:hover .marquee-gallery-content {
-            animation-play-state: paused;
-        }
-        
+        .marquee-gallery-content { flex-shrink: 0; display: flex; gap: 1rem; animation: scrollGallery 35s linear infinite; }
+        .marquee:hover .marquee-content, .marquee-gallery:hover .marquee-gallery-content { animation-play-state: paused; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 2rem)); } }
         @keyframes scrollGallery { from { transform: translateX(0); } to { transform: translateX(calc(-100% - 1rem)); } }
 
-        .slide {
-            opacity: 0; transition: opacity 1.5s ease-in-out, transform 6s linear;
-            position: absolute; inset: 0; transform: scale(1);
-        }
+        .slide { opacity: 0; transition: opacity 1.5s ease-in-out, transform 6s linear; position: absolute; inset: 0; transform: scale(1); }
         .slide.active { opacity: 1; transform: scale(1.1); z-index: 10; }
         
-        .accordion-content { 
-            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease; 
-            max-height: 0; opacity: 0; overflow: hidden; 
-        }
+        .accordion-content { transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
         .accordion-content.open { max-height: 2500px; opacity: 1; }
         .accordion-icon { transition: transform 0.3s ease; }
         .accordion-open .accordion-icon { transform: rotate(180deg); }
@@ -155,21 +134,12 @@
         }
         .radio-circle { transition: all 0.2s ease; }
         .selected-service .radio-circle { border-color: #F5B800; }
-        .selected-service .radio-circle::after { 
-            content: ''; width: 10px; height: 10px; background-color: #F5B800; border-radius: 50%; box-shadow: 0 0 8px #F5B800;
-        }
+        .selected-service .radio-circle::after { content: ''; width: 10px; height: 10px; background-color: #F5B800; border-radius: 50%; box-shadow: 0 0 8px #F5B800; }
 
         .time-slot { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;}
         .time-slot.available:hover { border-color: #F5B800; color: #F5B800; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .time-slot.selected { 
-            border-color: #F5B800 !important; background: #F5B800 !important; color: #050505 !important; 
-            font-weight: 900 !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(245,184,0,0.4); 
-        }
-        
-        .time-slot.booked-other {
-            background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.05);
-            color: #666; cursor: not-allowed; transform: scale(0.98);
-        }
+        .time-slot.selected { border-color: #F5B800 !important; background: #F5B800 !important; color: #050505 !important; font-weight: 900 !important; transform: scale(1.05); box-shadow: 0 0 20px rgba(245,184,0,0.4); }
+        .time-slot.booked-other { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.05); color: #666; cursor: not-allowed; transform: scale(0.98); }
 
         .barber-radio:checked + div { border-color: #F5B800; background: rgba(245,184,0,0.2); box-shadow: 0 0 20px rgba(245,184,0,0.3); transform: scale(1.05); }
         .barber-radio:checked + div img { filter: grayscale(0%); opacity: 1;}
@@ -179,10 +149,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .snap-x::-webkit-scrollbar { display: none; }
 
-        .loader { 
-            border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #F5B800; 
-            border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; 
-        }
+        .loader { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #F5B800; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
         
         .focus-highlight { animation: pulseGold 2s ease-in-out; }
         .admin-tab.active { border-bottom-color: #F5B800; color: #F5B800; }
@@ -218,7 +185,7 @@
                 <div class="absolute -bottom-2 -right-2 bg-[#25D366] text-[#111] rounded-full w-8 h-8 flex items-center justify-center border-2 border-[#111] z-20"><i class="fas fa-check text-sm"></i></div>
             </div>
             <h2 class="text-2xl font-black text-white mb-1 text-center relative z-10">Tudo certo, <span id="success-nome" class="text-[#25D366]"></span>!</h2>
-            <p class="text-gray-400 text-xs text-center mb-6 relative z-10">Sua cadeira está garantida.</p>
+            <p class="text-gray-400 text-xs text-center mb-6 relative z-10">A sua cadeira está garantida.</p>
             <div class="w-full bg-black/40 rounded-2xl p-4 border border-white/5 space-y-3 relative z-10">
                 <div class="flex justify-between items-center">
                     <span class="text-gray-500 text-[10px] uppercase tracking-widest font-bold"><i class="far fa-calendar-alt mr-1"></i> Data</span>
@@ -234,23 +201,24 @@
                 </div>
             </div>
             <p class="text-[#25D366] text-[10px] mt-6 font-bold uppercase tracking-widest flex items-center gap-2 animate-pulse relative z-10">
-                <i class="fab fa-whatsapp"></i> Direcionando para o WhatsApp...
+                <i class="fab fa-whatsapp"></i> A direcionar para o WhatsApp...
             </p>
         </div>
     </div>
 
-    <!-- Header Fixo -->
-    <header class="bg-[#0a0a0a]/80 backdrop-blur-lg py-3 sticky top-0 z-50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-b border-white/5">
+    <!-- HEADER TOPO -->
+    <header class="bg-[#0a0a0a]/90 backdrop-blur-xl py-3 sticky top-0 z-50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-b border-white/5">
         <div class="container mx-auto px-4 flex justify-between items-center max-w-2xl">
             <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Xandão Barber Shop" class="h-10 object-contain hover:scale-105 transition-transform cursor-pointer">
-            <a href="https://wa.me/558396340618" target="_blank" rel="noopener noreferrer" class="text-sm font-bold bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-full border border-[#25D366]/30 hover:bg-[#25D366] hover:text-white hover:shadow-[0_0_15px_rgba(37,211,102,0.4)] transition-all duration-300 flex items-center gap-2">
-                <i class="fab fa-whatsapp text-lg"></i> Contato
-            </a>
+            <!-- Botão Chat Online -->
+            <button onclick="App.abrirChatCliente()" class="hidden sm:flex text-sm font-bold bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-full border border-[#25D366]/30 hover:bg-[#25D366] hover:text-white transition-all duration-300 items-center gap-2">
+                <i class="fas fa-comment-dots text-lg"></i> Chat Online
+            </button>
         </div>
     </header>
 
     <!-- NOTIFICAÇÃO FOMO -->
-    <div id="fomo-notification" class="fixed bottom-[110px] left-4 z-[200] bg-[#111]/95 backdrop-blur-md border border-gold/40 p-3 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.9)] flex items-center gap-3 transition-all duration-[800ms] cubic-bezier(0.68, -0.55, 0.265, 1.55) -translate-x-[150%] opacity-0 w-64 pointer-events-none">
+    <div id="fomo-notification" class="fixed bottom-[140px] sm:bottom-[110px] left-4 z-[200] bg-[#111]/95 backdrop-blur-md border border-gold/40 p-3 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.9)] flex items-center gap-3 transition-all duration-[800ms] cubic-bezier(0.68, -0.55, 0.265, 1.55) -translate-x-[150%] opacity-0 w-64 pointer-events-none">
         <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/50 shrink-0 relative overflow-hidden">
             <div class="absolute inset-0 bg-green-500/30 animate-ping rounded-full"></div>
             <i class="fas fa-calendar-check text-green-500 text-sm relative z-10"></i>
@@ -258,8 +226,8 @@
         <p class="text-gray-200 text-[11px] leading-tight" id="fomo-text"></p>
     </div>
 
-    <!-- Smart Cart Flutuante -->
-    <div id="smart-cart" class="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-2xl z-[100] bg-[#111]/95 backdrop-blur-xl border-t border-gold/30 p-4 pb-safe transform translate-y-full flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.9)] rounded-t-3xl sm:bottom-4 sm:rounded-b-3xl sm:border sm:pb-4 transition-transform duration-500 cubic-bezier(0.175, 0.885, 0.32, 1.275)">
+    <!-- SMART CART (Carrinho Flutuante) -->
+    <div id="smart-cart" class="fixed bottom-[80px] sm:bottom-4 left-0 right-0 mx-auto w-full max-w-2xl z-[90] bg-[#111]/95 backdrop-blur-xl border border-gold/30 p-4 transform translate-y-full flex justify-between items-center shadow-[0_-10px_40px_rgba(0,0,0,0.9)] rounded-t-3xl sm:bottom-4 sm:rounded-b-3xl sm:border sm:pb-4 transition-transform duration-500 cubic-bezier(0.175, 0.885, 0.32, 1.275)">
         <div class="flex flex-col pl-2">
             <span class="text-gray-400 text-[10px] uppercase font-bold tracking-widest"><span id="cart-count" class="text-white bg-white/10 px-2 py-0.5 rounded-full mr-1">0</span> Itens</span>
             <span class="text-gold font-black text-2xl drop-shadow-md" id="cart-total">R$ 0,00</span>
@@ -269,32 +237,43 @@
         </button>
     </div>
 
-    <!-- Main Content -->
+    <!-- BARRA DE NAVEGAÇÃO INFERIOR (Mobile) -->
+    <nav class="fixed bottom-0 left-0 w-full bg-[#050505]/90 backdrop-blur-xl border-t border-white/5 z-[150] flex justify-around items-center pt-3 pb-safe-bottom sm:hidden shadow-[0_-10px_30px_rgba(0,0,0,0.8)] pb-4">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="flex flex-col items-center text-gray-500 hover:text-gold active:scale-95 transition-all w-16">
+            <i class="fas fa-home text-lg mb-1"></i><span class="text-[9px] font-bold tracking-wider">Início</span>
+        </button>
+        <button onclick="App.avancarParaAgendamento()" class="flex flex-col items-center text-gray-500 hover:text-gold active:scale-95 transition-all w-16 relative">
+            <i class="fas fa-calendar-alt text-lg mb-1"></i><span class="text-[9px] font-bold tracking-wider">Agendar</span>
+        </button>
+        <button onclick="App.abrirChatCliente()" class="flex flex-col items-center text-gray-500 hover:text-[#25D366] active:scale-95 transition-all w-16 relative">
+            <i class="fas fa-comment-dots text-lg mb-1"></i><span class="text-[9px] font-bold tracking-wider">Chat</span>
+            <span class="absolute top-0 right-3 w-2 h-2 bg-[#25D366] rounded-full animate-ping"></span>
+        </button>
+        <button onclick="App.abrirAdminPanel()" class="flex flex-col items-center text-gray-500 hover:text-gold active:scale-95 transition-all w-16">
+            <i class="fas fa-shield-alt text-lg mb-1"></i><span class="text-[9px] font-bold tracking-wider">Gestão</span>
+        </button>
+    </nav>
+
+    <!-- MAIN CONTENT -->
     <main class="container mx-auto px-4 py-6 max-w-2xl">
         
         <!-- CABEÇALHO COM SLIDES & SELO DE CONFIANÇA -->
         <div class="reveal relative w-full h-64 sm:h-[350px] overflow-hidden rounded-[2rem] mb-6 shadow-[0_15px_40px_rgba(0,0,0,0.6)] border border-white/10 group">
-            <div id="hero-slider-container" class="w-full h-full">
-                <!-- Preenchido via JS (Banners) -->
-            </div>
+            <div id="hero-slider-container" class="w-full h-full"></div>
             
             <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent flex flex-col justify-end p-6 sm:p-8 z-20 pointer-events-none">
                 <div class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <h1 class="text-3xl font-black text-white mb-2 uppercase tracking-wider drop-shadow-lg">Xandão Barber</h1>
                     
                     <div class="flex flex-col items-start gap-1.5 mt-2 animate-fade-in-up delay-300">
-                        <div class="flex -space-x-3 drop-shadow-lg" id="selo-clientes-fotos">
+                        <div class="flex -space-x-3 drop-shadow-lg">
                             <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" alt="Cliente 1">
                             <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?q=80&w=150&auto=format&fit=crop" alt="Cliente 2">
                             <img class="w-10 h-10 rounded-full border-2 border-[#050505] object-cover" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=150&auto=format&fit=crop" alt="Cliente 3">
-                            <div class="w-10 h-10 rounded-full border-2 border-[#050505] bg-gold text-dark font-black flex items-center justify-center text-xs shadow-lg z-10 relative">
-                                +5k
-                            </div>
+                            <div class="w-10 h-10 rounded-full border-2 border-[#050505] bg-gold text-dark font-black flex items-center justify-center text-xs shadow-lg z-10 relative">+5k</div>
                         </div>
                         <div class="flex flex-col mt-1">
-                            <div class="flex text-gold text-sm drop-shadow-md gap-0.5">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
+                            <div class="flex text-gold text-sm drop-shadow-md gap-0.5"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                             <span class="text-[10px] text-gray-200 font-black tracking-[0.2em] uppercase mt-1 drop-shadow-md">Clientes Satisfeitos</span>
                         </div>
                     </div>
@@ -302,7 +281,7 @@
             </div>
         </div>
 
-        <!-- FAIXA ANIMADA (MARQUEE) -->
+        <!-- FAIXA ANIMADA -->
         <div class="reveal marquee relative z-40 shadow-[0_5px_20px_rgba(204,153,0,0.15)] -mx-4 sm:mx-0 sm:rounded-2xl mb-12 cursor-pointer" title="Passe o mouse para pausar">
             <div class="marquee-content" aria-hidden="true">
                 <span class="flex items-center gap-2"><i class="fas fa-fire text-dark"></i> CORTE DE ALTA PERFORMANCE</span>
@@ -325,7 +304,6 @@
 
         <!-- SEÇÃO DE AGENDAMENTO -->
         <section id="agendamento-section" class="reveal glass-card p-6 sm:p-8 mb-16 scroll-mt-24 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all duration-500">
-            <!-- Glow Effect no form -->
             <div class="absolute -top-32 -right-32 w-64 h-64 bg-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
 
             <div class="flex items-center justify-center gap-3 mb-8">
@@ -333,7 +311,6 @@
             </div>
             
             <form id="booking-form" class="space-y-8 relative z-10">
-                
                 <fieldset id="fieldset-profissional" class="bg-black/30 p-5 rounded-2xl border border-white/5 transition-all duration-300">
                     <legend class="text-xs text-gold font-bold uppercase tracking-widest mb-4 block text-center w-full px-2"><i class="fas fa-cut mr-2"></i>1. Escolha o Profissional</legend>
                     <div class="flex gap-6 justify-center">
@@ -356,15 +333,11 @@
                     </div>
                 </fieldset>
 
-                <!-- 2 e 3. CALENDÁRIO E HORÁRIOS (Split View Estilo App) -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-start">
-                    
-                    <!-- Coluna 1: Calendário Customizado -->
                     <div id="fieldset-data" class="bg-black/30 p-5 rounded-2xl border border-white/5 transition-all duration-300 h-full flex flex-col">
                         <label class="text-xs text-gold font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
                             <i class="fas fa-calendar-day"></i> 2. Selecione a Data
                         </label>
-                        
                         <div class="bg-black/50 rounded-2xl p-5 border border-white/10 shadow-inner flex-1">
                             <div class="flex justify-between items-center mb-6 px-2">
                                 <button type="button" onclick="App.mudarMes(-1)" class="text-gray-400 hover:text-gold w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"><i class="fas fa-chevron-left"></i></button>
@@ -380,32 +353,18 @@
                         <p id="date-text-display" class="text-gray-400 text-xs mt-3 ml-1 font-medium capitalize"></p>
                     </div>
 
-                    <!-- Coluna 2: Horários Dinâmicos (Como no Print) -->
                     <div class="bg-black/30 p-5 rounded-2xl border border-white/5 h-full flex flex-col">
-                        
-                        <!-- Cabeçalho Dinâmico de Serviços (Visível após escolher data) -->
-                        <div id="slots-header" class="hidden justify-between items-start mb-4 pb-4 border-b border-white/5 animate-fade-in-up">
-                            <!-- Preenchido via JS -->
-                        </div>
-
+                        <div id="slots-header" class="hidden justify-between items-start mb-4 pb-4 border-b border-white/5 animate-fade-in-up"></div>
                         <div id="slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-2 content-start flex-1">
-                            <div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">
-                                Selecione uma data no calendário ao lado.
-                            </div>
+                            <div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">Selecione uma data no calendário ao lado.</div>
                         </div>
-                        
-                        <div id="slots-loader" class="hidden justify-center py-8 bg-black/50 rounded-xl border border-dashed border-white/10 flex-1">
-                            <div class="loader mt-4"></div>
-                        </div>
-
-                        <!-- Botão Encontrar Mais Horários -->
+                        <div id="slots-loader" class="hidden justify-center py-8 bg-black/50 rounded-xl border border-dashed border-white/10 flex-1"><div class="loader mt-4"></div></div>
                         <button type="button" id="btn-mais-horarios" class="hidden mt-5 w-full py-3 rounded-full border border-gold/50 text-gold text-xs font-bold hover:bg-gold hover:text-dark transition-colors items-center justify-center gap-2">
                             Encontrar mais horários <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- 4. Seus Dados (Com memória LocalStorage e Autocomplete) -->
                 <div id="fieldset-dados" class="bg-black/30 p-5 rounded-2xl border border-white/5 space-y-4 transition-all duration-300">
                     <label class="text-xs text-gold font-bold uppercase tracking-widest block mb-1"><i class="fas fa-user mr-2"></i>4. Seus Dados</label>
                     <div class="relative">
@@ -416,14 +375,13 @@
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><i class="fab fa-whatsapp text-gray-500"></i></div>
                         <input type="tel" id="client-phone" autocomplete="tel" placeholder="WhatsApp Ex: (11) 99999-9999" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
                     </div>
-                    <p class="text-[9px] text-gray-500 text-center"><i class="fas fa-lock"></i> Seus dados ficam salvos apenas no seu celular.</p>
+                    <p class="text-[9px] text-gray-500 text-center"><i class="fas fa-lock"></i> Os seus dados ficam salvos de forma segura no seu dispositivo.</p>
                 </div>
 
                 <div class="bg-[#050505] rounded-2xl p-6 border border-gold/30 shadow-[0_0_30px_rgba(245,184,0,0.1)] relative overflow-hidden group">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-gold-light via-gold to-gold-dark"></div>
                     <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><i class="fas fa-receipt"></i> Resumo do Pedido</h4>
                     <div id="resumo-final" class="text-sm text-gray-400 mb-6 space-y-2">Nenhum item selecionado.</div>
-                    
                     <button type="button" id="btn-confirmar" onclick="App.finalizarAgendamento()" class="btn-shine w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark font-black py-4 rounded-xl shadow-[0_5px_15px_rgba(245,184,0,0.3)] hover:shadow-[0_5px_25px_rgba(245,184,0,0.5)] active:scale-95 transition-all flex items-center justify-center gap-3 text-sm">
                         <i class="fas fa-calendar-check text-xl"></i> CONFIRMAR AGENDAMENTO
                     </button>
@@ -438,11 +396,9 @@
                 <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Nossa Arte</h3>
                 <div class="h-[1px] bg-gradient-to-l from-transparent to-gold w-12"></div>
             </div>
-            
             <div class="marquee-gallery relative -mx-4 sm:mx-0">
                 <div class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
                 <div class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
-                
                 <div class="marquee-gallery-content">
                     <img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 1">
                     <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=400&auto=format&fit=crop" class="h-48 sm:h-56 w-36 sm:w-44 object-cover rounded-2xl border border-white/10 shadow-lg" alt="Corte 2">
@@ -460,28 +416,24 @@
             </div>
         </section>
 
-        <!-- DEPOIMENTOS CARROSSEL DINÂMICO -->
+        <!-- DEPOIMENTOS -->
         <section class="reveal mb-16">
             <div class="flex items-center justify-center gap-3 mb-8">
                 <div class="h-[1px] bg-gradient-to-r from-transparent to-gold w-12"></div>
                 <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">O que dizem os clientes</h3>
                 <div class="h-[1px] bg-gradient-to-l from-transparent to-gold w-12"></div>
             </div>
-            
-            <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-4 px-4 cursor-grab active:cursor-grabbing" id="testimonials-scroll">
-                <!-- Preenchido via JS (Depoimentos DB) -->
-            </div>
+            <div class="flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-4 px-4 cursor-grab active:cursor-grabbing" id="testimonials-scroll"></div>
             <div class="text-center text-[10px] text-gray-500 mt-2 uppercase tracking-widest animate-pulse"><i class="fas fa-arrows-alt-h mr-1"></i> Deslize para explorar</div>
         </section>
 
-        <!-- SEÇÃO ESTRATÉGICA: RADAR DE PERFORMANCE -->
+        <!-- RADAR DE PERFORMANCE -->
         <section class="reveal mb-16">
             <div class="flex items-center justify-center gap-3 mb-8">
                 <div class="h-[1px] bg-gradient-to-r from-transparent to-gold w-12"></div>
                 <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Radar de Performance</h3>
                 <div class="h-[1px] bg-gradient-to-l from-transparent to-gold w-12"></div>
             </div>
-            
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="glass-card p-4 flex items-center gap-4 bg-gradient-to-r from-green-900/30 to-transparent border-l-4 border-l-green-500 hover:-translate-y-1 transition-transform">
                     <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center shrink-0 border border-green-500/50 text-green-400 text-xl"><i class="fas fa-trophy"></i></div>
@@ -490,7 +442,6 @@
                         <p class="text-[10px] text-gray-400 leading-tight"><strong>Lucas M.</strong> chegou cedo, pegou a cerveja gelada e relaxou antes do corte. Pontualidade é o novo luxo!</p>
                     </div>
                 </div>
-                
                 <div class="glass-card p-4 flex items-center gap-4 bg-gradient-to-r from-blue-900/30 to-transparent border-l-4 border-l-blue-500 hover:-translate-y-1 transition-transform">
                     <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 border border-blue-500/50 text-blue-400 text-xl"><i class="fas fa-bolt animate-pulse"></i></div>
                     <div>
@@ -498,13 +449,12 @@
                         <p class="text-[10px] text-gray-400 leading-tight">Houve um imprevisto, mas <strong>João V.</strong> estava na <em>Fila VIP</em> e fisgou o horário de última hora!</p>
                     </div>
                 </div>
-                
                 <div class="glass-card p-5 flex items-center gap-4 bg-gradient-to-r from-gold-dark/20 to-transparent border-l-4 border-l-gold sm:col-span-2 relative overflow-hidden group hover:-translate-y-1 transition-transform">
                     <div class="absolute right-0 top-0 w-32 h-32 bg-gold/5 rounded-full blur-[40px] group-hover:bg-gold/10 transition-colors"></div>
                     <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 text-gold text-xl"><i class="fas fa-satellite-dish"></i></div>
                     <div class="relative z-10">
                         <h4 class="font-black text-white uppercase text-sm tracking-wider mb-1 flex items-center gap-2">Radar de Vagas Ativado <span class="bg-gold text-dark text-[8px] px-2 py-0.5 rounded-full font-black">IA</span></h4>
-                        <p class="text-xs text-gray-300 leading-relaxed">Agenda fechada? Não desanime. Ative o aviso no horário desejado. Nosso sistema monitora a agenda em tempo real e avisa você no mesmo segundo se alguém cancelar. A cadeira nunca esfria!</p>
+                        <p class="text-xs text-gray-300 leading-relaxed">Agenda fechada? Não desanime. Ative o aviso no horário desejado. O nosso sistema monitora a agenda em tempo real e avisa-o no mesmo segundo se alguém cancelar. A cadeira nunca esfria!</p>
                     </div>
                 </div>
             </div>
@@ -517,35 +467,24 @@
                 <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Onde Estamos</h3>
                 <div class="h-[1px] bg-gradient-to-l from-transparent to-white/20 w-12"></div>
             </div>
-            
             <div class="glass-card p-4 bg-[#111] overflow-hidden group">
                 <div class="rounded-2xl overflow-hidden h-56 mb-6 relative border border-white/10">
                     <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" alt="Fachada Xandão Barber Shop">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    
                     <div id="status-loja" class="absolute top-4 right-4 bg-gray-600/90 text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 backdrop-blur-md border border-gray-400/50 transition-colors duration-500">
                         <div id="status-loja-dot" class="w-1.5 h-1.5 bg-white rounded-full opacity-50"></div>
-                        <span id="status-loja-text">Verificando...</span>
+                        <span id="status-loja-text">A verificar...</span>
                     </div>
-
                     <div class="absolute bottom-5 left-5">
                         <span class="bg-gold text-dark text-[10px] font-black uppercase px-2 py-1 rounded shadow-md inline-block mb-2">Unidade Matriz</span>
                         <h4 class="text-white font-black text-xl drop-shadow-md">Xandão Barber Shop</h4>
                     </div>
                 </div>
-                
                 <div class="flex flex-col gap-6 px-2">
                     <div class="flex items-start gap-4 bg-black/20 p-4 rounded-xl border border-white/5">
-                        <div class="mt-1 w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 shadow-inner group-hover:bg-gold/20 transition-colors">
-                            <i class="fas fa-map-marker-alt text-gold text-xl drop-shadow-[0_0_8px_rgba(245,184,0,0.5)] group-hover:animate-bounce"></i>
-                        </div>
+                        <div class="mt-1 w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center shrink-0 border border-gold/30 shadow-inner group-hover:bg-gold/20 transition-colors"><i class="fas fa-map-marker-alt text-gold text-xl drop-shadow-[0_0_8px_rgba(245,184,0,0.5)] group-hover:animate-bounce"></i></div>
                         <div>
-                            <p class="text-gray-300 text-sm leading-relaxed">
-                                <strong class="text-white block mb-1">Endereço Principal</strong>
-                                Av. Principal, 1000 - Bairro Centro<br>
-                                Referência: Ao lado do mercado central.<br>
-                                Sua Cidade - UF
-                            </p>
+                            <p class="text-gray-300 text-sm leading-relaxed"><strong class="text-white block mb-1">Endereço Principal</strong>Av. Principal, 1000 - Bairro Centro<br>Referência: Ao lado do mercado central.<br>A Sua Cidade - UF</p>
                         </div>
                     </div>
                     <a href="https://maps.google.com/?q=Barbearia" target="_blank" rel="noopener noreferrer" class="btn-shine w-full bg-[#1a1a1a] border border-gold text-gold hover:bg-gold hover:text-dark font-black py-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_0_15px_rgba(245,184,0,0.1)] hover:shadow-[0_0_25px_rgba(245,184,0,0.4)]">
@@ -555,50 +494,67 @@
             </div>
         </section>
 
-        <!-- SEÇÃO REDES SOCIAIS -->
-        <section class="reveal mb-8">
-            <div class="bg-gradient-to-br from-[#405de6] via-[#fd1d1d] to-[#ffdc80] p-[2px] rounded-[2.5rem] shadow-2xl hover:scale-[1.03] transition-transform duration-500 cursor-pointer" onclick="window.open('https://instagram.com', '_blank')">
-                <div class="bg-[#0a0a0a] rounded-[2.4rem] p-10 text-center flex flex-col items-center relative overflow-hidden">
-                    <div class="absolute -top-20 -right-20 w-40 h-40 bg-[#fd1d1d]/20 blur-[50px]"></div>
-                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-[#ffdc80] via-[#fd1d1d] to-[#405de6] flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(253,29,29,0.5)]">
-                        <i class="fab fa-instagram text-4xl text-white drop-shadow-md"></i>
-                    </div>
-                    <h3 class="text-2xl font-black text-white mb-3 uppercase tracking-wide">Siga o Xandão</h3>
-                    <p class="text-gray-400 text-sm mb-8 max-w-xs mx-auto leading-relaxed">Fique por dentro das novidades, cortes na régua e promoções exclusivas no nosso Instagram!</p>
-                    <button class="bg-white text-dark font-black px-10 py-4 rounded-full hover:bg-gray-100 active:scale-95 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)] text-sm tracking-widest uppercase flex items-center gap-2">
-                        <i class="fab fa-instagram text-lg"></i> @xandaobarbershop
-                    </button>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- Footer com o Acesso Restrito Oculto -->
-    <footer class="bg-[#030303] pt-12 pb-36 sm:pb-24 text-center border-t border-white/5 relative z-20">
+    <!-- Footer -->
+    <footer class="bg-[#030303] pt-12 pb-10 text-center border-t border-white/5 relative z-20 hidden sm:block">
         <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" alt="Logo Xandão Barber Shop" class="h-14 object-contain mx-auto mb-6 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
         <p class="text-gray-600 text-[10px] uppercase tracking-widest font-bold">&copy; <span id="current-year"></span> Xandão Barber Shop. Todos os direitos reservados.</p>
         <p class="text-gray-800 text-[9px] mt-2">Tecnologia por Inovamos.</p>
-        <button onclick="Admin.abrirPainel()" class="mt-8 text-[10px] bg-white/5 px-4 py-2 rounded-full text-gray-500 hover:text-gold hover:bg-gold/10 uppercase tracking-widest transition-all font-bold"><i class="fas fa-lock mr-1"></i> Acesso Restrito</button>
+        <button onclick="App.abrirAdminPanel()" class="mt-8 text-[10px] bg-white/5 px-4 py-2 rounded-full text-gray-500 hover:text-gold hover:bg-gold/10 uppercase tracking-widest transition-all font-bold"><i class="fas fa-lock mr-1"></i> Acesso Restrito</button>
     </footer>
+
+    <!-- MODAL DE CHAT (CLIENTE) -->
+    <div id="chat-modal" class="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md hidden items-end sm:items-center justify-center sm:p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-[#0a0a0a] w-full sm:max-w-md sm:rounded-3xl h-[85vh] sm:h-[600px] flex flex-col shadow-2xl border-t border-gold/30 sm:border transform translate-y-full sm:scale-95 transition-transform duration-300" id="chat-content">
+            <div class="bg-gradient-to-r from-[#111] to-[#050505] p-4 flex justify-between items-center border-b border-gold/20 shrink-0 sm:rounded-t-3xl">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PAGE_BIO_IMAGE/-1344821091" class="w-10 h-10 rounded-full border border-gold/30 object-cover bg-black">
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-black rounded-full"></span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold text-sm">Xandão Barber Shop</h3>
+                        <p class="text-green-500 text-[9px] uppercase tracking-wider font-bold">Online</p>
+                    </div>
+                </div>
+                <button onclick="App.fecharChatCliente()" class="text-gray-400 hover:text-white w-8 h-8 flex justify-center items-center rounded-full bg-white/5"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-4 space-y-4" id="chat-messages">
+                <div class="flex justify-start">
+                    <div class="bg-[#1a1a1a] text-gray-300 text-xs p-3 rounded-2xl rounded-tl-sm border border-white/5 max-w-[85%] shadow-sm">
+                        Olá! Bem-vindo ao atendimento do Xandão. Como podemos ajudar hoje?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 bg-[#050505] border-t border-white/5 shrink-0 sm:rounded-b-3xl">
+                <div class="flex gap-2">
+                    <input type="text" id="chat-input" placeholder="Escreva a sua mensagem..." class="flex-1 bg-[#111] border border-white/10 rounded-full px-4 py-3 text-white text-xs focus:outline-none focus:border-gold transition-colors">
+                    <button onclick="App.enviarMensagemCliente()" class="w-11 h-11 bg-gold rounded-full flex items-center justify-center text-dark hover:scale-105 active:scale-95 transition-transform"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- PAINEL ADMIN AVANÇADO (ÁREA DO BARBEIRO) -->
     <div id="admin-modal" class="fixed inset-0 z-[99999] bg-[#0a0a0a] hidden flex-col transition-transform duration-500 transform translate-y-full overflow-hidden">
-        
         <div class="bg-[#050505] border-b border-gold/20 p-4 flex justify-between items-center z-20 shadow-lg shrink-0">
             <h2 class="text-gold font-black uppercase tracking-widest flex items-center gap-2">
-                <i class="fas fa-shield-alt text-xl"></i> 
-                <div>Gestão <span class="text-white">Pro</span><div class="text-[8px] text-gray-500">Acesso Restrito</div></div>
+                <i class="fas fa-shield-alt text-xl"></i> <div>Gestão <span class="text-white">Pro</span><div class="text-[8px] text-gray-500">Acesso Restrito</div></div>
             </h2>
-            <button onclick="Admin.fecharPainel()" class="text-white bg-white/10 w-8 h-8 rounded-full hover:bg-red-500/80 transition-colors"><i class="fas fa-times"></i></button>
+            <button onclick="App.fecharAdminPanel()" class="text-white bg-white/10 w-8 h-8 rounded-full hover:bg-red-500/80 transition-colors"><i class="fas fa-times"></i></button>
         </div>
         
         <div class="flex justify-between bg-[#111] border-b border-white/5 shrink-0 overflow-x-auto no-scrollbar px-2">
-            <button onclick="Admin.switchTab('resumo')" id="tab-resumo" class="admin-tab active flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-chart-line mr-1"></i> Resumo</button>
-            <button onclick="Admin.switchTab('agenda')" id="tab-agenda" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-calendar-day mr-1"></i> Agenda</button>
-            <button onclick="Admin.switchTab('catalogo')" id="tab-catalogo" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-box-open mr-1"></i> Catálogo</button>
-            <button onclick="Admin.switchTab('avaliacoes')" id="tab-avaliacoes" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-star mr-1"></i> Avaliações</button>
-            <button onclick="Admin.switchTab('banners')" id="tab-banners" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-image mr-1"></i> Banners</button>
+            <button onclick="App.switchAdminTab('resumo')" id="tab-resumo" class="admin-tab active flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-chart-line mr-1"></i> Resumo</button>
+            <button onclick="App.switchAdminTab('agenda')" id="tab-agenda" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-calendar-day mr-1"></i> Agenda</button>
+            <button onclick="App.switchAdminTab('mensagens')" id="tab-mensagens" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4 relative"><i class="fas fa-comment-dots mr-1"></i> Msg <span class="absolute top-2 right-1 w-2 h-2 bg-red-500 rounded-full animate-ping"></span></button>
+            <button onclick="App.switchAdminTab('catalogo')" id="tab-catalogo" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-box-open mr-1"></i> Catálogo</button>
+            <button onclick="App.switchAdminTab('avaliacoes')" id="tab-avaliacoes" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-star mr-1"></i> Avaliações</button>
+            <button onclick="App.switchAdminTab('banners')" id="tab-banners" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-image mr-1"></i> Banners</button>
+            <button onclick="App.switchAdminTab('configuracoes')" id="tab-configuracoes" class="admin-tab flex-1 py-4 text-xs font-black uppercase tracking-wider text-gray-500 border-b-2 border-transparent transition-colors hover:text-white whitespace-nowrap px-4"><i class="fas fa-cog mr-1"></i> Configs</button>
         </div>
 
         <div class="flex-1 overflow-y-auto p-4 pb-20 relative">
@@ -617,41 +573,46 @@
                         <div class="text-2xl font-black text-gold drop-shadow-md" id="admin-cortes-dia">0</div>
                     </div>
                 </div>
-                <div class="bg-[#111] rounded-2xl border border-white/5 p-5 mt-4">
-                    <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4 border-b border-white/10 pb-2"><i class="fas fa-robot mr-2 text-gold"></i> Dica do Sistema</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed">Olá! Lembre-se de usar a aba <strong>"Agenda"</strong> para enviar mensagens automáticas de confirmação no WhatsApp para seus clientes com apenas 1 clique!</p>
-                </div>
             </div>
 
-            <!-- TAB: AGENDA (Gestão Completa) -->
+            <!-- TAB: AGENDA -->
             <div id="content-agenda" class="hidden space-y-4 animate-fade-in-up">
                 <div class="flex justify-between items-center bg-[#111] p-3 rounded-xl border border-white/5">
-                    <span class="text-xs text-gray-400 font-bold uppercase"><i class="fas fa-filter mr-1"></i> Filtro: Recentes</span>
-                    <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded font-bold border border-green-500/30" id="admin-total-agendas">0 Clientes</span>
+                    <span class="text-xs text-gray-400 font-bold uppercase"><i class="fas fa-filter mr-1"></i> Filtro:</span>
+                    <select id="admin-barber-filter" onchange="App.atualizarAdminDashboard()" class="bg-black border border-gold/30 text-gold text-xs font-bold rounded px-2 py-1 outline-none">
+                        <option value="Todos">Todos os Barbeiros</option>
+                        <option value="Alexandre">Alexandre</option>
+                        <option value="Cleber">Cleber</option>
+                    </select>
                 </div>
                 <div id="admin-agenda-list" class="space-y-3"></div>
+            </div>
+
+            <!-- TAB: MENSAGENS DO ADMIN -->
+            <div id="content-mensagens" class="hidden animate-fade-in-up h-full flex-col">
+                <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 flex items-center justify-between shrink-0 mb-4">
+                    <div>
+                        <h3 class="text-blue-400 font-black text-sm uppercase">Chat com Clientes</h3>
+                        <p class="text-[10px] text-gray-400">Caixa de entrada centralizada.</p>
+                    </div>
+                </div>
+                <div id="admin-msg-list" class="flex-1 overflow-y-auto no-scrollbar relative rounded-xl"></div>
             </div>
 
             <!-- TAB: CATÁLOGO -->
             <div id="content-catalogo" class="hidden space-y-6 animate-fade-in-up">
                 <div class="bg-gold/10 border border-gold/30 rounded-xl p-4 flex items-center justify-between">
-                    <div>
-                        <h3 class="text-gold font-black text-sm uppercase">Gerir Catálogo</h3>
-                        <p class="text-[10px] text-gray-400">Adicione novos cortes ou produtos de upsell.</p>
-                    </div>
-                    <button onclick="Admin.abrirEditorCatalogo()" class="bg-gold text-dark font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
+                    <div><h3 class="text-gold font-black text-sm uppercase">Gerir Catálogo</h3><p class="text-[10px] text-gray-400">Adicione novos cortes ou produtos.</p></div>
+                    <button onclick="App.abrirEditorCatalogo()" class="bg-gold text-dark font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
                 </div>
                 <div id="admin-catalogo-list" class="space-y-4 pb-10"></div>
             </div>
 
-            <!-- TAB: AVALIAÇÕES (DEPOIMENTOS) -->
+            <!-- TAB: AVALIAÇÕES -->
             <div id="content-avaliacoes" class="hidden space-y-6 animate-fade-in-up">
                 <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 flex items-center justify-between">
-                    <div>
-                        <h3 class="text-blue-400 font-black text-sm uppercase">Depoimentos</h3>
-                        <p class="text-[10px] text-gray-400">Gerencie a prova social da sua barbearia.</p>
-                    </div>
-                    <button onclick="Admin.abrirEditorDepoimento()" class="bg-blue-500 text-white font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
+                    <div><h3 class="text-blue-400 font-black text-sm uppercase">Depoimentos</h3><p class="text-[10px] text-gray-400">Gerencie a prova social.</p></div>
+                    <button onclick="App.abrirEditorDepoimento()" class="bg-blue-500 text-white font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
                 </div>
                 <div id="admin-depoimentos-list" class="space-y-3 pb-10"></div>
             </div>
@@ -661,11 +622,33 @@
                 <div class="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 flex items-center justify-between">
                     <div>
                         <h3 class="text-purple-400 font-black text-sm uppercase">Banners (Topo)</h3>
-                        <p class="text-[10px] text-gray-400">Adicione imagens da sua barbearia.</p>
+                        <p class="text-[10px] text-gray-400">Adicione imagens da barbearia.</p>
                     </div>
-                    <button onclick="Admin.abrirEditorBanner()" class="bg-purple-500 text-white font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
+                    <button onclick="App.abrirEditorBanner()" class="bg-purple-500 text-white font-black text-xs px-4 py-2 rounded-lg hover:scale-105 transition-transform"><i class="fas fa-plus"></i> Novo</button>
                 </div>
                 <div id="admin-banners-list" class="space-y-3 pb-10 grid grid-cols-2 gap-3"></div>
+            </div>
+
+            <!-- TAB: CONFIGURAÇÕES -->
+            <div id="content-configuracoes" class="hidden space-y-6 animate-fade-in-up">
+                <div class="bg-[#111] rounded-2xl border border-white/5 p-5">
+                    <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4 border-b border-white/10 pb-2"><i class="fas fa-clock mr-2 text-gold"></i> Horários e Regras</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Abertura (Início)</label>
+                            <input type="time" id="cfg-abertura" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Fecho (Fim)</label>
+                            <input type="time" id="cfg-fecho" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none">
+                        </div>
+                        <div class="col-span-2">
+                            <label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Tempo Padrão / Intervalo (Minutos)</label>
+                            <input type="number" id="cfg-intervalo" placeholder="Ex: 25" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none">
+                        </div>
+                    </div>
+                    <button onclick="App.salvarConfiguracoes()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-3 rounded-xl shadow-lg mt-5 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Guardar Definições</button>
+                </div>
             </div>
 
         </div>
@@ -676,35 +659,9 @@
         <div class="bg-[#111] border border-gold/30 rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]">
             <div class="bg-gradient-to-r from-gold-dark to-gold p-4 flex justify-between items-center shrink-0">
                 <h3 class="font-black text-dark uppercase tracking-widest text-sm" id="editor-titulo"><i class="fas fa-edit mr-1"></i> Editor</h3>
-                <button onclick="Admin.fecharEditorGeral()" class="text-dark bg-white/20 w-7 h-7 rounded-full hover:bg-white/40"><i class="fas fa-times"></i></button>
+                <button onclick="App.fecharEditorGeral()" class="text-dark bg-white/20 w-7 h-7 rounded-full hover:bg-white/40"><i class="fas fa-times"></i></button>
             </div>
-            <div class="p-5 space-y-4 overflow-y-auto no-scrollbar flex-1" id="editor-dynamic-body">
-                <!-- Preenchido via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Fila de Espera -->
-    <div id="modal-fila" class="fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm hidden items-center justify-center px-4 opacity-0 transition-opacity" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div class="bg-card-bg border border-gold/30 p-6 rounded-3xl w-full max-w-sm text-center transform scale-95 transition-transform shadow-2xl relative overflow-hidden" id="modal-fila-content">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
-            <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30 shadow-inner">
-                <i class="fas fa-bell text-gold text-2xl animate-[bounce_2s_infinite]"></i>
-            </div>
-            <h3 id="modal-title" class="text-xl font-bold text-white mb-2">Horário Ocupado</h3>
-            <p class="text-sm text-gray-400 mb-6">Este horário (<span id="fila-hora-txt" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded"></span>) já foi reservado. Quer ser avisado no WhatsApp caso o cliente desista?</p>
-            
-            <div class="relative mb-5">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <i class="fab fa-whatsapp text-gray-500"></i>
-                </div>
-                <input type="tel" id="fila-phone" placeholder="(XX) XXXXX-XXXX" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-[#111] border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm text-center transition-colors shadow-inner">
-            </div>
-            
-            <div class="flex gap-3">
-                <button onclick="App.fecharModalFila()" class="flex-1 bg-transparent border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 font-bold py-3.5 rounded-xl text-sm transition-colors">Cancelar</button>
-                <button id="btn-fila" onclick="App.entrarNaFila()" class="flex-1 bg-gold text-dark hover:bg-gold-light shadow-[0_0_15px_rgba(245,184,0,0.3)] font-black py-3.5 rounded-xl text-sm transition-all active:scale-95">Me avise</button>
-            </div>
+            <div class="p-5 space-y-4 overflow-y-auto no-scrollbar flex-1" id="editor-dynamic-body"></div>
         </div>
     </div>
 
@@ -716,32 +673,34 @@
     <!-- Application Script -->
     <script>
         const App = {
-            // Configurações
             GOOGLE_APP_URL: "https://script.google.com/macros/s/AKfycbxlU6qfhXkjJc06sNJX1kRxhkeiu2rnqxIm1vph004aJChjdbtdXflCHAzGkhU3Y_Rc/exec",
             TEST_MODE: false, 
             
-            // Estado
             carrinho: [],
             horaSelecionada: null,
             slotNaFila: null,
-            meusAgendamentos: [], // Histórico da sessão atual
-            agendamentosGlobais: [], 
+            meusAgendamentos: [], 
             agendasCache: {}, 
             nomesPublicos: ["Matheus", "João", "Pedro", "Felipe", "Carlos", "Rafael", "Thiago", "Victor", "Lucas", "Gabriel"],
             
-            // Estado do Calendário Customizado
             dataAtual: new Date(),
             mesExibido: new Date().getMonth(),
             anoExibido: new Date().getFullYear(),
             dataSelecionada: null,
             dataMaxima: null,
 
-            // Banco de Dados Dinâmico
             servicosDB: [], 
             depoimentosDB: [],
             bannersDB: [],
+            mensagensDB: [],
+            
+            configuracoesGlobais: {
+                abertura: "07:30",
+                fecho: "18:25",
+                intervalo: 25
+            },
 
-            formatarMoeda(valor) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor); },
+            formatarMoeda(valor) { return new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'BRL' }).format(valor); },
             mascaraTelefone(input) {
                 let v = input.value.replace(/\D/g, ""); 
                 if (v.length > 11) v = v.slice(0, 11); 
@@ -752,22 +711,18 @@
             },
             removerMascara(telefone) { return telefone.replace(/\D/g, ''); },
 
-            // --- INICIALIZAÇÃO ---
             init() {
                 this.carregarBancosDeDados();
 
-                // Configurações do Calendário
                 this.dataAtual = new Date();
                 this.mesExibido = this.dataAtual.getMonth();
                 this.anoExibido = this.dataAtual.getFullYear();
                 this.dataMaxima = new Date();
-                this.dataMaxima.setDate(this.dataAtual.getDate() + 30); // Limite de 30 dias
+                this.dataMaxima.setDate(this.dataAtual.getDate() + 30); 
                 
                 this.renderizarCalendario();
-
                 document.getElementById('current-year').innerText = this.dataAtual.getFullYear();
 
-                // Restaura Memória do Celular
                 const savedName = localStorage.getItem('xandao_nome');
                 const savedPhone = localStorage.getItem('xandao_whatsapp');
                 if(savedName) document.getElementById('client-name').value = savedName;
@@ -776,7 +731,6 @@
                     this.mascaraTelefone(document.getElementById('client-phone'));
                 }
 
-                // Renderizações do site baseadas no DB Dinâmico
                 this.renderizarBanners();
                 this.renderizarServicos();
                 this.renderizarDepoimentos();
@@ -798,16 +752,73 @@
                 });
             },
 
-            // --- LÓGICA DO CALENDÁRIO CUSTOMIZADO PREMIUM ---
+            carregarBancosDeDados() {
+                // Utilizando novas chaves _v2 para forçar o carregamento dos novos dados na cache do utilizador
+                const configSalva = localStorage.getItem('xandao_db_config_v2');
+                if(configSalva) this.configuracoesGlobais = JSON.parse(configSalva);
+
+                const msgSalva = localStorage.getItem('xandao_db_msgs_v2');
+                if(msgSalva) { this.mensagensDB = JSON.parse(msgSalva); } 
+                else {
+                    this.mensagensDB = [{ remetente: 'Cliente', nome: 'Visitante', telefone: '', texto: 'Boa tarde, a que horas abrem amanhã?', hora: '14:30' }];
+                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                }
+
+                const servSalvo = localStorage.getItem('xandao_db_servicos_v2');
+                if (servSalvo) { this.servicosDB = JSON.parse(servSalvo); } 
+                else {
+                    this.servicosDB = [
+                        { categoria: "Cortes", icon: "fa-cut", itens: [ 
+                            { id: "c1", nome: "Degradê na Régua", desc: "Corte Fade impecável com acabamento.", tempo: "45 min", preco: 35.00, imagem: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=200&auto=format&fit=crop" }, 
+                            { id: "c2", nome: "Social Premium", desc: "Corte clássico 100% tesoura.", tempo: "50 min", preco: 40.00, imagem: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=200&auto=format&fit=crop" },
+                            { id: "c3", nome: "Taper Fade", desc: "Degradê apenas nas têmporas e nuca.", tempo: "40 min", preco: 35.00, imagem: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=200&auto=format&fit=crop" },
+                            { id: "c4", nome: "Corte Kids", desc: "Paciência e estilo para os pequenos.", tempo: "45 min", preco: 30.00, imagem: "https://images.unsplash.com/photo-1511553677255-ba939e5537e0?q=80&w=200&auto=format&fit=crop" },
+                            { id: "c5", nome: "Nevou (Platinado)", desc: "Descoloração global profissional.", tempo: "2 h", preco: 120.00, imagem: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=200&auto=format&fit=crop" },
+                            { id: "c6", nome: "Corte do Jaca", desc: "Clássico carioca, disfarçado perfeito.", tempo: "50 min", preco: 40.00, imagem: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=200&auto=format&fit=crop" }
+                        ] },
+                        { categoria: "Barba", icon: "fa-user", itens: [ 
+                            { id: "b1", nome: "Barboterapia Premium", desc: "Vapor de ozono, toalha quente e massagem.", tempo: "35 min", preco: 30.00, imagem: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=200&auto=format&fit=crop" }, 
+                            { id: "b2", nome: "Barba Simples", desc: "Alinhamento e máquina.", tempo: "20 min", preco: 20.00, imagem: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=200&auto=format&fit=crop" } 
+                        ] },
+                        { categoria: "Produtos", icon: "fa-shopping-bag", itens: [ 
+                            { id: "p1", nome: "Pomada Matte", desc: "Efeito seco com alta fixação.", tempo: "0 min", preco: 45.00, imagem: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=200&auto=format&fit=crop" },
+                            { id: "p2", nome: "Óleo de Barba", desc: "Hidratação intensa e brilho.", tempo: "0 min", preco: 35.00, imagem: "https://images.unsplash.com/photo-1624453966567-33182b82c615?q=80&w=200&auto=format&fit=crop" },
+                            { id: "p3", nome: "Tônico Minoxidil", desc: "Tratamento para falhas.", tempo: "0 min", preco: 89.90, imagem: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=200&auto=format&fit=crop" },
+                            { id: "p4", nome: "Gel Shaving", desc: "Gel transparente para o barbear.", tempo: "0 min", preco: 25.00, imagem: "https://images.unsplash.com/photo-1629198725805-4c0ce123f114?q=80&w=200&auto=format&fit=crop" },
+                            { id: "p5", nome: "Pente de Madeira", desc: "Anti-frizz para barba e cabelo.", tempo: "0 min", preco: 15.00, imagem: "https://images.unsplash.com/photo-1581452273620-3375ea7f4d7b?q=80&w=200&auto=format&fit=crop" }
+                        ] }
+                    ];
+                    this.salvarBanco('xandao_db_servicos_v2', this.servicosDB);
+                }
+
+                const depSalvo = localStorage.getItem('xandao_db_depoimentos_v2');
+                if (depSalvo) { this.depoimentosDB = JSON.parse(depSalvo); } 
+                else {
+                    this.depoimentosDB = [
+                        { id: "d1", nome: "Marcos Silva", texto: "Melhor corte! O Alexandre é monstro na tesoura e no fade. Não troco por nada, ambiente sensacional.", estrelas: 5, tag: "Cliente Fiel", imagem: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" },
+                        { id: "d2", nome: "Rafael Gomes", texto: "Ambiente top, agendamento super rápido pelo site. O Cleber mandou muito bem no meu degradê.", estrelas: 5, tag: "Agendou pela App", imagem: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" }
+                    ];
+                    this.salvarBanco('xandao_db_depoimentos_v2', this.depoimentosDB);
+                }
+
+                const banSalvo = localStorage.getItem('xandao_db_banners_v2');
+                if(banSalvo) { this.bannersDB = JSON.parse(banSalvo); } 
+                else {
+                    this.bannersDB = [
+                        { id: "ban1", url: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop", alt: "Ambiente Barbearia" },
+                        { id: "ban2", url: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop", alt: "Equipamentos" },
+                        { id: "ban3", url: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop", alt: "Corte na régua" }
+                    ];
+                    this.salvarBanco('xandao_db_banners_v2', this.bannersDB);
+                }
+            },
+
+            salvarBanco(key, data) { localStorage.setItem(key, JSON.stringify(data)); },
+
             mudarMes(step) {
                 this.mesExibido += step;
-                if (this.mesExibido < 0) {
-                    this.mesExibido = 11;
-                    this.anoExibido--;
-                } else if (this.mesExibido > 11) {
-                    this.mesExibido = 0;
-                    this.anoExibido++;
-                }
+                if (this.mesExibido < 0) { this.mesExibido = 11; this.anoExibido--; } 
+                else if (this.mesExibido > 11) { this.mesExibido = 0; this.anoExibido++; }
                 this.renderizarCalendario();
             },
 
@@ -818,15 +829,12 @@
                 
                 const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
                 display.innerText = `${meses[this.mesExibido]} ${this.anoExibido}`;
-
                 container.innerHTML = '';
 
                 const primeiroDia = new Date(this.anoExibido, this.mesExibido, 1).getDay();
                 const diasNoMes = new Date(this.anoExibido, this.mesExibido + 1, 0).getDate();
 
-                for (let i = 0; i < primeiroDia; i++) {
-                    container.innerHTML += `<div></div>`;
-                }
+                for (let i = 0; i < primeiroDia; i++) container.innerHTML += `<div></div>`;
 
                 const hojeApenasData = new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth(), this.dataAtual.getDate());
                 const maxApenasData = new Date(this.dataMaxima.getFullYear(), this.dataMaxima.getMonth(), this.dataMaxima.getDate());
@@ -838,12 +846,10 @@
                     const isDomingo = dataObj.getDay() === 0;
                     const isPassado = dataObj < hojeApenasData;
                     const isFuturoDistante = dataObj > maxApenasData;
-                    
                     const isDesabilitado = isDomingo || isPassado || isFuturoDistante;
                     const isSelecionado = this.dataSelecionada === dataStr;
 
                     let classes = "w-8 h-8 sm:w-10 sm:h-10 mx-auto flex items-center justify-center rounded-full text-sm transition-all duration-300 ";
-                    
                     if (isDesabilitado) {
                         classes += "text-gray-700 opacity-30 cursor-not-allowed";
                         if(isDomingo) classes += " line-through text-red-900/50";
@@ -854,12 +860,7 @@
                     }
 
                     const onClick = isDesabilitado ? "" : `onclick="App.selecionarData('${dataStr}')"`;
-
-                    container.innerHTML += `
-                        <div class="flex items-center justify-center">
-                            <button type="button" ${onClick} class="${classes}">${dia}</button>
-                        </div>
-                    `;
+                    container.innerHTML += `<div class="flex items-center justify-center"><button type="button" ${onClick} class="${classes}">${dia}</button></div>`;
                 }
             },
 
@@ -868,111 +869,31 @@
                 document.getElementById('booking-date').value = dataStr;
                 this.renderizarCalendario(); 
                 this.carregarHorarios();
-                
-                // Move o scroll para focar nos horários quando seleciona data no mobile
-                if (window.innerWidth < 640) {
-                    setTimeout(() => {
-                        document.getElementById('label-horarios-prof').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 200);
-                }
+                if (window.innerWidth < 640) { setTimeout(() => document.getElementById('label-horarios-prof').scrollIntoView({ behavior: 'smooth', block: 'center' }), 200); }
             },
 
-            // --- BANCOS DE DADOS DINÂMICOS (LOCAL STORAGE) ---
-            carregarBancosDeDados() {
-                const servSalvo = localStorage.getItem('xandao_db_servicos');
-                if (servSalvo) {
-                    this.servicosDB = JSON.parse(servSalvo);
-                } else {
-                    this.servicosDB = [
-                        {
-                            categoria: "Cortes", icon: "fa-cut",
-                            itens: [
-                                { id: "c1", nome: "Degradê na Régua", desc: "Corte Fade impecável com acabamento.", tempo: "45 min", preco: 35.00 },
-                                { id: "c2", nome: "Social Premium", desc: "Corte clássico 100% tesoura.", tempo: "50 min", preco: 40.00 },
-                                { id: "c3", nome: "Taper Fade", desc: "Degradê apenas nas têmporas e nuca.", tempo: "40 min", preco: 35.00 },
-                                { id: "c4", nome: "Corte Kids", desc: "Paciência e estilo para os pequenos.", tempo: "45 min", preco: 30.00 },
-                                { id: "c5", nome: "Nevou (Platinado)", desc: "Descoloração global profissional.", tempo: "2 h", preco: 120.00 }
-                            ]
-                        },
-                        {
-                            categoria: "Barba", icon: "fa-user",
-                            itens: [
-                                { id: "b1", nome: "Barboterapia Premium", desc: "Vapor de ozônio, toalha quente e massagem.", tempo: "35 min", preco: 30.00 },
-                                { id: "b2", nome: "Barba Simples", desc: "Alinhamento e máquina.", tempo: "20 min", preco: 20.00 }
-                            ]
-                        },
-                        {
-                            categoria: "Produtos", icon: "fa-shopping-bag",
-                            itens: [
-                                { id: "p1", nome: "Pomada Matte", desc: "Efeito seco com alta fixação.", tempo: "0 min", preco: 45.00, imagem: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=200&auto=format&fit=crop" },
-                                { id: "p2", nome: "Óleo de Barba", desc: "Hidratação intensa e brilho.", tempo: "0 min", preco: 35.00, imagem: "https://images.unsplash.com/photo-1624453966567-33182b82c615?q=80&w=200&auto=format&fit=crop" },
-                                { id: "p3", nome: "Tônico Minoxidil", desc: "Tratamento para falhas.", tempo: "0 min", preco: 89.90, imagem: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=200&auto=format&fit=crop" }
-                            ]
-                        }
-                    ];
-                    this.salvarBanco('xandao_db_servicos', this.servicosDB);
-                }
-
-                const depSalvo = localStorage.getItem('xandao_db_depoimentos');
-                if (depSalvo) {
-                    this.depoimentosDB = JSON.parse(depSalvo);
-                } else {
-                    this.depoimentosDB = [
-                        { id: "d1", nome: "Marcos Silva", texto: "Melhor corte! O Alexandre é monstro na tesoura e no fade. Não troco por nada, ambiente sensacional.", estrelas: 5, tag: "Cliente Fiel", imagem: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" },
-                        { id: "d2", nome: "Rafael Gomes", texto: "Ambiente top, agendamento super rápido pelo site. O Cleber mandou muito bem no meu degradê.", estrelas: 5, tag: "Agendou pelo App", imagem: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" },
-                        { id: "d3", nome: "Thiago Alves", texto: "A barboterapia com vapor de ozônio é sensacional. Relaxamento total. Recomendo demais!", estrelas: 5, tag: "Barboterapia", imagem: "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?q=80&w=150&auto=format&fit=crop" }
-                    ];
-                    this.salvarBanco('xandao_db_depoimentos', this.depoimentosDB);
-                }
-
-                const banSalvo = localStorage.getItem('xandao_db_banners');
-                if(banSalvo) {
-                    this.bannersDB = JSON.parse(banSalvo);
-                } else {
-                    this.bannersDB = [
-                        { id: "ban1", url: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop", alt: "Ambiente Barbearia" },
-                        { id: "ban2", url: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800&auto=format&fit=crop", alt: "Equipamentos" },
-                        { id: "ban3", url: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=800&auto=format&fit=crop", alt: "Corte na régua" }
-                    ];
-                    this.salvarBanco('xandao_db_banners', this.bannersDB);
-                }
-            },
-
-            salvarBanco(key, data) {
-                localStorage.setItem(key, JSON.stringify(data));
-            },
-
-            // --- FUNÇÕES DE RENDERIZAÇÃO CLIENTE ---
             renderizarBanners() {
                 const container = document.getElementById('hero-slider-container');
                 if(!container) return;
-                
                 let html = '';
-                this.bannersDB.forEach((banner, idx) => {
-                    html += `<div class="slide ${idx === 0 ? 'active' : ''}"><img src="${banner.url}" class="w-full h-full object-cover" alt="${banner.alt}"></div>`;
-                });
+                this.bannersDB.forEach((banner, idx) => { html += `<div class="slide ${idx === 0 ? 'active' : ''}"><img src="${banner.url}" class="w-full h-full object-cover" alt="${banner.alt}"></div>`; });
                 container.innerHTML = html;
             },
 
             renderizarDepoimentos() {
                 const container = document.getElementById('testimonials-scroll');
                 if(!container) return;
-                
                 let html = '';
                 this.depoimentosDB.forEach(dep => {
                     let starsHtml = '';
                     for(let i=0; i<dep.estrelas; i++) starsHtml += `<i class="fas fa-star drop-shadow-[0_0_5px_rgba(245,184,0,0.5)]"></i>`;
-                    
                     html += `
                     <article class="glass-card min-w-[300px] p-6 snap-center bg-[#111]/60 hover:bg-[#1a1a1a]/80 hover:-translate-y-2 transition-all duration-300 border-t-2 border-t-transparent hover:border-t-gold">
                         <div class="flex text-gold text-xs mb-4 gap-1">${starsHtml}</div>
                         <p class="text-gray-300 text-sm italic mb-6 leading-relaxed">"${dep.texto}"</p>
                         <div class="flex items-center gap-4">
                             ${dep.imagem ? `<img src="${dep.imagem}" class="w-12 h-12 rounded-full object-cover border-2 border-gold/50 shadow-lg" alt="${dep.nome}">` : `<div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center font-black text-gold border border-gold/50">${dep.nome.charAt(0)}</div>`}
-                            <div>
-                                <span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">${dep.nome} <i class="fas fa-check-circle text-blue-500 text-[10px]"></i></span>
-                                <span class="text-gray-500 text-[10px] uppercase">${dep.tag}</span>
-                            </div>
+                            <div><span class="text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1">${dep.nome} <i class="fas fa-check-circle text-blue-500 text-[10px]"></i></span><span class="text-gray-500 text-[10px] uppercase">${dep.tag}</span></div>
                         </div>
                     </article>`;
                 });
@@ -982,10 +903,8 @@
             renderizarServicos() {
                 const container = document.getElementById('services-container');
                 let html = '';
-
                 this.servicosDB.forEach((cat, index) => {
-                    const isOpen = index === 0; 
-                    const contentId = `cat-content-${index}`;
+                    const isOpen = index === 0; const contentId = `cat-content-${index}`;
                     const isProduto = cat.categoria.toLowerCase() === 'produtos';
                     const bgClass = isProduto ? 'bg-gradient-to-r from-purple-900/20 to-[#111]' : 'bg-[#111]/80';
                     const borderClass = isProduto ? 'border-purple-500/30' : 'border-white/5';
@@ -994,23 +913,11 @@
 
                     html += `
                     <div class="reveal glass-card overflow-hidden hover:bg-[#111] transition-colors border ${borderClass} ${bgClass}">
-                        <button type="button" class="w-full flex justify-between items-center p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${isOpen ? 'accordion-open border-b border-white/5' : ''}" 
-                                onclick="App.toggleAccordion(this)" 
-                                aria-expanded="${isOpen}" 
-                                aria-controls="${contentId}">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-black/40 flex items-center justify-center border border-white/10 shadow-inner">
-                                    <i class="fas ${cat.icon || 'fa-star'} ${iconColor} text-sm"></i>
-                                </div>
-                                <span class="font-black text-white uppercase tracking-wider text-sm flex items-center">${cat.categoria} ${badge}</span>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center accordion-icon-container border border-white/10 shadow-inner">
-                                <i class="fas fa-chevron-down text-gray-400 accordion-icon text-xs"></i>
-                            </div>
+                        <button type="button" class="w-full flex justify-between items-center p-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold ${isOpen ? 'accordion-open border-b border-white/5' : ''}" onclick="App.toggleAccordion(this)" aria-expanded="${isOpen}" aria-controls="${contentId}">
+                            <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-black/40 flex items-center justify-center border border-white/10 shadow-inner"><i class="fas ${cat.icon || 'fa-star'} ${iconColor} text-sm"></i></div><span class="font-black text-white uppercase tracking-wider text-sm flex items-center">${cat.categoria} ${badge}</span></div>
+                            <div class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center accordion-icon-container border border-white/10 shadow-inner"><i class="fas fa-chevron-down text-gray-400 accordion-icon text-xs"></i></div>
                         </button>
-                        <div id="${contentId}" class="accordion-content bg-[#050505] ${isOpen ? 'open' : ''}">
-                            <div class="p-4 space-y-3">
-                    `;
+                        <div id="${contentId}" class="accordion-content bg-[#050505] ${isOpen ? 'open' : ''}"><div class="p-4 space-y-3">`;
 
                     if(cat.itens.length === 0) html += `<div class="text-gray-500 text-xs text-center py-4 italic">Nenhum item nesta categoria.</div>`;
 
@@ -1020,26 +927,20 @@
                         const circleColor = isSelecionado ? 'border-gold' : 'border-gray-600';
                         
                         html += `
-                            <div class="service-item flex items-center gap-4 p-4 rounded-xl bg-black/40 border border-white/5 hover:border-white/10 shadow-sm ${isSelecionado}" onclick="App.toggleService(${itemParams}, this)" role="checkbox" aria-checked="${isSelecionado ? 'true' : 'false'}" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ') App.toggleService(${itemParams}, this)">
+                            <div class="service-item flex items-center gap-4 p-4 rounded-xl bg-black/40 border border-white/5 hover:border-white/10 shadow-sm ${isSelecionado}" onclick="App.toggleService(${itemParams}, this)">
                                 <div class="shrink-0"><div class="radio-circle w-5 h-5 rounded-full border-2 ${circleColor} flex items-center justify-center"></div></div>
                                 ${item.imagem ? `<img src="${item.imagem}" class="w-12 h-12 rounded-lg object-cover border border-white/10 shadow" alt="${item.nome}">` : ''}
-                                <div class="flex-1 min-w-0">
-                                    <h4 class="text-white font-bold text-sm leading-tight truncate">${item.nome}</h4>
-                                    <p class="text-gray-500 text-[10px] mt-0.5 leading-snug truncate pr-2">${item.desc}</p>
-                                </div>
-                                <div class="text-right shrink-0 flex flex-col items-end gap-1">
-                                    <div class="text-gold text-sm font-black tracking-wide">${this.formatarMoeda(item.preco)}</div>
+                                <div class="flex-1 min-w-0"><h4 class="text-white font-bold text-sm leading-tight truncate">${item.nome}</h4><p class="text-gray-500 text-[10px] mt-0.5 leading-snug truncate pr-2">${item.desc}</p></div>
+                                <div class="text-right shrink-0 flex flex-col items-end gap-1"><div class="text-gold text-sm font-black tracking-wide">${this.formatarMoeda(item.preco)}</div>
                                     ${item.tempo && item.tempo !== "0 min" ? `<div class="text-[9px] font-bold text-gray-500 uppercase flex items-center gap-1"><i class="far fa-clock"></i> ${item.tempo}</div>` : `<div class="text-[9px] font-bold text-purple-400 uppercase flex items-center gap-1"><i class="fas fa-box"></i> Produto</div>`}
                                 </div>
-                            </div>
-                        `;
+                            </div>`;
                     });
                     html += `</div></div></div>`;
                 });
                 container.innerHTML = html;
             },
 
-            // --- UTILITÁRIOS E UI ---
             atualizarStatusLoja() {
                 const agora = new Date();
                 const dia = agora.getDay(); 
@@ -1047,8 +948,11 @@
                 const min = agora.getMinutes();
                 const tempoAtual = hora * 60 + min;
                 
-                const abertura = 7 * 60 + 30; 
-                const fechamento = 18 * 60 + 25; 
+                const [aberturaH, aberturaM] = this.configuracoesGlobais.abertura.split(':').map(Number);
+                const [fechoH, fechoM] = this.configuracoesGlobais.fecho.split(':').map(Number);
+                
+                const abertura = aberturaH * 60 + aberturaM; 
+                const fechamento = fechoH * 60 + fechoM; 
 
                 const badge = document.getElementById('status-loja');
                 const dot = document.getElementById('status-loja-dot');
@@ -1067,9 +971,7 @@
 
             iniciarScrollReveal() {
                 const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-                const observer = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-                }, observerOptions);
+                const observer = new IntersectionObserver((entries, observer) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, observerOptions);
                 document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
             },
 
@@ -1088,11 +990,8 @@
                 const container = document.getElementById('testimonials-scroll');
                 if(!container) return;
                 setInterval(() => {
-                    if(container.scrollWidth - container.clientWidth <= container.scrollLeft + 10) {
-                        container.scrollTo({ left: 0, behavior: 'smooth' });
-                    } else {
-                        container.scrollBy({ left: 320, behavior: 'smooth' });
-                    }
+                    if(container.scrollWidth - container.clientWidth <= container.scrollLeft + 10) container.scrollTo({ left: 0, behavior: 'smooth' });
+                    else container.scrollBy({ left: 320, behavior: 'smooth' });
                 }, 4000);
             },
 
@@ -1118,32 +1017,17 @@
             },
 
             toggleAccordion(btn) {
-                const content = btn.nextElementSibling;
-                const isOpen = content.classList.contains('open');
-                if (!isOpen) {
-                    content.classList.add('open');
-                    btn.classList.add('accordion-open', 'border-b', 'border-white/5');
-                    btn.setAttribute('aria-expanded', 'true');
-                } else {
-                    content.classList.remove('open');
-                    btn.classList.remove('accordion-open', 'border-b', 'border-white/5');
-                    btn.setAttribute('aria-expanded', 'false');
-                }
+                const content = btn.nextElementSibling; const isOpen = content.classList.contains('open');
+                if (!isOpen) { content.classList.add('open'); btn.classList.add('accordion-open', 'border-b', 'border-white/5'); btn.setAttribute('aria-expanded', 'true'); } 
+                else { content.classList.remove('open'); btn.classList.remove('accordion-open', 'border-b', 'border-white/5'); btn.setAttribute('aria-expanded', 'false'); }
             },
 
             toggleService(id, nome, preco, el) {
-                const index = this.carrinho.findIndex(s => s.id === id);
-                const circle = el.querySelector('.radio-circle');
+                const index = this.carrinho.findIndex(s => s.id === id); const circle = el.querySelector('.radio-circle');
                 if (index > -1) {
-                    this.carrinho.splice(index, 1);
-                    el.classList.remove('selected-service');
-                    el.setAttribute('aria-checked', 'false');
-                    circle.classList.replace('border-gold', 'border-gray-600');
+                    this.carrinho.splice(index, 1); el.classList.remove('selected-service'); el.setAttribute('aria-checked', 'false'); circle.classList.replace('border-gold', 'border-gray-600');
                 } else {
-                    this.carrinho.push({ id, nome, preco });
-                    el.classList.add('selected-service');
-                    el.setAttribute('aria-checked', 'true');
-                    circle.classList.replace('border-gray-600', 'border-gold');
+                    this.carrinho.push({ id, nome, preco }); el.classList.add('selected-service'); el.setAttribute('aria-checked', 'true'); circle.classList.replace('border-gray-600', 'border-gold');
                 }
                 this.atualizarCarrinho();
             },
@@ -1158,24 +1042,11 @@
                 else cartUI.classList.add('translate-y-full');
 
                 const resumo = document.getElementById('resumo-final');
-                if (this.carrinho.length === 0) {
-                    resumo.innerHTML = 'Nenhum item selecionado.';
-                } else {
-                    resumo.innerHTML = this.carrinho.map(i => `
-                        <div class="flex justify-between text-xs font-bold text-white mb-2 bg-black/30 p-2 rounded border border-white/5">
-                            <span class="truncate pr-2"><i class="fas fa-check text-gold text-[10px] mr-1"></i> ${i.nome}</span>
-                            <span class="text-gold whitespace-nowrap">${this.formatarMoeda(i.preco)}</span>
-                        </div>
-                    `).join('');
-                    resumo.innerHTML += `
-                        <div class="border-t border-white/10 mt-4 pt-4 flex justify-between items-center text-white font-black text-base">
-                            <span class="uppercase tracking-widest text-xs">Total a pagar</span>
-                            <span class="text-gold text-xl drop-shadow-md">${this.formatarMoeda(total)}</span>
-                        </div>
-                    `;
+                if (this.carrinho.length === 0) { resumo.innerHTML = 'Nenhum item selecionado.'; } 
+                else {
+                    resumo.innerHTML = this.carrinho.map(i => `<div class="flex justify-between text-xs font-bold text-white mb-2 bg-black/30 p-2 rounded border border-white/5"><span class="truncate pr-2"><i class="fas fa-check text-gold text-[10px] mr-1"></i> ${i.nome}</span><span class="text-gold whitespace-nowrap">${this.formatarMoeda(i.preco)}</span></div>`).join('');
+                    resumo.innerHTML += `<div class="border-t border-white/10 mt-4 pt-4 flex justify-between items-center text-white font-black text-base"><span class="uppercase tracking-widest text-xs">Total a pagar</span><span class="text-gold text-xl drop-shadow-md">${this.formatarMoeda(total)}</span></div>`;
                 }
-
-                // Atualiza o mini-header dos horários se já estiver visível
                 this.atualizarHeaderHorarios();
             },
 
@@ -1183,18 +1054,13 @@
                 if (this.carrinho.length === 0) return this.showToast("Selecione pelo menos um corte ou produto antes de avançar!");
                 document.getElementById('agendamento-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 ['fieldset-profissional', 'fieldset-data'].forEach(id => {
-                    const el = document.getElementById(id);
-                    el.classList.add('focus-highlight');
-                    setTimeout(() => el.classList.remove('focus-highlight'), 2000);
+                    const el = document.getElementById(id); el.classList.add('focus-highlight'); setTimeout(() => el.classList.remove('focus-highlight'), 2000);
                 });
             },
-            irParaAgendamento() { this.avancarParaAgendamento(); },
 
             showToast(msg, type = 'error') {
-                const toast = document.getElementById('toast');
-                const icon = toast.querySelector('i');
-                document.getElementById('toast-msg').innerText = msg;
-                toast.className = `fixed top-5 left-1/2 transform -translate-x-1/2 z-[300] text-white font-bold px-6 py-4 rounded-full shadow-2xl transition-all duration-500 flex items-center gap-3 ${type === 'error' ? 'bg-red-600' : 'bg-[#25D366]'}`;
+                const toast = document.getElementById('toast'); const icon = toast.querySelector('i'); document.getElementById('toast-msg').innerText = msg;
+                toast.className = `fixed top-5 left-1/2 transform -translate-x-1/2 z-[350] text-white font-bold px-6 py-4 rounded-full shadow-2xl transition-all duration-500 flex items-center gap-3 ${type === 'error' ? 'bg-red-600' : 'bg-[#25D366]'}`;
                 icon.className = type === 'error' ? "fas fa-exclamation-circle text-xl" : "fas fa-check-circle text-xl";
                 toast.classList.remove('-translate-y-20', 'opacity-0');
                 if(this.toastTimeout) clearTimeout(this.toastTimeout);
@@ -1202,86 +1068,55 @@
             },
 
             atualizarTextoDaData() {
-                const dataVal = document.getElementById('booking-date').value;
-                const dateDisplay = document.getElementById('date-text-display');
+                const dataVal = document.getElementById('booking-date').value; const dateDisplay = document.getElementById('date-text-display');
                 if(!dataVal) return;
                 const dataObj = new Date(dataVal + 'T00:00:00');
                 const options = { weekday: 'long', day: 'numeric', month: 'long' };
-                let dataFormatada = dataObj.toLocaleDateString('pt-BR', options);
+                let dataFormatada = dataObj.toLocaleDateString('pt-PT', options);
                 
-                if (dataObj.getDay() === 0) {
-                    dateDisplay.innerHTML = `<span class="text-red-500"><i class="fas fa-store-alt-slash"></i> ${dataFormatada} (Fechado)</span>`;
-                } else {
-                    dateDisplay.innerHTML = `<i class="fas fa-calendar-check text-gold"></i> ${dataFormatada}`;
-                }
+                if (dataObj.getDay() === 0) dateDisplay.innerHTML = `<span class="text-red-500"><i class="fas fa-store-alt-slash"></i> ${dataFormatada} (Fechado)</span>`;
+                else dateDisplay.innerHTML = `<i class="fas fa-calendar-check text-gold"></i> ${dataFormatada}`;
             },
 
-            // --- HEADER DE HORÁRIOS ESTILO PRINT ---
             atualizarHeaderHorarios() {
-                const slotsHeader = document.getElementById('slots-header');
-                const btnMaisHorarios = document.getElementById('btn-mais-horarios');
+                const slotsHeader = document.getElementById('slots-header'); const btnMaisHorarios = document.getElementById('btn-mais-horarios');
                 if(!this.dataSelecionada || !slotsHeader) return;
 
                 const barberRadio = document.querySelector('input[name="barber"]:checked');
-                const barbeiroName = barberRadio.value;
-                const barberImgSrc = barberRadio.nextElementSibling.querySelector('img').src;
+                const barbeiroName = barberRadio.value; const barberImgSrc = barberRadio.nextElementSibling.querySelector('img').src;
                 
-                let servicosNome = "Vários serviços";
-                let servicosPreco = 0;
+                let servicosNome = "Vários serviços"; let servicosPreco = 0;
+                if (this.carrinho.length === 1) { servicosNome = this.carrinho[0].nome; servicosPreco = this.carrinho[0].preco; } 
+                else if (this.carrinho.length > 1) { servicosPreco = this.carrinho.reduce((sum, i) => sum + i.preco, 0); } 
+                else { servicosNome = "Nenhum serviço selecionado"; }
                 
-                if (this.carrinho.length === 1) {
-                    servicosNome = this.carrinho[0].nome;
-                    servicosPreco = this.carrinho[0].preco;
-                } else if (this.carrinho.length > 1) {
-                    servicosPreco = this.carrinho.reduce((sum, i) => sum + i.preco, 0);
-                } else {
-                    servicosNome = "Nenhum serviço selecionado";
-                }
-                
-                const timeText = this.carrinho.length > 0 ? `${this.carrinho.length} item(s) - ${this.formatarMoeda(servicosPreco)}` : "Selecione na lista acima";
+                const timeText = this.carrinho.length > 0 ? `${this.carrinho.length} item(ns) - ${this.formatarMoeda(servicosPreco)}` : "Selecione na lista acima";
 
-                slotsHeader.innerHTML = `
-                    <div class="flex-1 min-w-0 pr-3">
-                        <h4 class="text-white text-sm font-bold truncate">${servicosNome}</h4>
-                        <p class="text-gold text-[10px] mt-1">${timeText}</p>
-                    </div>
-                    <div class="flex items-center gap-2 bg-[#111] border border-white/10 rounded-full pl-1.5 pr-3 py-1 shrink-0 shadow-inner">
-                        <img src="${barberImgSrc}" class="w-6 h-6 rounded-full object-cover border border-white/10">
-                        <span class="text-white text-xs font-bold">${barbeiroName}</span>
-                    </div>
-                `;
-                slotsHeader.classList.remove('hidden');
-                slotsHeader.classList.add('flex');
-                if(btnMaisHorarios) btnMaisHorarios.classList.remove('hidden');
-                if(btnMaisHorarios) btnMaisHorarios.classList.add('flex');
+                slotsHeader.innerHTML = `<div class="flex-1 min-w-0 pr-3"><h4 class="text-white text-sm font-bold truncate">${servicosNome}</h4><p class="text-gold text-[10px] mt-1">${timeText}</p></div><div class="flex items-center gap-2 bg-[#111] border border-white/10 rounded-full pl-1.5 pr-3 py-1 shrink-0 shadow-inner"><img src="${barberImgSrc}" class="w-6 h-6 rounded-full object-cover border border-white/10"><span class="text-white text-xs font-bold">${barbeiroName}</span></div>`;
+                slotsHeader.classList.remove('hidden'); slotsHeader.classList.add('flex');
+                if(btnMaisHorarios) { btnMaisHorarios.classList.remove('hidden'); btnMaisHorarios.classList.add('flex'); }
             },
 
             async carregarHorarios() {
                 this.atualizarTextoDaData();
-                const dataInput = document.getElementById('booking-date');
-                const dataVal = dataInput.value;
+                const dataInput = document.getElementById('booking-date'); const dataVal = dataInput.value;
                 const barbeiro = document.querySelector('input[name="barber"]:checked').value;
-                const container = document.getElementById('slots-container');
-                const loader = document.getElementById('slots-loader');
-                const header = document.getElementById('slots-header');
-                const btnMais = document.getElementById('btn-mais-horarios');
+                const container = document.getElementById('slots-container'); const loader = document.getElementById('slots-loader');
+                const header = document.getElementById('slots-header'); const btnMais = document.getElementById('btn-mais-horarios');
                 
+                document.getElementById('label-horarios-prof').innerHTML = `<i class="fas fa-clock mr-2"></i>Horários de ${barbeiro}`;
                 if(!dataVal) return;
 
                 if (new Date(dataVal + 'T00:00:00').getDay() === 0) { 
                     this.showToast("Não funcionamos aos domingos. Escolha outra data.", "error");
                     dataInput.value = ""; this.atualizarTextoDaData();
                     container.innerHTML = '<div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">Selecione uma data válida para ver os horários.</div>';
-                    if(header) header.classList.add('hidden');
-                    if(btnMais) btnMais.classList.add('hidden');
+                    if(header) header.classList.add('hidden'); if(btnMais) btnMais.classList.add('hidden');
                     return;
                 }
 
                 this.atualizarHeaderHorarios();
-
-                this.horaSelecionada = null; 
-                container.innerHTML = '';
-                loader.classList.remove('hidden'); loader.classList.add('flex');
+                this.horaSelecionada = null; container.innerHTML = ''; loader.classList.remove('hidden'); loader.classList.add('flex');
 
                 let slots = [];
                 await new Promise(r => setTimeout(r, 400)); 
@@ -1290,10 +1125,15 @@
                 if (this.agendasCache[cacheKey]) {
                     slots = this.agendasCache[cacheKey];
                 } else {
-                    let start = 7 * 60 + 30; let end = 18 * 60 + 25;  
+                    const [abH, abM] = this.configuracoesGlobais.abertura.split(':').map(Number);
+                    const [fcH, fcM] = this.configuracoesGlobais.fecho.split(':').map(Number);
+                    const intervalo = parseInt(this.configuracoesGlobais.intervalo);
+
+                    let start = abH * 60 + abM; 
+                    let end = fcH * 60 + fcM;  
                     const chanceLivre = barbeiro === "Alexandre" ? 0.4 : 0.6; 
                     
-                    for(let i = start; i <= end; i += 25) {
+                    for(let i = start; i <= end; i += intervalo) {
                         let h = Math.floor(i/60).toString().padStart(2,'0');
                         let m = (i%60).toString().padStart(2,'0');
                         let isLivre = Math.random() > (1 - chanceLivre); 
@@ -1305,6 +1145,11 @@
 
                 loader.classList.add('hidden'); loader.classList.remove('flex');
 
+                if(slots.length === 0) {
+                     container.innerHTML = `<div class="col-span-full py-6 text-center text-red-400 text-sm font-bold bg-red-900/10 rounded-xl border border-red-900/30"><i class="fas fa-calendar-times mb-2 text-xl block"></i>Nenhum horário disponível nesta data.</div>`;
+                     return;
+                }
+
                 slots.forEach(slot => {
                     const meuAgendamento = this.meusAgendamentos.find(a => a.data === dataVal && a.barbeiro === barbeiro && a.hora === slot.hora);
                     const div = document.createElement('div');
@@ -1313,10 +1158,7 @@
                         const primeiroNome = meuAgendamento.nome.split(' ')[0] || "Você";
                         const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(primeiroNome)}&background=25D366&color=fff&rounded=true&bold=true`;
                         div.className = `time-slot text-center py-1.5 rounded-lg text-sm font-bold flex flex-col items-center justify-center gap-0.5 border-2 border-[#25D366] bg-[#25D366]/10 text-white shadow-[0_0_15px_rgba(37,211,102,0.15)] transform scale-[1.02]`;
-                        div.innerHTML = `
-                            <div class="flex items-center gap-1.5"><img src="${avatarUrl}" class="w-4 h-4 rounded-full border border-[#25D366] shadow-sm" alt="Você"><span class="text-sm tracking-wide">${slot.hora}</span></div>
-                            <span class="text-[7px] uppercase tracking-widest text-[#25D366]">Seu Horário</span>
-                        `;
+                        div.innerHTML = `<div class="flex items-center gap-1.5"><img src="${avatarUrl}" class="w-4 h-4 rounded-full border border-[#25D366] shadow-sm" alt="Você"><span class="text-sm tracking-wide">${slot.hora}</span></div><span class="text-[7px] uppercase tracking-widest text-[#25D366]">O Seu Horário</span>`;
                     } else if(slot.disponivel) {
                         div.className = `time-slot text-center py-2.5 rounded-lg text-sm font-bold flex items-center justify-center border border-white/20 available bg-[#111] text-gray-300 transition-all hover:border-gold hover:text-gold hover:bg-gold/5`;
                         div.innerHTML = `${slot.hora}`;
@@ -1324,10 +1166,7 @@
                     } else {
                         const avatarPublicoUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(slot.nomePublico)}&background=333&color=999&rounded=true&bold=true`;
                         div.className = `time-slot booked-other text-center py-1.5 rounded-lg font-bold flex flex-col items-center justify-center border border-white/5 bg-black/40 relative opacity-70`;
-                        div.innerHTML = `
-                            <div class="flex items-center gap-1.5 opacity-60"><img src="${avatarPublicoUrl}" class="w-3 h-3 rounded-full grayscale" alt="Cliente"><span class="line-through text-xs">${slot.hora}</span></div>
-                            <span class="text-[7px] text-gray-500 uppercase leading-none mt-0.5">${slot.nomePublico}</span>
-                        `;
+                        div.innerHTML = `<div class="flex items-center gap-1.5 opacity-60"><img src="${avatarPublicoUrl}" class="w-3 h-3 rounded-full grayscale" alt="Cliente"><span class="line-through text-xs">${slot.hora}</span></div><span class="text-[7px] text-gray-500 uppercase leading-none mt-0.5">${slot.nomePublico}</span>`;
                         div.onclick = (e) => App.abrirModalFila(slot.hora, e);
                     }
                     container.appendChild(div);
@@ -1354,7 +1193,7 @@
                 if (!data) return this.showToast("Selecione a data!");
                 if (!this.horaSelecionada) return this.showToast("Selecione um horário disponível!");
                 if (!nome) return this.showToast("Qual é o seu nome?");
-                if (telLimpo.length < 10) return this.showToast("Preencha seu WhatsApp com DDD.");
+                if (telLimpo.length < 10) return this.showToast("Preencha o seu WhatsApp com indicativo.");
 
                 const total = this.carrinho.reduce((sum, item) => sum + item.preco, 0);
                 const servicosStr = this.carrinho.map(i => i.nome).join(', ');
@@ -1408,9 +1247,9 @@
                 setTimeout(() => {
                     modal.classList.add('opacity-0'); card.classList.add('scale-0');
                     
-                    const numZapShop = "558396340618"; // Número da Barbearia
+                    const numZapShop = "558396340618"; 
                     const servicosFormatados = dados.servicos;
-                    const msgClienteParaBarbeiro = `Olá ${dados.barbeiro}! Acabei de fazer um agendamento pelo App.\n\n📅 Data: ${dataFmt} às ${dados.hora}\n✂️ Serviços: ${servicosFormatados}\n\nAqui é o ${primeiroNome}, te vejo lá!`;
+                    const msgClienteParaBarbeiro = `Olá ${dados.barbeiro}! Acabei de fazer um agendamento pela App.\n\n📅 Data: ${dataFmt} às ${dados.hora}\n✂️ Serviços: ${servicosFormatados}\n\nAqui é o ${primeiroNome}, vemo-nos lá!`;
                     
                     window.location.href = `https://wa.me/${numZapShop}?text=${encodeURIComponent(msgClienteParaBarbeiro)}`;
 
@@ -1429,47 +1268,147 @@
                 }, 4500); 
             },
 
+            // --- CHAT CLIENTE ---
+            abrirChatCliente() {
+                const modal = document.getElementById('chat-modal');
+                const content = document.getElementById('chat-content');
+                modal.classList.remove('hidden'); modal.classList.add('flex');
+                setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('translate-y-full', 'sm:scale-95'); }, 10);
+                this.renderizarChatCliente();
+            },
+            fecharChatCliente() {
+                const modal = document.getElementById('chat-modal');
+                const content = document.getElementById('chat-content');
+                modal.classList.add('opacity-0'); content.classList.add('translate-y-full', 'sm:scale-95');
+                setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+            },
+            renderizarChatCliente() {
+                const container = document.getElementById('chat-messages');
+                let html = '';
+                this.mensagensDB.forEach(msg => {
+                    if(msg.remetente === 'Barbearia') {
+                        html += `<div class="flex justify-start"><div class="bg-[#1a1a1a] text-gray-300 text-xs p-3 rounded-2xl rounded-tl-sm border border-white/5 max-w-[85%] shadow-sm relative">${msg.texto}<span class="text-[8px] text-gray-500 block mt-1 text-right">${msg.hora}</span></div></div>`;
+                    } else {
+                        html += `<div class="flex justify-end"><div class="bg-gold text-dark font-medium text-xs p-3 rounded-2xl rounded-tr-sm max-w-[85%] shadow-md relative">${msg.texto}<span class="text-[8px] text-black/60 block mt-1 text-right">${msg.hora}</span></div></div>`;
+                    }
+                });
+                container.innerHTML = html;
+                container.scrollTop = container.scrollHeight;
+            },
+            enviarMensagemCliente() {
+                const input = document.getElementById('chat-input');
+                const texto = input.value.trim();
+                if(!texto) return;
+                
+                const agora = new Date();
+                const horaStr = `${String(agora.getHours()).padStart(2,'0')}:${String(agora.getMinutes()).padStart(2,'0')}`;
+                const nomeCliente = localStorage.getItem('xandao_nome') || "Visitante";
+                const telefoneCliente = this.removerMascara(localStorage.getItem('xandao_whatsapp') || ""); 
+                
+                this.mensagensDB.push({ remetente: 'Cliente', nome: nomeCliente, telefone: telefoneCliente, texto: texto, hora: horaStr });
+                this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                
+                input.value = '';
+                this.renderizarChatCliente();
+                
+                setTimeout(() => {
+                    const horaResp = new Date();
+                    const horaRespStr = `${String(horaResp.getHours()).padStart(2,'0')}:${String(horaResp.getMinutes()).padStart(2,'0')}`;
+                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Xandão', texto: 'Recebemos a tua mensagem! Um dos nossos barbeiros vai responder-te em breve.', hora: horaRespStr });
+                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                    this.renderizarChatCliente();
+                    if(document.getElementById('admin-modal').classList.contains('flex')) this.renderizarAdminMensagens();
+                }, 1500);
+            },
+
+            abrirModalFila(hora, event) {
+                if(event) event.stopPropagation(); 
+                this.slotNaFila = hora;
+                document.getElementById('fila-hora-txt').innerText = hora;
+                const modal = document.getElementById('modal-fila');
+                const content = document.getElementById('modal-fila-content');
+                modal.classList.remove('hidden'); modal.classList.add('flex');
+                setTimeout(() => { modal.classList.remove('opacity-0'); content.classList.remove('scale-95'); document.getElementById('fila-phone').focus(); }, 10);
+            },
+
+            fecharModalFila() {
+                const modal = document.getElementById('modal-fila');
+                const content = document.getElementById('modal-fila-content');
+                modal.classList.add('opacity-0'); content.classList.add('scale-95');
+                setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); this.slotNaFila = null; document.getElementById('fila-phone').value = ''; }, 300);
+            },
+
+            async entrarNaFila() {
+                const telInput = document.getElementById('fila-phone').value;
+                const telLimpo = this.removerMascara(telInput);
+                if(telLimpo.length < 10) return this.showToast("Digite um WhatsApp válido com DDD!");
+                
+                const btn = document.getElementById('btn-fila');
+                const txtOriginal = btn.innerText;
+                btn.innerHTML = '<div class="loader w-4 h-4 border-2 mx-auto"></div>'; btn.disabled = true;
+
+                setTimeout(() => {
+                    this.showToast(`Registrado na fila VIP!`, 'success');
+                    this.fecharModalFila();
+                    btn.innerText = txtOriginal; btn.disabled = false;
+                }, 1000);
+            },
+
             // ==========================================
-            // ADMIN PANEL LOGIC (O SISTEMA DO BARBEIRO)
+            // ADMIN PANEL LOGIC 
             // ==========================================
             abrirAdminPanel() {
                 const painel = document.getElementById('admin-modal');
                 painel.classList.remove('hidden'); painel.classList.add('flex');
                 setTimeout(() => painel.classList.remove('translate-y-full'), 10);
-                this.switchTab('resumo');
+                
+                document.getElementById('cfg-abertura').value = this.configuracoesGlobais.abertura;
+                document.getElementById('cfg-fecho').value = this.configuracoesGlobais.fecho;
+                document.getElementById('cfg-intervalo').value = this.configuracoesGlobais.intervalo;
+                this.switchAdminTab('resumo');
             },
 
-            fecharPainel() {
+            fecharAdminPanel() {
                 const painel = document.getElementById('admin-modal');
                 painel.classList.add('translate-y-full');
                 setTimeout(() => { painel.classList.add('hidden'); painel.classList.remove('flex'); }, 500);
             },
 
-            switchTab(tabName) {
-                document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active', 'border-gold', 'text-white'));
-                document.getElementById(`tab-${tabName}`).classList.add('active', 'border-gold', 'text-white');
-                ['resumo', 'agenda', 'catalogo', 'avaliacoes', 'banners'].forEach(id => document.getElementById(`content-${id}`).classList.add('hidden'));
-                document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            switchAdminTab(tabName) {
+                document.querySelectorAll('.admin-tab').forEach(b => {
+                    if(b) b.classList.remove('active', 'border-gold', 'text-white');
+                });
+                const activeTabBtn = document.getElementById(`tab-${tabName}`);
+                if(activeTabBtn) activeTabBtn.classList.add('active', 'border-gold', 'text-white');
+
+                ['resumo', 'agenda', 'catalogo', 'avaliacoes', 'banners', 'mensagens', 'configuracoes'].forEach(id => {
+                    const el = document.getElementById(`content-${id}`);
+                    if(el) el.classList.add('hidden');
+                });
+                
+                const activeContent = document.getElementById(`content-${tabName}`);
+                if(activeContent) activeContent.classList.remove('hidden');
                 
                 if(tabName === 'resumo' || tabName === 'agenda') this.atualizarAdminDashboard();
                 if(tabName === 'catalogo') this.renderizarAdminCatalogo();
                 if(tabName === 'avaliacoes') this.renderizarAdminDepoimentos();
                 if(tabName === 'banners') this.renderizarAdminBanners();
+                if(tabName === 'mensagens') this.renderizarAdminMensagens();
             },
 
             atualizarAdminDashboard() {
-                let totalGanhos = 0; let totalProdutos = 0; let htmlAgendas = '';
-                if(this.meusAgendamentos.length === 0) {
+                const filtroBarbeiro = document.getElementById('admin-barber-filter') ? document.getElementById('admin-barber-filter').value : "Todos";
+                let totalGanhos = 0; let htmlAgendas = '';
+                
+                const agendaFiltrada = this.meusAgendamentos.filter(a => filtroBarbeiro === "Todos" || a.barbeiro === filtroBarbeiro);
+
+                if(agendaFiltrada.length === 0) {
                     htmlAgendas = '<p class="text-gray-500 text-xs italic text-center py-6">Nenhum agendamento na sua sessão hoje.</p>';
                 } else {
-                    this.meusAgendamentos.forEach((a, index) => {
+                    agendaFiltrada.forEach((a, index) => {
                         totalGanhos += a.total;
-                        if(a.servicos.toLowerCase().includes('pomada') || a.servicos.toLowerCase().includes('óleo') || a.servicos.toLowerCase().includes('tônico')) totalProdutos++;
-                        
                         const dataFormatada = a.data.split('-').reverse().join('/');
-                        
-                        // Mensagem que o Barbeiro envia para o Cliente (Confirmando)
-                        const msgDoBarbeiro = encodeURIComponent(`Fala ${a.nome.split(' ')[0]}, beleza? Aqui é do Xandão Barber Shop. Confirmando seu agendamento de ${a.servicos} para o dia ${dataFormatada} às ${a.hora} com o ${a.barbeiro}. Te esperamos lá! ✂️💈`);
+                        const msgDoBarbeiro = encodeURIComponent(`Fala ${a.nome.split(' ')[0]}, tudo bem? Aqui é do Xandão Barber Shop. Confirmando o teu agendamento de ${a.servicos} para o dia ${dataFormatada} às ${a.hora} com o ${a.barbeiro}. Esperamos por ti! ✂️💈`);
                         const linkWhatsAppCliente = `https://wa.me/55${a.whatsapp}?text=${msgDoBarbeiro}`;
 
                         htmlAgendas += `
@@ -1477,36 +1416,120 @@
                             <div class="flex items-center justify-between mb-2">
                                 <div class="flex items-center gap-3">
                                     <div class="bg-gold text-dark font-black text-xs px-2 py-1 rounded">${a.hora}</div>
-                                    <div>
-                                        <a href="${linkWhatsAppCliente}" target="_blank" class="text-white text-xs font-bold hover:text-[#25D366] transition-colors flex items-center gap-1" title="Abrir WhatsApp do Cliente">
-                                            ${a.nome} <i class="fab fa-whatsapp"></i>
-                                        </a>
-                                        <div class="text-gray-500 text-[9px] truncate max-w-[150px] sm:max-w-[200px]">${a.servicos}</div>
-                                    </div>
+                                    <div><a href="${linkWhatsAppCliente}" target="_blank" class="text-white text-xs font-bold hover:text-[#25D366] transition-colors flex items-center gap-1">${a.nome} <i class="fab fa-whatsapp"></i></a><div class="text-gray-500 text-[9px] truncate max-w-[150px] sm:max-w-[200px]">${a.servicos}</div></div>
                                 </div>
                                 <div class="text-gold text-xs font-black">${this.formatarMoeda(a.total)}</div>
                             </div>
                             <div class="flex justify-between items-center border-t border-white/5 pt-2 mt-1">
                                 <span class="text-[9px] text-gray-500"><i class="far fa-calendar"></i> ${dataFormatada} • ${a.barbeiro}</span>
                                 <div class="flex gap-2">
-                                    <button onclick="Admin.abrirEditorAgendamento(${index})" class="text-blue-400 hover:bg-blue-400/20 w-6 h-6 rounded bg-blue-400/10 flex items-center justify-center transition-colors" title="Reagendar/Editar"><i class="fas fa-pen text-[10px]"></i></button>
+                                    <button onclick="App.abrirEditorAgendamento(${index})" class="text-blue-400 hover:bg-blue-400/20 w-6 h-6 rounded bg-blue-400/10 flex items-center justify-center transition-colors" title="Reagendar/Editar"><i class="fas fa-pen text-[10px]"></i></button>
                                     <a href="${linkWhatsAppCliente}" target="_blank" class="text-[#25D366] hover:bg-[#25D366]/20 w-6 h-6 rounded bg-[#25D366]/10 flex items-center justify-center transition-colors" title="Enviar Confirmação"><i class="fas fa-paper-plane text-[10px]"></i></a>
-                                    <button onclick="Admin.excluirAgendamento(${index})" class="text-red-400 hover:bg-red-400/20 w-6 h-6 rounded bg-red-400/10 flex items-center justify-center transition-colors" title="Cancelar Agendamento"><i class="fas fa-trash text-[10px]"></i></button>
+                                    <button onclick="App.excluirAgendamento(${index})" class="text-red-400 hover:bg-red-400/20 w-6 h-6 rounded bg-red-400/10 flex items-center justify-center transition-colors" title="Cancelar Agendamento"><i class="fas fa-trash text-[10px]"></i></button>
                                 </div>
                             </div>
                         </div>`;
                     });
                 }
-                const cortes = this.meusAgendamentos.length;
-                document.getElementById('admin-ganhos-dia').innerText = this.formatarMoeda(totalGanhos);
-                document.getElementById('admin-cortes-dia').innerText = cortes;
-                document.getElementById('admin-ticket-medio').innerText = this.formatarMoeda(cortes > 0 ? totalGanhos/cortes : 0);
-                document.getElementById('admin-produtos-vendidos').innerText = `${totalProdutos} Vendidos`;
-                document.getElementById('admin-agenda-list').innerHTML = htmlAgendas;
-                document.getElementById('admin-total-agendas').innerText = `${cortes} Agendamentos`;
+                const cortes = agendaFiltrada.length;
+                const elGanhos = document.getElementById('admin-ganhos-dia'); if(elGanhos) elGanhos.innerText = this.formatarMoeda(totalGanhos);
+                const elCortes = document.getElementById('admin-cortes-dia'); if(elCortes) elCortes.innerText = cortes;
+                const elList = document.getElementById('admin-agenda-list'); if(elList) elList.innerHTML = htmlAgendas;
             },
 
-            // EDITA O AGENDAMENTO DENTRO DO ADMIN
+            renderizarAdminMensagens() {
+                const container = document.getElementById('admin-msg-list');
+                if(!container) return;
+                
+                if(this.mensagensDB.length === 0) {
+                    container.innerHTML = '<p class="text-gray-500 text-xs italic text-center py-6">Nenhuma mensagem na caixa de entrada.</p>';
+                    return;
+                }
+
+                let html = '<div class="space-y-3 mb-4">';
+                this.mensagensDB.forEach(msg => {
+                    if(msg.remetente === 'Cliente') {
+                        const zapBtn = msg.telefone ? `<a href="https://wa.me/55${msg.telefone}" target="_blank" onclick="event.stopPropagation()" class="text-[#25D366] hover:text-white transition-colors" title="Chamar no WhatsApp"><i class="fab fa-whatsapp text-sm"></i></a>` : '';
+                        html += `
+                        <div class="flex justify-start">
+                            <div class="bg-black/50 text-gray-300 text-xs p-3 rounded-2xl rounded-tl-sm border border-white/5 w-[90%] shadow-sm relative cursor-pointer hover:border-gold/30" onclick="App.responderMsgAdmin('${msg.nome}')">
+                                <div class="flex justify-between items-center mb-1 pb-1 border-b border-white/10 gap-2">
+                                    <span class="text-gold font-bold flex items-center gap-1 truncate"><i class="fas fa-user text-[8px]"></i> ${msg.nome}</span>
+                                    <div class="flex gap-2 items-center shrink-0">
+                                        ${zapBtn}
+                                        <span class="text-[8px] text-gray-500">${msg.hora}</span>
+                                    </div>
+                                </div>
+                                <p class="leading-relaxed text-[11px]">${msg.texto}</p>
+                            </div>
+                        </div>`;
+                    } else {
+                        html += `
+                        <div class="flex justify-end">
+                            <div class="bg-gold/20 text-white font-medium text-xs p-3 rounded-2xl rounded-tr-sm border border-gold/30 w-[85%] shadow-md relative">
+                                <div class="flex justify-between items-center mb-1 pb-1 border-b border-gold/20 gap-2">
+                                    <span class="text-gold font-bold flex items-center gap-1"><i class="fas fa-store text-[8px]"></i> Barbearia</span>
+                                    <span class="text-[8px] text-gray-400">${msg.hora}</span>
+                                </div>
+                                <p class="leading-relaxed text-[11px]">${msg.texto}</p>
+                            </div>
+                        </div>`;
+                    }
+                });
+                
+                html += `</div>
+                <div class="flex gap-2 sticky bottom-0 bg-[#111] pt-2 border-t border-white/5">
+                    <button onclick="App.pedirFeedbackAdmin()" class="bg-blue-500/20 text-blue-400 border border-blue-500/30 px-3 py-3 rounded-xl text-xs font-bold hover:bg-blue-500 hover:text-white transition-colors flex-1 flex items-center justify-center gap-1"><i class="fas fa-star"></i> Feedback</button>
+                    <button onclick="App.responderMsgAdmin('Cliente')" class="bg-gold text-dark px-3 py-3 rounded-xl text-xs font-black hover:scale-[1.02] transition-transform flex-[2] flex items-center justify-center gap-1"><i class="fas fa-reply"></i> Responder</button>
+                </div>`;
+                
+                container.innerHTML = html;
+                
+                setTimeout(() => {
+                    const scrollArea = document.getElementById('content-mensagens');
+                    if(scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
+                }, 50);
+            },
+
+            responderMsgAdmin(nomeAlvo) {
+                const resposta = prompt(`Escreva a resposta para ${nomeAlvo || 'o cliente'}:`);
+                if(resposta) {
+                    const agora = new Date();
+                    const horaStr = `${String(agora.getHours()).padStart(2,'0')}:${String(agora.getMinutes()).padStart(2,'0')}`;
+                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Xandão', texto: resposta, hora: horaStr });
+                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                    this.showToast('Resposta enviada!', 'success');
+                    this.renderizarAdminMensagens();
+                }
+            },
+            
+            pedirFeedbackAdmin() {
+                const resposta = prompt("Enviar pedido de feedback (aparecerá no chat do cliente):", "Muito obrigado pela preferência! Queira por favor avaliar o nosso serviço e deixar um depoimento?");
+                if(resposta) {
+                    const agora = new Date();
+                    const horaStr = `${String(agora.getHours()).padStart(2,'0')}:${String(agora.getMinutes()).padStart(2,'0')}`;
+                    this.mensagensDB.push({ remetente: 'Barbearia', nome: 'Xandão', texto: resposta, hora: horaStr });
+                    this.salvarBanco('xandao_db_msgs_v2', this.mensagensDB);
+                    this.showToast('Pedido de feedback enviado!', 'success');
+                    this.renderizarAdminMensagens();
+                }
+            },
+
+            salvarConfiguracoes() {
+                const abertura = document.getElementById('cfg-abertura').value;
+                const fecho = document.getElementById('cfg-fecho').value;
+                const intervalo = document.getElementById('cfg-intervalo').value;
+
+                if(!abertura || !fecho || !intervalo) return this.showToast("Preencha todos os campos da configuração!");
+
+                this.configuracoesGlobais = { abertura, fecho, intervalo: parseInt(intervalo) };
+                this.salvarBanco('xandao_db_config_v2', this.configuracoesGlobais);
+
+                this.agendasCache = {};
+                this.carregarHorarios(); 
+                this.showToast('Definições atualizadas e horários recalculados!', 'success');
+            },
+
             abrirEditorAgendamento(idx) {
                 const ag = this.meusAgendamentos[idx];
                 document.getElementById('editor-titulo').innerHTML = '<i class="fas fa-calendar-alt mr-1"></i> Reagendar Cliente';
@@ -1527,7 +1550,7 @@
                         <option value="Alexandre" ${ag.barbeiro === 'Alexandre' ? 'selected' : ''}>Alexandre</option>
                         <option value="Cleber" ${ag.barbeiro === 'Cleber' ? 'selected' : ''}>Cleber</option>
                     </select></div>
-                    <button onclick="Admin.salvarAgendamento()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar Reagendamento</button>
+                    <button onclick="App.salvarAgendamento()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Guardar Reagendamento</button>
                 `;
                 this.mostrarModalEditor();
             },
@@ -1546,14 +1569,12 @@
 
                 if(!nome || !data || !hora) return this.showToast("Preencha todos os campos!");
 
-                // Libera a vaga velha do cache (Para ela voltar a ficar disponível no grid público)
                 const oldCacheKey = `${oldData}-${oldBarbeiro}`;
                 if (this.agendasCache[oldCacheKey]) {
                     const oldSlot = this.agendasCache[oldCacheKey].find(s => s.hora === oldHora);
                     if (oldSlot) oldSlot.disponivel = true;
                 }
 
-                // Bloqueia a nova vaga no cache
                 const newCacheKey = `${data}-${barbeiro}`;
                 if (this.agendasCache[newCacheKey]) {
                     const newSlot = this.agendasCache[newCacheKey].find(s => s.hora === hora);
@@ -1567,30 +1588,27 @@
                 this.meusAgendamentos[idx].barbeiro = barbeiro;
 
                 this.atualizarAdminDashboard();
-                this.carregarHorarios(); // Recarrega o app público para mostrar as mudanças
+                this.carregarHorarios(); 
                 this.fecharEditorGeral();
                 this.showToast("Agendamento atualizado!", "success");
             },
 
             excluirAgendamento(idx) {
-                if(confirm("Tem certeza que deseja cancelar e excluir este agendamento? A vaga ficará livre novamente.")) {
+                if(confirm("Tem a certeza que deseja cancelar este agendamento? A vaga ficará livre novamente.")) {
                     const ag = this.meusAgendamentos[idx];
-                    
-                    // Libera a vaga no cache
                     const cacheKey = `${ag.data}-${ag.barbeiro}`;
                     if (this.agendasCache[cacheKey]) {
                         const slot = this.agendasCache[cacheKey].find(s => s.hora === ag.hora);
                         if (slot) slot.disponivel = true;
                     }
-
                     this.meusAgendamentos.splice(idx, 1);
                     this.atualizarAdminDashboard();
                     this.carregarHorarios();
-                    this.showToast("Agendamento cancelado com sucesso.", "success");
+                    this.showToast("Agendamento cancelado.", "success");
                 }
             },
 
-            // --- GESTÃO DE CATÁLOGO ---
+            // --- ADMIN: CATÁLOGO ---
             renderizarAdminCatalogo() {
                 const container = document.getElementById('admin-catalogo-list');
                 let html = '';
@@ -1605,8 +1623,8 @@
                                     <div><div class="text-white text-xs font-bold">${item.nome}</div><div class="text-gray-500 text-[9px]">${item.tempo} • ${this.formatarMoeda(item.preco)}</div></div>
                                 </div>
                                 <div class="flex gap-2 shrink-0">
-                                    <button onclick="Admin.abrirEditorCatalogo('${jsonItem}')" class="text-blue-400 hover:bg-blue-400/20 w-6 h-6 rounded bg-blue-400/10 flex items-center justify-center"><i class="fas fa-pen text-[10px]"></i></button>
-                                    <button onclick="Admin.excluirCatalogo(${catIndex}, ${itemIndex})" class="text-red-400 hover:bg-red-400/20 w-6 h-6 rounded bg-red-400/10 flex items-center justify-center"><i class="fas fa-trash text-[10px]"></i></button>
+                                    <button onclick="App.abrirEditorCatalogo('${jsonItem}')" class="text-blue-400 hover:bg-blue-400/20 w-6 h-6 rounded bg-blue-400/10 flex items-center justify-center"><i class="fas fa-pen text-[10px]"></i></button>
+                                    <button onclick="App.excluirCatalogo(${catIndex}, ${itemIndex})" class="text-red-400 hover:bg-red-400/20 w-6 h-6 rounded bg-red-400/10 flex items-center justify-center"><i class="fas fa-trash text-[10px]"></i></button>
                                 </div>
                             </div>`;
                     });
@@ -1617,10 +1635,10 @@
 
             abrirEditorCatalogo(jsonItemEncoded = null) {
                 const body = document.getElementById('editor-dynamic-body');
-                let catOptions = `<option value="Cabelos">Cabelos</option><option value="Barba">Barba</option><option value="Química">Química</option><option value="Estética">Estética</option><option value="Produtos">Produtos</option>`;
+                let catOptions = `<option value="Cortes">Cortes</option><option value="Barba">Barba</option><option value="Química">Química</option><option value="Estética">Estética</option><option value="Produtos">Produtos</option>`;
                 
                 let item = { nome: '', desc: '', tempo: '', preco: '', imagem: '', catIndex: -1, itemIndex: -1 };
-                let currentCat = "Cabelos";
+                let currentCat = "Cortes";
 
                 if(jsonItemEncoded) {
                     item = JSON.parse(decodeURIComponent(jsonItemEncoded));
@@ -1641,8 +1659,8 @@
                         <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Tempo</label><input type="text" id="edit-tempo" value="${item.tempo}" placeholder="Ex: 30 min" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
                         <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Preço (R$)</label><input type="number" step="0.01" id="edit-preco" value="${item.preco}" placeholder="0.00" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
                     </div>
-                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">URL da Foto (Opcional, bom para produtos)</label><input type="text" id="edit-imagem" value="${item.imagem || ''}" placeholder="https://..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
-                    <button onclick="Admin.salvarCatalogo()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar no Catálogo</button>
+                    <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">URL da Foto (Opcional)</label><input type="text" id="edit-imagem" value="${item.imagem || ''}" placeholder="https://..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-gold outline-none"></div>
+                    <button onclick="App.salvarCatalogo()" class="w-full bg-gold text-dark font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Guardar no Catálogo</button>
                 `;
                 this.mostrarModalEditor();
             },
@@ -1681,7 +1699,7 @@
                     this.servicosDB[catIndex].itens.push(newItem);
                 }
 
-                this.salvarBanco('xandao_db_servicos', this.servicosDB);
+                this.salvarBanco('xandao_db_servicos_v2', this.servicosDB);
                 this.renderizarAdminCatalogo(); 
                 this.renderizarServicos(); 
                 this.fecharEditorGeral();
@@ -1691,12 +1709,12 @@
             excluirCatalogo(catIndex, itemIndex) {
                 if(confirm("Excluir este item?")) {
                     this.servicosDB[catIndex].itens.splice(itemIndex, 1);
-                    this.salvarBanco('xandao_db_servicos', this.servicosDB);
+                    this.salvarBanco('xandao_db_servicos_v2', this.servicosDB);
                     this.renderizarAdminCatalogo(); this.renderizarServicos();
                 }
             },
 
-            // --- GESTÃO DE DEPOIMENTOS ---
+            // --- ADMIN: DEPOIMENTOS ---
             renderizarAdminDepoimentos() {
                 const container = document.getElementById('admin-depoimentos-list');
                 let html = '';
@@ -1710,8 +1728,8 @@
                                 <div class="text-gray-500 text-[10px] truncate max-w-[180px]">${dep.texto}</div></div>
                             </div>
                             <div class="flex gap-2 shrink-0">
-                                <button onclick="Admin.abrirEditorDepoimento('${jsonEncoded}')" class="text-blue-400 bg-blue-400/10 w-7 h-7 rounded"><i class="fas fa-pen text-xs"></i></button>
-                                <button onclick="Admin.excluirDepoimento(${idx})" class="text-red-400 bg-red-400/10 w-7 h-7 rounded"><i class="fas fa-trash text-xs"></i></button>
+                                <button onclick="App.abrirEditorDepoimento('${jsonEncoded}')" class="text-blue-400 bg-blue-400/10 w-7 h-7 rounded"><i class="fas fa-pen text-xs"></i></button>
+                                <button onclick="App.excluirDepoimento(${idx})" class="text-red-400 bg-red-400/10 w-7 h-7 rounded"><i class="fas fa-trash text-xs"></i></button>
                             </div>
                         </div>`;
                 });
@@ -1734,7 +1752,7 @@
                     <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Texto / Avaliação</label><textarea id="dep-texto" rows="3" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none">${dep.texto}</textarea></div>
                     <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Selo / Tag (Ex: Cliente Fiel)</label><input type="text" id="dep-tag" value="${dep.tag}" placeholder="Selo" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none"></div>
                     <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">URL da Foto do Cliente</label><input type="text" id="dep-imagem" value="${dep.imagem}" placeholder="https://..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-blue-500 outline-none"></div>
-                    <button onclick="Admin.salvarDepoimento()" class="w-full bg-blue-500 text-white font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar Avaliação</button>
+                    <button onclick="App.salvarDepoimento()" class="w-full bg-blue-500 text-white font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Guardar Avaliação</button>
                 `;
                 this.mostrarModalEditor();
             },
@@ -1754,22 +1772,22 @@
                 if(idx > -1) this.depoimentosDB[idx] = newDep;
                 else this.depoimentosDB.unshift(newDep); 
 
-                this.salvarBanco('xandao_db_depoimentos', this.depoimentosDB);
+                this.salvarBanco('xandao_db_depoimentos_v2', this.depoimentosDB);
                 this.renderizarAdminDepoimentos();
                 this.renderizarDepoimentos(); 
                 this.fecharEditorGeral();
-                this.showToast("Avaliação salva!", "success");
+                this.showToast("Avaliação guardada!", "success");
             },
 
             excluirDepoimento(idx) {
                 if(confirm("Excluir depoimento?")) {
                     this.depoimentosDB.splice(idx, 1);
-                    this.salvarBanco('xandao_db_depoimentos', this.depoimentosDB);
+                    this.salvarBanco('xandao_db_depoimentos_v2', this.depoimentosDB);
                     this.renderizarAdminDepoimentos(); this.renderizarDepoimentos();
                 }
             },
 
-            // --- GESTÃO DE BANNERS ---
+            // --- ADMIN: BANNERS ---
             renderizarAdminBanners() {
                 const container = document.getElementById('admin-banners-list');
                 let html = '';
@@ -1781,8 +1799,8 @@
                             <div class="absolute inset-0 bg-black/50 flex flex-col justify-between p-2">
                                 <div class="text-[9px] text-white font-bold truncate">${ban.alt}</div>
                                 <div class="flex gap-1 justify-end">
-                                    <button onclick="Admin.abrirEditorBanner('${jsonEncoded}')" class="text-white bg-blue-500/80 w-6 h-6 rounded"><i class="fas fa-pen text-[10px]"></i></button>
-                                    <button onclick="Admin.excluirBanner(${idx})" class="text-white bg-red-500/80 w-6 h-6 rounded"><i class="fas fa-trash text-[10px]"></i></button>
+                                    <button onclick="App.abrirEditorBanner('${jsonEncoded}')" class="text-white bg-purple-500/80 w-6 h-6 rounded"><i class="fas fa-pen text-[10px]"></i></button>
+                                    <button onclick="App.excluirBanner(${idx})" class="text-white bg-red-500/80 w-6 h-6 rounded"><i class="fas fa-trash text-[10px]"></i></button>
                                 </div>
                             </div>
                         </div>`;
@@ -1803,7 +1821,7 @@
                     <input type="hidden" id="ban-idx" value="${ban.idx}">
                     <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">URL da Imagem</label><input type="text" id="ban-url" value="${ban.url}" placeholder="https://..." class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-purple-500 outline-none"></div>
                     <div><label class="text-[10px] text-gray-400 uppercase font-bold mb-1 block">Título / Texto Alternativo</label><input type="text" id="ban-alt" value="${ban.alt}" placeholder="Ex: Fachada" class="w-full bg-black border border-white/10 rounded-lg p-3 text-white text-sm focus:border-purple-500 outline-none"></div>
-                    <button onclick="Admin.salvarBanner()" class="w-full bg-purple-500 text-white font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Salvar Banner</button>
+                    <button onclick="App.salvarBanner()" class="w-full bg-purple-500 text-white font-black uppercase tracking-widest py-4 rounded-xl shadow-lg mt-4 active:scale-95 transition-transform"><i class="fas fa-save mr-1"></i> Guardar Banner</button>
                 `;
                 this.mostrarModalEditor();
             },
@@ -1819,7 +1837,7 @@
                 if(idx > -1) this.bannersDB[idx] = newBan;
                 else this.bannersDB.push(newBan);
 
-                this.salvarBanco('xandao_db_banners', this.bannersDB);
+                this.salvarBanco('xandao_db_banners_v2', this.bannersDB);
                 this.renderizarAdminBanners();
                 this.renderizarBanners(); 
                 this.fecharEditorGeral();
@@ -1829,7 +1847,7 @@
             excluirBanner(idx) {
                 if(confirm("Excluir este banner?")) {
                     this.bannersDB.splice(idx, 1);
-                    this.salvarBanco('xandao_db_banners', this.bannersDB);
+                    this.salvarBanco('xandao_db_banners_v2', this.bannersDB);
                     this.renderizarAdminBanners(); this.renderizarBanners();
                 }
             },
@@ -1847,7 +1865,10 @@
             }
         };
 
-        const Admin = App; // Alias
+        // Torna App e Admin acessíveis globalmente
+        window.App = App;
+        window.Admin = App; 
+        
         document.addEventListener("DOMContentLoaded", () => App.init());
     </script>
 </body>
