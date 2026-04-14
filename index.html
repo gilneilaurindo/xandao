@@ -395,9 +395,100 @@
         </div>
 
         <!-- LISTA DE SERVIÇOS -->
-        <div id="services-container" class="space-y-5 mb-16" role="list">
+        <div id="services-container" class="space-y-5 mb-10" role="list">
             <!-- Gerado via JavaScript -->
         </div>
+
+        <!-- SEÇÃO DE AGENDAMENTO (POSICIONADA ESTRATEGICAMENTE APÓS OS SERVIÇOS) -->
+        <section id="agendamento-section" class="reveal glass-card p-6 sm:p-8 mb-16 scroll-mt-24 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+            <!-- Glow Effect no form -->
+            <div class="absolute -top-32 -right-32 w-64 h-64 bg-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Detalhes do Agendamento</h3>
+            </div>
+            
+            <form id="booking-form" class="space-y-10 relative z-10">
+                
+                <!-- 1. Profissional -->
+                <fieldset class="bg-black/30 p-5 rounded-2xl border border-white/5">
+                    <legend class="text-xs text-gold font-bold uppercase tracking-widest mb-4 block text-center w-full px-2"><i class="fas fa-cut mr-2"></i>1. Escolha o Profissional</legend>
+                    <div class="flex gap-6 justify-center">
+                        <label class="cursor-pointer group flex flex-col items-center relative">
+                            <input type="radio" name="barber" value="Alexandre" class="peer sr-only barber-radio" checked onchange="App.carregarHorarios()">
+                            <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
+                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/-587997570" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Alexandre">
+                                <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
+                            </div>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Alexandre</span>
+                        </label>
+                        <label class="cursor-pointer group flex flex-col items-center relative">
+                            <input type="radio" name="barber" value="Cleber" class="peer sr-only barber-radio" onchange="App.carregarHorarios()">
+                            <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
+                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/207716706" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Cleber">
+                                <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
+                            </div>
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Cleber</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- 2. Data -->
+                <div>
+                    <label for="booking-date" class="text-xs text-gold font-bold uppercase tracking-widest mb-3 block"><i class="fas fa-calendar-day mr-2"></i>2. Selecione a Data</label>
+                    <input type="date" id="booking-date" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm font-bold shadow-inner transition-colors cursor-pointer appearance-none" onchange="App.carregarHorarios()">
+                </div>
+
+                <!-- 3. Horários Disponíveis -->
+                <div class="bg-black/30 p-5 rounded-2xl border border-white/5">
+                    <div class="flex justify-between items-end mb-4 border-b border-white/10 pb-3">
+                        <label class="text-xs text-gold font-bold uppercase tracking-widest block"><i class="fas fa-clock mr-2"></i>3. Horários Livres</label>
+                        <span class="text-[9px] text-gold-light uppercase bg-gold/10 border border-gold/20 px-2 py-1 rounded-md font-bold">Intervalo: 25 min</span>
+                    </div>
+                    
+                    <div id="slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                        <div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">
+                            Selecione uma data para ver os horários.
+                        </div>
+                    </div>
+                    <!-- Spinner Loading -->
+                    <div id="slots-loader" class="hidden justify-center py-8 bg-black/50 rounded-xl border border-dashed border-white/10">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+
+                <!-- 4. Seus Dados (Com memória LocalStorage) -->
+                <div class="bg-black/30 p-5 rounded-2xl border border-white/5 space-y-4">
+                    <label class="text-xs text-gold font-bold uppercase tracking-widest block mb-1"><i class="fas fa-user mr-2"></i>4. Seus Dados</label>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-id-card text-gray-500"></i>
+                        </div>
+                        <input type="text" id="client-name" placeholder="Seu Nome Completo" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fab fa-whatsapp text-gray-500"></i>
+                        </div>
+                        <input type="tel" id="client-phone" placeholder="WhatsApp Ex: (11) 99999-9999" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
+                    </div>
+                </div>
+
+                <!-- Resumo & Botão Final -->
+                <div class="bg-[#050505] rounded-2xl p-6 border border-gold/30 shadow-[0_0_30px_rgba(245,184,0,0.1)] relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-gold-light via-gold to-gold-dark"></div>
+                    <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><i class="fas fa-receipt"></i> Resumo do Pedido</h4>
+                    <div id="resumo-final" class="text-sm text-gray-400 mb-6 space-y-2">Nenhum serviço selecionado.</div>
+                    
+                    <button type="button" id="btn-confirmar" onclick="App.finalizarAgendamento()" class="btn-shine w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark font-black py-4 rounded-xl shadow-[0_5px_15px_rgba(245,184,0,0.3)] hover:shadow-[0_5px_25px_rgba(245,184,0,0.5)] active:scale-95 transition-all flex items-center justify-center gap-3 text-sm">
+                        <i class="fas fa-calendar-check text-xl"></i> CONFIRMAR AGENDAMENTO
+                    </button>
+                </div>
+
+            </form>
+        </section>
 
         <!-- NOVA SEÇÃO: GALERIA INFINITA (NOSSA ARTE) -->
         <section class="reveal mb-16">
@@ -528,97 +619,6 @@
             </div>
         </section>
 
-        <!-- SEÇÃO DE AGENDAMENTO -->
-        <section id="agendamento-section" class="reveal glass-card p-6 sm:p-8 mb-16 scroll-mt-24 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
-            <!-- Glow Effect no form -->
-            <div class="absolute -top-32 -right-32 w-64 h-64 bg-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
-
-            <div class="flex items-center justify-center gap-3 mb-8">
-                <h3 class="text-xl font-black text-white uppercase tracking-widest text-center">Detalhes do Agendamento</h3>
-            </div>
-            
-            <form id="booking-form" class="space-y-10 relative z-10">
-                
-                <!-- 1. Profissional -->
-                <fieldset class="bg-black/30 p-5 rounded-2xl border border-white/5">
-                    <legend class="text-xs text-gold font-bold uppercase tracking-widest mb-4 block text-center w-full px-2"><i class="fas fa-cut mr-2"></i>1. Escolha o Profissional</legend>
-                    <div class="flex gap-6 justify-center">
-                        <label class="cursor-pointer group flex flex-col items-center relative">
-                            <input type="radio" name="barber" value="Alexandre" class="peer sr-only barber-radio" checked onchange="App.carregarHorarios()">
-                            <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
-                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/-587997570" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Alexandre">
-                                <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
-                            </div>
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Alexandre</span>
-                        </label>
-                        <label class="cursor-pointer group flex flex-col items-center relative">
-                            <input type="radio" name="barber" value="Cleber" class="peer sr-only barber-radio" onchange="App.carregarHorarios()">
-                            <div class="w-20 h-20 rounded-full border-[3px] border-white/10 bg-black flex items-center justify-center transition-all overflow-hidden mb-3 shadow-lg peer-focus-visible:ring-2 peer-focus-visible:ring-gold relative">
-                                <img src="https://d118if3nwdjtgn.cloudfront.net/188160/PROFESSIONAL_IMAGES/207716706" class="w-full h-full object-cover opacity-70 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" alt="Foto do barbeiro Cleber">
-                                <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/10 transition-colors"></div>
-                            </div>
-                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider transition-colors">Cleber</span>
-                        </label>
-                    </div>
-                </fieldset>
-
-                <!-- 2. Data -->
-                <div>
-                    <label for="booking-date" class="text-xs text-gold font-bold uppercase tracking-widest mb-3 block"><i class="fas fa-calendar-day mr-2"></i>2. Selecione a Data</label>
-                    <input type="date" id="booking-date" class="w-full bg-black/50 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm font-bold shadow-inner transition-colors cursor-pointer appearance-none" onchange="App.carregarHorarios()">
-                </div>
-
-                <!-- 3. Horários Disponíveis -->
-                <div class="bg-black/30 p-5 rounded-2xl border border-white/5">
-                    <div class="flex justify-between items-end mb-4 border-b border-white/10 pb-3">
-                        <label class="text-xs text-gold font-bold uppercase tracking-widest block"><i class="fas fa-clock mr-2"></i>3. Horários Livres</label>
-                        <span class="text-[9px] text-gold-light uppercase bg-gold/10 border border-gold/20 px-2 py-1 rounded-md font-bold">Intervalo: 25 min</span>
-                    </div>
-                    
-                    <div id="slots-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
-                        <div class="col-span-full py-8 text-center text-gray-500 text-sm border border-dashed border-white/10 rounded-xl bg-black/50">
-                            Selecione uma data para ver os horários.
-                        </div>
-                    </div>
-                    <!-- Spinner Loading -->
-                    <div id="slots-loader" class="hidden justify-center py-8 bg-black/50 rounded-xl border border-dashed border-white/10">
-                        <div class="loader"></div>
-                    </div>
-                </div>
-
-                <!-- 4. Seus Dados -->
-                <div class="bg-black/30 p-5 rounded-2xl border border-white/5 space-y-4">
-                    <label class="text-xs text-gold font-bold uppercase tracking-widest block mb-1"><i class="fas fa-user mr-2"></i>4. Seus Dados</label>
-                    
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-id-card text-gray-500"></i>
-                        </div>
-                        <input type="text" id="client-name" placeholder="Seu Nome Completo" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
-                    </div>
-                    
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fab fa-whatsapp text-gray-500"></i>
-                        </div>
-                        <input type="tel" id="client-phone" placeholder="WhatsApp Ex: (11) 99999-9999" maxlength="15" oninput="App.mascaraTelefone(this)" class="w-full bg-black/50 border border-white/10 rounded-xl pl-11 pr-4 py-4 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold text-sm placeholder-gray-600 shadow-inner transition-colors">
-                    </div>
-                </div>
-
-                <!-- Resumo & Botão Final -->
-                <div class="bg-[#050505] rounded-2xl p-6 border border-gold/30 shadow-[0_0_30px_rgba(245,184,0,0.1)] relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-gold-light via-gold to-gold-dark"></div>
-                    <h4 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2"><i class="fas fa-receipt"></i> Resumo do Pedido</h4>
-                    <div id="resumo-final" class="text-sm text-gray-400 mb-6 space-y-2">Nenhum serviço selecionado.</div>
-                    
-                    <button type="button" id="btn-confirmar" onclick="App.finalizarAgendamento()" class="btn-shine w-full bg-gradient-to-r from-gold-dark via-gold to-gold-light text-dark font-black py-4 rounded-xl shadow-[0_5px_15px_rgba(245,184,0,0.3)] hover:shadow-[0_5px_25px_rgba(245,184,0,0.5)] active:scale-95 transition-all flex items-center justify-center gap-3 text-sm">
-                        <i class="fas fa-calendar-check text-xl"></i> CONFIRMAR AGENDAMENTO
-                    </button>
-                </div>
-
-            </form>
-        </section>
-
         <!-- SEÇÃO DE LOCALIZAÇÃO -->
         <section class="reveal mb-16">
             <div class="flex items-center justify-center gap-3 mb-8">
@@ -732,6 +732,7 @@
         const App = {
             // Configurações
             GOOGLE_APP_URL: "https://script.google.com/macros/s/AKfycbxlU6qfhXkjJc06sNJX1kRxhkeiu2rnqxIm1vph004aJChjdbtdXflCHAzGkhU3Y_Rc/exec",
+            TEST_MODE: false, 
             
             // Estado
             carrinho: [],
@@ -817,6 +818,12 @@
                 inputDate.min = dataAtual;
                 inputDate.value = dataAtual;
                 document.getElementById('current-year').innerText = yyyy;
+
+                // Restaura os dados do LocalStorage se existirem
+                const savedName = localStorage.getItem('xandao_nome');
+                const savedPhone = localStorage.getItem('xandao_whatsapp');
+                if(savedName) document.getElementById('client-name').value = savedName;
+                if(savedPhone) document.getElementById('client-phone').value = savedPhone;
 
                 this.renderizarServicos();
                 this.carregarHorarios(); 
@@ -1172,6 +1179,10 @@
                     total: total
                 };
 
+                // Salva no LocalStorage do usuário para as próximas vezes
+                localStorage.setItem('xandao_nome', nome);
+                localStorage.setItem('xandao_whatsapp', telInput);
+
                 const btn = document.getElementById('btn-confirmar');
                 btn.innerHTML = '<div class="loader border-dark border-t-white"></div>';
                 btn.disabled = true;
@@ -1188,14 +1199,17 @@
                 // Não bloqueia a tela, ele envia em background perfeitamente!
                 // =========================================================================
                 if(this.GOOGLE_APP_URL && this.GOOGLE_APP_URL.includes("script.google.com")) {
-                    const formData = new FormData();
+                    const formData = new URLSearchParams();
                     Object.keys(payload).forEach(key => formData.append(key, payload[key]));
 
                     fetch(this.GOOGLE_APP_URL, {
                         method: 'POST',
-                        body: formData,
-                        mode: 'no-cors' // Impede o bloqueio do navegador (mas a resposta não pode ser lida)
-                    }).catch(e => console.error("Planilha em off, mas app segue.", e));
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: formData.toString(),
+                        mode: 'no-cors' 
+                    }).catch(e => console.error("Envio em background:", e));
                 }
 
                 // DISPARA A EXPERIÊNCIA VISUAL INSTANTANEAMENTE
